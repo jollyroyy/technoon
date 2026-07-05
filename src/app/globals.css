@@ -892,16 +892,21 @@ span {
     gap: 14px;
   }
 
-  /* Hero */
+  /* Hero — full-bleed, no side clipping */
   .hero-section {
-    height: max(58vh, 280px);
-    min-height: unset;
-    border-radius: 20px;
+    width: calc(100% + 24px);
+    margin-left: -12px;
+    border-radius: 0;
+    /* match image aspect ratio (2048×1148 ≈ 16/9) so nothing is cut off */
+    aspect-ratio: 16 / 9;
+    height: auto;
+    min-height: 220px;
     padding: 0;
   }
 
   .hero-bg-img {
-    object-position: 62% center;
+    object-fit: cover;
+    object-position: center center;
   }
 
   /* Grids → single column */
