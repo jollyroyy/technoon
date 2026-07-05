@@ -40,8 +40,8 @@ export default function Navbar() {
                 <a href="#solutions" className="dropdown-item">
                   <Layout size={20} className="dropdown-icon" />
                   <div>
-                    <span>Launch-Ready Website</span>
-                    <p>14-day fixed timeline</p>
+                    <span>Website in 1 Day</span>
+                    <p>Live in 24 hours, fixed price</p>
                   </div>
                 </a>
                 <a href="#solutions" className="dropdown-item">

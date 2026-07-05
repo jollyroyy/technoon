@@ -5,44 +5,44 @@ const painPoints = [
   {
     industry: "Food & Beverage",
     items: [
-      "Losing repeat customers — no system to bring them back",
-      "Tracking inventory in spreadsheets nobody trusts",
-      "No visibility into which items or shifts drain your margin",
+      "Repeat customers disappearing — no system to win them back",
+      "Inventory in spreadsheets. Waste invisible until it's too late",
+      "No idea which dishes, shifts, or staff are killing your margin",
     ],
   },
   {
     industry: "Gyms",
     items: [
-      "Trial leads go cold before anyone followed up",
-      "Members cancel silently — you notice at month-end",
-      "Front desk burning hours on calls instead of closing memberships",
+      "Trial leads go cold before anyone follows up",
+      "Members cancel silently — you find out at month-end",
+      "Front desk on calls instead of closing memberships",
     ],
   },
   {
     industry: "Logistics",
     items: [
-      "Losing freight leads because quotes take too long to send",
-      "Answering 'Where is my shipment?' all day on WhatsApp",
-      "Customer data scattered across emails, Excel, and group chats",
+      "Freight leads lost because quotes take too long",
+      "WhatsApp flooded with 'Where's my shipment?' all day",
+      "Customer data split across email, Excel, and group chats",
     ],
   },
 ];
 
 const solutionCards = [
   {
-    title: "Launch-Ready Website",
-    copy: "Fast, conversion-focused landing pages delivered in 14 days. Fixed price, fixed timeline, conversion-optimized.",
+    title: "Website in 1 Day",
+    copy: "Conversion-ready landing page. Live in 24 hours. Fixed price. No revision hell.",
     featured: true,
     tag: "01",
   },
   {
     title: "AI Receptionist",
-    copy: "WhatsApp + web AI that responds to leads instantly, qualifies them, and books calls while you sleep.",
+    copy: "Responds in seconds. Qualifies leads. Books meetings. Runs 24/7 on WhatsApp and web.",
     tag: "02",
   },
   {
-    title: "Lead Follow-up Automation",
-    copy: "Form fills → instant reply → calendar booking → CRM entry → reminder sequences. Speed-to-lead that converts.",
+    title: "Lead Follow-up",
+    copy: "Form submitted → instant reply → meeting booked → CRM updated. Zero manual work.",
     tag: "03",
   },
 ];
@@ -52,100 +52,100 @@ const industryCards = [
     title: "Food & Beverage",
     subtitle: "Serve more. Waste less.",
     points: [
-      "Predict demand and cut inventory waste before it hits margin",
-      "Win back lost repeat customers with automated follow-ups",
-      "Spot which menu items, shifts, or staff are draining profit",
+      "Predict demand — stop ordering what sits on the shelf",
+      "Auto-follow up with customers who haven't returned",
+      "See which items, shifts, and staff drain your margin",
     ],
   },
   {
     title: "Gyms",
-    subtitle: "Convert better. Retain longer.",
+    subtitle: "Convert leads. Keep members.",
     points: [
-      "Respond to trial leads before they sign up somewhere else",
-      "Flag churn risk before members cancel — not after",
-      "Drive PT and membership upgrades with targeted workflows",
+      "Reply to trial leads before they sign up elsewhere",
+      "Catch churn risk before the cancellation — not after",
+      "Upsell PT and memberships with automated workflows",
     ],
   },
   {
     title: "Logistics",
-    subtitle: "Move faster. Operate tighter.",
+    subtitle: "Move fast. Cut waste.",
     points: [
-      "Automate quote requests and live shipment updates",
-      "Surface route, delay, and load inefficiencies automatically",
-      "Cut manual coordination between ops, sales, and clients",
+      "Auto-send quotes and shipment updates via WhatsApp",
+      "Surface delays, route gaps, and load issues automatically",
+      "Replace group chat chaos with one source of truth",
     ],
   },
 ];
 
 const proofStats = [
-  { value: "20–35%", label: "Revenue lift identified" },
-  { value: "30–60%", label: "Manual work automated" },
-  { value: "15–30%", label: "Operational waste cut" },
-  { value: "< 24h", label: "First audit turnaround" },
+  { value: "20–35%", label: "Revenue lift" },
+  { value: "30–60%", label: "Manual work eliminated" },
+  { value: "1 day", label: "Website live" },
+  { value: "< 24h", label: "Audit turnaround" },
 ];
 
 const technoonHrFeatures = [
   {
     title: "Attendance",
-    description: "Real-time tracking, geo-location check-in, absence alerts, and compliance reports — all in one place.",
+    description: "Real-time tracking, geo check-in, absence alerts. No spreadsheets.",
   },
   {
     title: "Payroll",
-    description: "Auto-calculate salaries with deductions, generate payslips in minutes, and integrate with your bank — zero manual math.",
+    description: "Salaries calculated, payslips generated, bank-ready in minutes.",
   },
   {
     title: "Compliance",
-    description: "Labor law updates built in. Statutory compliance managed for Food & Beverage, Gyms, Logistics, and more — India + globally.",
+    description: "Labor law built in. India + global. Always current, zero manual updates.",
   },
 ];
 
 const pricingOptions = [
   {
-    service: "Launch-Ready Website",
+    service: "Website in 1 Day",
     price: "₹35,000 – ₹60,000",
-    timeline: "14 days",
+    timeline: "1 day",
     includes: "Landing page, WhatsApp integration, SEO basics, mobile-optimized",
   },
   {
-    service: "AI Receptionist (WhatsApp + Web)",
-    price: "₹25,000 setup + ₹8,000–15,000/month",
+    service: "AI Receptionist",
+    price: "₹25,000 + ₹8,000–15,000/mo",
     timeline: "7–10 days",
     includes: "Lead qualification, booking integration, custom responses, 24/7 uptime",
   },
   {
-    service: "Lead Follow-up Automation",
+    service: "Lead Follow-up",
     price: "₹15,000 – ₹35,000",
     timeline: "3–5 days",
-    includes: "Form + email + SMS + WhatsApp sequences, CRM sync, analytics",
+    includes: "Email + SMS + WhatsApp sequences, CRM sync, analytics",
   },
   {
     service: "TechnoonHR",
-    price: "₹2,999–4,999/month (unlimited)",
-    timeline: "2 days to launch",
+    price: "₹2,999–4,999/month",
+    timeline: "Live in 2 days",
     includes: "Attendance, payroll, compliance, support included",
   },
 ];
 
 const faqs = [
   {
-    q: "How long does a website take?",
-    a: "14 days. Fixed timeline, fixed scope. We lock in the plan on the discovery call, build it, test it, hand it over.",
+    q: "Really — a website in 1 day?",
+    a: "Yes. We scope it on the call, build it, test it, hand it over — all within 24 hours. Fixed price, zero surprises.",
   },
   {
-    q: "Can I see a demo of TechnoonHR?",
-    a: "Yes. Book a free 30-min call and we'll walk you through how it works for your team size and industry. No credit card needed.",
+    q: "Can I see TechnoonHR before committing?",
+    a: "Yes. Book a free 30-minute demo. No credit card, no sales pressure. Just a live walkthrough.",
   },
   {
-    q: "Do you offer custom development?",
-    a: "We start with productized services (fixed price, fixed timeline). For custom builds, we scope on the discovery call and only take on what we can deliver reliably.",
+    q: "Do you handle custom builds?",
+    a: "We start with fixed-price services. Custom scope gets locked in on the discovery call — we only take on what we can deliver.",
   },
   {
     q: "Do you work outside India?",
-    a: "Yes. We serve clients globally. Payments in INR or USD. Our compliance features are live for India; international clients get attendance + payroll core.",
+    a: "Yes. Payments in INR or USD. Compliance features are live for India; international clients get attendance + payroll core.",
   },
   {
-    q: "You're a new agency. Why should I trust you?",
-    a: "Fair question. We run our own SaaS (TechnoonHR, live with real users). We don't promise results we can't back up. Book the free call and judge for yourself.",
+    q: "Why trust a new agency?",
+    a: "We run TechnoonHR with real paying users. We don't sell what we can't prove. Book the call and judge for yourself.",
   },
 ];
 
@@ -175,7 +175,7 @@ export default function Home() {
         <section className="section section-shell" id="pain">
           <div className="section-heading centered-heading">
             <p className="eyebrow">Sound Familiar?</p>
-            <h2>If one of these hits — we built this for you.</h2>
+            <h2>You&apos;re losing revenue. You just can&apos;t see where.</h2>
           </div>
           <div className="pain-cols">
             {painPoints.map((col) => (
@@ -193,8 +193,8 @@ export default function Home() {
             ))}
           </div>
           <p className="pain-bridge">
-            Sounds like your business?{" "}
-            <a href="#contact" className="pain-link">Let&apos;s talk →</a>
+            This is your business?{" "}
+            <a href="#contact" className="pain-link">Let&apos;s fix it →</a>
           </p>
         </section>
 
@@ -203,10 +203,10 @@ export default function Home() {
           <div className="section-heading split-heading">
             <div>
               <p className="eyebrow">What We Build</p>
-              <h2>Done-for-you services.</h2>
+              <h2>Live fast. Priced flat.</h2>
             </div>
             <p className="section-text">
-              Productized, fixed-price solutions. No surprises, no scope creep.
+              Fixed price. Fixed scope. No agency surprises.
             </p>
           </div>
           <div className="bento-grid">
@@ -228,12 +228,9 @@ export default function Home() {
           <div className="hr-feature-container">
             <div className="hr-copy">
               <p className="eyebrow">Our Own Product</p>
-              <h2>TechnoonHR — Attendance + Payroll + Compliance.</h2>
+              <h2>We run what we sell.</h2>
               <p className="section-text">
-                We don&apos;t just consult on HR. We built and run our own SaaS. TechnoonHR handles attendance, payroll calculations, labor law compliance, and reporting — built for growing teams in India and globally.
-              </p>
-              <p className="section-text">
-                ₹2,999–4,999/month for unlimited users. Live in 2 days. No IT headaches.
+                TechnoonHR is live with real paying users — attendance, payroll, and compliance in one place. ₹2,999–4,999/month for unlimited users. Live in 2 days.
               </p>
               <div className="hr-features-list">
                 {technoonHrFeatures.map((feature) => (
@@ -243,7 +240,7 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-              <a className="btn btn-primary" href="https://cal.com/technoon/hr-demo">Get a demo of TechnoonHR</a>
+              <a className="btn btn-primary" href="https://cal.com/technoon/hr-demo">See TechnoonHR live</a>
             </div>
           </div>
         </section>
@@ -253,11 +250,10 @@ export default function Home() {
           <div className="section-heading split-heading">
             <div>
               <p className="eyebrow">Industry Focus</p>
-              <h2>Your industry. Our system.</h2>
+              <h2>Deep in your world.</h2>
             </div>
             <p className="section-text">
-              We go deep on three sectors where manual work is expensive
-              and automation wins fast.
+              Three sectors. Specific problems. Systems that actually fit.
             </p>
           </div>
           <div className="card-grid industry-grid">
@@ -283,43 +279,31 @@ export default function Home() {
         <section className="section section-shell alt-section" id="process">
           <div className="section-heading split-heading">
             <div>
-              <p className="eyebrow">How We Work</p>
-              <h2>How we work.</h2>
+              <p className="eyebrow">How It Works</p>
+              <h2>Four steps. Done.</h2>
             </div>
-            <p className="section-text">Four steps. No surprises.</p>
+            <p className="section-text">No fluff. No delays. You know exactly what happens next.</p>
           </div>
           <div className="timeline">
             <div className="timeline-step">
               <span>01</span>
-              <h3>Discovery Call</h3>
-              <p>
-                We discuss your goals and bottlenecks. Free 30-minute call,
-                no obligation.
-              </p>
+              <h3>Free Audit Call</h3>
+              <p>30 minutes. We map your revenue leaks and gaps. No obligation.</p>
             </div>
             <div className="timeline-step">
               <span>02</span>
-              <h3>System Blueprint</h3>
-              <p>
-                We design a custom AI plan built specifically around your
-                business and highest-impact gaps.
-              </p>
+              <h3>We Scope It</h3>
+              <p>You get a clear plan — what we build, what it costs, when it ships.</p>
             </div>
             <div className="timeline-step">
               <span>03</span>
-              <h3>Build & Integrate</h3>
-              <p>
-                We build the automations, connect your tools, and test
-                everything before handing over.
-              </p>
+              <h3>We Build It</h3>
+              <p>Our team builds, integrates, and tests everything. You stay focused on your business.</p>
             </div>
             <div className="timeline-step">
               <span>04</span>
-              <h3>Launch & Support</h3>
-              <p>
-                You get the keys, full training, and 30 days of support
-                so nothing gets dropped.
-              </p>
+              <h3>You Launch</h3>
+              <p>Go live with full handover, training, and 30 days of support included.</p>
             </div>
           </div>
         </section>
@@ -328,11 +312,10 @@ export default function Home() {
         <section className="section section-shell results-shell" id="results">
           <div className="results-feature">
             <div className="results-copy">
-              <p className="eyebrow">Expected Impact</p>
-              <h2>Numbers that matter.</h2>
+              <p className="eyebrow">Real Impact</p>
+              <h2>What happens after.</h2>
               <p className="section-text">
-                These are the outcomes businesses see after an AI operating
-                layer is in place.
+                Businesses using our AI layer see these numbers within 90 days.
               </p>
             </div>
             <div className="results-panel">
@@ -357,27 +340,27 @@ export default function Home() {
         {/* ── PRICING ──────────────────────────── */}
         <section className="section section-shell" id="pricing">
           <div className="section-heading centered-heading">
-            <p className="eyebrow">Simple Pricing</p>
-            <h2>Fixed price. No hidden fees.</h2>
+            <p className="eyebrow">Pricing</p>
+            <h2>Flat. Honest. No surprises.</h2>
           </div>
           <div className="pricing-grid">
             {pricingOptions.map((option) => (
               <article key={option.service} className="pricing-card">
                 <h3>{option.service}</h3>
                 <div className="pricing-amount">{option.price}</div>
-                <p className="pricing-timeline">🚀 {option.timeline}</p>
+                <p className="pricing-timeline">⚡ {option.timeline}</p>
                 <p className="pricing-includes">{option.includes}</p>
               </article>
             ))}
           </div>
-          <p className="pricing-note">All prices include setup, onboarding, and 30 days of support. Payments accepted in INR and USD.</p>
+          <p className="pricing-note">Setup, onboarding, and 30-day support included. Pay in INR or USD.</p>
         </section>
 
         {/* ── FAQ ──────────────────────────────── */}
         <section className="section section-shell" id="faq">
           <div className="section-heading centered-heading">
-            <p className="eyebrow">Common Questions</p>
-            <h2>Questions we get a lot.</h2>
+            <p className="eyebrow">FAQ</p>
+            <h2>Quick answers.</h2>
           </div>
           <div className="faq-list">
             {faqs.map((faq) => (
@@ -393,20 +376,19 @@ export default function Home() {
         <section className="section cta-section" id="contact">
           <div className="cta-card cta-centered">
             <div className="cta-copy">
-              <p className="eyebrow">Free Revenue Audit</p>
+              <p className="eyebrow">Free Audit — 30 Minutes</p>
               <h2>
-                Your next client shouldn&apos;t have to<br />
-                wait for you to reply.
+                Walk away with a plan.<br />Not a pitch.
               </h2>
               <p>
-                Let&apos;s build the system that catches them first. 30 minutes, zero obligation. You&apos;ll walk away with a clear map of where you&apos;re losing leads and what it costs.
+                We&apos;ll show you exactly where you&apos;re losing money and what it takes to fix it. Specific. Honest. Free.
               </p>
             </div>
             <div className="cta-foot">
               <a className="btn btn-primary" href="https://cal.com/technoon/audit">
-                Book a free 30-minute audit call
+                Book your free audit call
               </a>
-              <p className="cta-note">No credit card. No sales pitch. Just honest feedback.</p>
+              <p className="cta-note">No credit card. No sales pitch. Just clarity.</p>
               <div className="cta-divider"><span>or</span></div>
               <a className="cta-email-link" href="mailto:info@technoon.ai">
                 info@technoon.ai
@@ -427,14 +409,14 @@ export default function Home() {
           <div className="footer-links">
             <div className="footer-col">
               <p className="footer-col-label">Services</p>
-              <a href="#solutions">Launch-Ready Website</a>
+              <a href="#solutions">Website in 1 Day</a>
               <a href="#solutions">AI Receptionist</a>
-              <a href="#solutions">Lead Follow-up Automation</a>
+              <a href="#solutions">Lead Follow-up</a>
               <a href="#technoonhr">TechnoonHR</a>
             </div>
             <div className="footer-col">
               <p className="footer-col-label">Company</p>
-              <a href="#process">How We Work</a>
+              <a href="#process">How It Works</a>
               <a href="#pricing">Pricing</a>
               <a href="#faq">FAQ</a>
             </div>
