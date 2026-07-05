@@ -408,11 +408,49 @@ export default function Home() {
                 Book a free 30-minute audit call
               </a>
               <p className="cta-note">No credit card. No sales pitch. Just honest feedback.</p>
+              <div className="cta-divider"><span>or</span></div>
+              <a className="cta-email-link" href="mailto:info@technoon.ai">
+                info@technoon.ai
+              </a>
             </div>
           </div>
         </section>
 
       </div>
+
+      {/* ── FOOTER ───────────────────────────── */}
+      <footer className="site-footer">
+        <div className="footer-inner">
+          <div className="footer-brand">
+            <span className="footer-logo-text">Technoon.ai</span>
+            <p className="footer-tagline">AI systems for growing businesses.</p>
+          </div>
+          <div className="footer-links">
+            <div className="footer-col">
+              <p className="footer-col-label">Services</p>
+              <a href="#solutions">Launch-Ready Website</a>
+              <a href="#solutions">AI Receptionist</a>
+              <a href="#solutions">Lead Follow-up Automation</a>
+              <a href="#technoonhr">TechnoonHR</a>
+            </div>
+            <div className="footer-col">
+              <p className="footer-col-label">Company</p>
+              <a href="#process">How We Work</a>
+              <a href="#pricing">Pricing</a>
+              <a href="#faq">FAQ</a>
+            </div>
+            <div className="footer-col">
+              <p className="footer-col-label">Contact</p>
+              <a href="mailto:info@technoon.ai" className="footer-email">info@technoon.ai</a>
+              <a href="https://cal.com/technoon/audit">Book a free audit</a>
+              <a href="https://cal.com/technoon/hr-demo">TechnoonHR demo</a>
+            </div>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <p>&copy; {new Date().getFullYear()} Technoon.ai. All rights reserved.</p>
+        </div>
+      </footer>
     </main>
   );
 }
