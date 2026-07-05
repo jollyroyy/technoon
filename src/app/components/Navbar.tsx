@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Layout, Bot, BarChart2, Cpu, MessageSquare, ChevronDown } from 'lucide-react';
+import { Layout, Bot, BarChart2, ChevronDown } from 'lucide-react';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -27,68 +27,47 @@ export default function Navbar() {
               width={1536}
               height={1024}
               priority
-              style={{ height: '72px', width: 'auto' }}
+              style={{ height: '52px', width: 'auto' }}
             />
           </a>
 
           <div className="nav-links">
             <div className="nav-dropdown">
               <button className="nav-dropdown-trigger">
-                Products &amp; Services <ChevronDown size={16} className="nav-dropdown-chevron" />
+                Services <ChevronDown size={16} className="nav-dropdown-chevron" />
               </button>
               <div className="nav-dropdown-menu">
                 <a href="#solutions" className="dropdown-item">
                   <Layout size={20} className="dropdown-icon" />
                   <div>
-                    <span>AI Optimized Website Building</span>
-                    <p>Conversion-focused web experiences</p>
+                    <span>Launch-Ready Website</span>
+                    <p>14-day fixed timeline</p>
                   </div>
                 </a>
                 <a href="#solutions" className="dropdown-item">
                   <Bot size={20} className="dropdown-icon" />
                   <div>
-                    <span>AI Agent Building</span>
-                    <p>Custom 24/7 business assistants</p>
+                    <span>AI Receptionist</span>
+                    <p>WhatsApp + web lead handler</p>
                   </div>
                 </a>
-                <a href="#contact" className="dropdown-item">
+                <a href="#solutions" className="dropdown-item">
                   <BarChart2 size={20} className="dropdown-icon" />
                   <div>
-                    <span>Free AI Audits</span>
-                    <p>Get a comprehensive systems check</p>
+                    <span>Lead Follow-up Automation</span>
+                    <p>Speed-to-lead workflows</p>
                   </div>
                 </a>
               </div>
             </div>
 
-            <div className="nav-dropdown">
-              <button className="nav-dropdown-trigger">
-                In-House SaaS <ChevronDown size={16} className="nav-dropdown-chevron" />
-              </button>
-              <div className="nav-dropdown-menu">
-                <a href="#industries" className="dropdown-item">
-                  <Cpu size={20} className="dropdown-icon" />
-                  <div>
-                    <span>AI Logistics Manager</span>
-                    <p>Automate freight operations</p>
-                  </div>
-                </a>
-                <a href="#industries" className="dropdown-item">
-                  <MessageSquare size={20} className="dropdown-icon" />
-                  <div>
-                    <span>Coach AI CRM</span>
-                    <p>Automated booking &amp; nurture</p>
-                  </div>
-                </a>
-              </div>
-            </div>
-
-            <a href="#process">Process</a>
-            <a href="#results">Results</a>
+            <a href="#technoonhr">TechnoonHR</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#process">How We Work</a>
           </div>
 
           <div className="nav-actions">
-            <a className="btn btn-primary" href="#contact">Book Free Audit</a>
+            <a className="btn btn-primary" href="https://cal.com/technoon/audit">Book Free Audit</a>
           </div>
 
           <button
@@ -102,18 +81,15 @@ export default function Navbar() {
       </nav>
 
       <div className={`nav-mobile${mobileOpen ? ' open' : ''}`}>
-        <div className="nav-mobile-category">Products &amp; Services</div>
-        <a href="#solutions" onClick={close} className="nav-mobile-sub">&mdash; AI Optimized Websites</a>
-        <a href="#solutions" onClick={close} className="nav-mobile-sub">&mdash; AI Agent Building</a>
-        <a href="#contact" onClick={close} className="nav-mobile-sub">&mdash; Free AI Audits</a>
+        <div className="nav-mobile-category">Services</div>
+        <a href="#solutions" onClick={close} className="nav-mobile-sub">&mdash; Launch-Ready Website</a>
+        <a href="#solutions" onClick={close} className="nav-mobile-sub">&mdash; AI Receptionist</a>
+        <a href="#solutions" onClick={close} className="nav-mobile-sub">&mdash; Lead Follow-up Automation</a>
 
-        <div className="nav-mobile-category">In-House SaaS</div>
-        <a href="#industries" onClick={close} className="nav-mobile-sub">&mdash; AI Logistics Manager</a>
-        <a href="#industries" onClick={close} className="nav-mobile-sub">&mdash; Coach AI CRM</a>
-
-        <a href="#process" onClick={close}>Process</a>
-        <a href="#results" onClick={close}>Results</a>
-        <a href="#contact" className="btn btn-primary" onClick={close}>Book Free Audit</a>
+        <a href="#technoonhr" onClick={close}>TechnoonHR</a>
+        <a href="#pricing" onClick={close}>Pricing</a>
+        <a href="#process" onClick={close}>How We Work</a>
+        <a href="https://cal.com/technoon/audit" className="btn btn-primary" onClick={close}>Book Free Audit</a>
       </div>
     </>
   );
