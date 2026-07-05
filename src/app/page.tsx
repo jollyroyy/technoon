@@ -168,15 +168,6 @@ export default function Home() {
             <div className="hero-bg-overlay" />
           </div>
           <div className="hero-content">
-            <h1>Stop losing leads you already paid for.</h1>
-            <p className="hero-subhead">
-              Technoon builds conversion-ready websites, WhatsApp AI receptionists, and follow-up automations for growing businesses in Food & Beverage, Gyms, and Logistics. Fixed price. Fixed timeline. Live in weeks.
-            </p>
-            <div className="hero-ctas">
-              <a className="btn btn-primary" href="https://cal.com/technoon/audit">Book a free audit call</a>
-              <a href="#solutions" className="hero-scroll-link">See what we build ↓</a>
-            </div>
-            <p className="hero-trust">Built by operators. We run our own SaaS — we don&apos;t just talk about AI, we ship it.</p>
           </div>
         </section>
 
