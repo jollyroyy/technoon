@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
+import { Manrope, Syne } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 
-const jakarta = Plus_Jakarta_Sans({
+const manrope = Manrope({
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-body"
 });
 
-const grotesk = Space_Grotesk({
+const syne = Syne({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
   variable: "--font-display"
 });
 
@@ -35,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${jakarta.variable} ${grotesk.variable}`}>
+      <body className={`${manrope.variable} ${syne.variable}`}>
           <Navbar />
           {children}
         </body>
