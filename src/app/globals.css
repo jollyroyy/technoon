@@ -243,6 +243,22 @@ img {
   flex-shrink: 0;
 }
 
+.nav-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(196, 186, 217, 0.65);
+  letter-spacing: 0.01em;
+  transition: color 150ms ease;
+  white-space: nowrap;
+}
+
+.nav-email:hover {
+  color: var(--accent-soft);
+}
+
 .btn-nav-cta {
   min-height: 40px;
   padding: 0 20px;
@@ -806,6 +822,12 @@ span {
     radial-gradient(circle at left center, rgba(178, 108, 255, 0.16), transparent 30%),
     radial-gradient(circle at right center, rgba(138, 243, 255, 0.14), transparent 26%);
   pointer-events: none;
+}
+
+@media (max-width: 980px) {
+  .nav-email {
+    display: none;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1551,48 +1573,6 @@ details[open] summary.faq-q::after {
   .pricing-grid {
     grid-template-columns: 1fr;
   }
-}
-
-/* ─────────────────────────────────────────────────
-   HERO EMAIL BADGE
-───────────────────────────────────────────────── */
-
-.hero-email-badge {
-  position: absolute;
-  bottom: 28px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 22px;
-  border-radius: 999px;
-  background: rgba(5, 3, 10, 0.52);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(211, 181, 255, 0.18);
-  font-size: 0.84rem;
-  font-weight: 500;
-  color: var(--accent-soft);
-  letter-spacing: 0.015em;
-  white-space: nowrap;
-  transition:
-    color 180ms ease,
-    border-color 180ms ease,
-    background 180ms ease;
-}
-
-.hero-email-badge:hover {
-  color: var(--text);
-  border-color: rgba(211, 181, 255, 0.38);
-  background: rgba(5, 3, 10, 0.72);
-}
-
-.hero-email-icon {
-  color: var(--accent);
-  flex-shrink: 0;
-  opacity: 0.9;
 }
 
 /* ─────────────────────────────────────────────────

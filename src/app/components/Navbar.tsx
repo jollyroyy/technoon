@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Layout, Bot, BarChart2, ChevronDown } from 'lucide-react';
+import { Layout, Bot, BarChart2, ChevronDown, Mail } from 'lucide-react';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -67,6 +67,10 @@ export default function Navbar() {
           </div>
 
           <div className="nav-actions">
+            <a href="mailto:info@technoon.ai" className="nav-email">
+              <Mail size={13} />
+              info@technoon.ai
+            </a>
             <a className="btn btn-primary" href="https://cal.com/technoon/audit">Book Free Audit</a>
           </div>
 
