@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { X } from "lucide-react";
+import { X, Mail } from "lucide-react";
 
 const painPoints = [
   {
@@ -170,6 +170,10 @@ export default function Home() {
           </div>
           <div className="hero-content">
           </div>
+          <a href="mailto:info@technoon.ai" className="hero-email-badge">
+            <Mail size={13} className="hero-email-icon" />
+            info@technoon.ai
+          </a>
         </section>
 
         {/* ── PAIN ─────────────────────────────── */}

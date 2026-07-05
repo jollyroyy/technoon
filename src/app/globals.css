@@ -1554,6 +1554,48 @@ details[open] summary.faq-q::after {
 }
 
 /* ─────────────────────────────────────────────────
+   HERO EMAIL BADGE
+───────────────────────────────────────────────── */
+
+.hero-email-badge {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  background: rgba(5, 3, 10, 0.52);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(211, 181, 255, 0.18);
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--accent-soft);
+  letter-spacing: 0.015em;
+  white-space: nowrap;
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+.hero-email-badge:hover {
+  color: var(--text);
+  border-color: rgba(211, 181, 255, 0.38);
+  background: rgba(5, 3, 10, 0.72);
+}
+
+.hero-email-icon {
+  color: var(--accent);
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+/* ─────────────────────────────────────────────────
    CTA EMAIL LINK
 ───────────────────────────────────────────────── */
 
