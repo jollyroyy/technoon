@@ -35,6 +35,12 @@ body {
     radial-gradient(circle at 92% 74%, rgba(178, 108, 255, 0.16), transparent 18%),
     linear-gradient(180deg, #05030a 0%, #0a0611 36%, #12081b 100%);
   font-family: var(--font-body), sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 a {
@@ -125,11 +131,11 @@ img {
 }
 
 .nav-links a {
-  font-size: 0.94rem;
+  font-size: 0.875rem;
   font-weight: 500;
-  color: rgba(196, 186, 217, 0.8);
+  color: rgba(196, 186, 217, 0.75);
   transition: color 150ms ease;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.015em;
 }
 
 .nav-links a:hover {
@@ -143,9 +149,9 @@ img {
 }
 
 .nav-dropdown-trigger {
-  font-size: 0.94rem;
+  font-size: 0.875rem;
   font-weight: 500;
-  color: rgba(196, 186, 217, 0.8);
+  color: rgba(196, 186, 217, 0.75);
   display: flex;
   align-items: center;
   gap: 4px;
@@ -154,7 +160,7 @@ img {
   border: none;
   cursor: pointer;
   font-family: inherit;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.015em;
   padding: 0;
 }
 
@@ -294,7 +300,7 @@ img {
   font-size: clamp(1.6rem, 4.5vw, 2.2rem);
   font-weight: 700;
   font-family: var(--font-display), sans-serif;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
   color: var(--text);
   transition: color 150ms ease;
 }
@@ -356,10 +362,11 @@ img {
   display: inline-block;
   margin-bottom: 18px;
   color: var(--accent-soft);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
+  font-family: var(--font-body), sans-serif;
 }
 
 h1,
@@ -367,23 +374,28 @@ h2,
 h3 {
   margin: 0;
   font-family: var(--font-display), sans-serif;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.05em;
+  font-weight: 700;
 }
 
 h1 {
   font-size: clamp(3rem, 6vw, 5.7rem);
-  line-height: 0.95;
+  line-height: 0.93;
   max-width: 11ch;
+  font-weight: 800;
 }
 
 h2 {
   font-size: clamp(2rem, 4vw, 3.25rem);
-  line-height: 1.08;
+  line-height: 1.06;
+  font-weight: 700;
 }
 
 h3 {
   font-size: 1.45rem;
-  line-height: 1.05;
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -0.03em;
 }
 
 p,
@@ -391,7 +403,8 @@ li,
 span {
   color: var(--muted);
   font-size: 1rem;
-  line-height: 1.65;
+  line-height: 1.7;
+  font-weight: 400;
 }
 
 .btn {
@@ -399,9 +412,12 @@ span {
   align-items: center;
   justify-content: center;
   min-height: 52px;
-  padding: 0 22px;
+  padding: 0 26px;
   border-radius: 999px;
-  font-weight: 700;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.01em;
+  font-family: var(--font-body), sans-serif;
   transition:
     transform 180ms ease,
     background-color 180ms ease,
@@ -885,6 +901,16 @@ span {
   object-fit: cover;
 }
 
+.hero-logo-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 320px;
+  height: 100px;
+  background: #05030a;
+  z-index: 1;
+}
+
 .hero-bg-overlay {
   position: absolute;
   inset: 0;
@@ -915,7 +941,9 @@ span {
   border-radius: 999px;
   border: 1px solid rgba(178, 108, 255, 0.3);
   background: rgba(178, 108, 255, 0.07);
-  font-size: 0.84rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
   color: var(--accent-soft);
 }
 
@@ -934,9 +962,10 @@ span {
 
 .hero-h1 {
   font-size: clamp(2.8rem, 6.5vw, 5.5rem);
-  line-height: 1.0;
-  letter-spacing: -0.045em;
+  line-height: 0.95;
+  letter-spacing: -0.055em;
   font-family: var(--font-display), sans-serif;
+  font-weight: 800;
   margin: 0;
 }
 
@@ -953,6 +982,8 @@ span {
   color: var(--muted);
   line-height: 1.75;
   margin: 0;
+  font-weight: 400;
+  letter-spacing: 0.005em;
 }
 
 .hero-ctas {
@@ -1347,20 +1378,22 @@ details[open] summary.faq-q::after {
 
 .hero-content h1 {
   font-size: clamp(2.4rem, 5.5vw, 4.8rem);
-  line-height: 1.05;
-  letter-spacing: -0.045em;
+  line-height: 0.97;
+  letter-spacing: -0.055em;
   font-family: var(--font-display), sans-serif;
-  font-weight: 700;
+  font-weight: 800;
   margin: 0 0 16px 0;
   max-width: 48ch;
 }
 
 .hero-subhead {
   font-size: clamp(1rem, 1.3vw, 1.15rem);
-  line-height: 1.65;
+  line-height: 1.7;
   color: var(--muted);
   max-width: 58ch;
   margin: 0 0 24px 0;
+  font-weight: 400;
+  letter-spacing: 0.005em;
 }
 
 .hero-scroll-link {

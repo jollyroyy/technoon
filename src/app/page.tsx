@@ -166,6 +166,7 @@ export default function Home() {
               sizes="(max-width: 1280px) 100vw, 1280px"
             />
             <div className="hero-bg-overlay" />
+            <div className="hero-logo-cover" />
           </div>
           <div className="hero-content">
           </div>
