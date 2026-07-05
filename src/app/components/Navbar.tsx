@@ -27,7 +27,7 @@ export default function Navbar() {
               width={1536}
               height={1024}
               priority
-              style={{ height: '104px', width: 'auto' }}
+              className="nav-logo-img"
             />
           </a>
 
