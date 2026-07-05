@@ -157,14 +157,6 @@ export default function Home() {
         {/* ── HERO ─────────────────────────────── */}
         <section className="hero-section" id="hero">
           <div className="hero-bg-wrap">
-            <Image
-              src="/hero-reference.png"
-              alt=""
-              fill
-              priority
-              className="hero-bg-img"
-              sizes="(max-width: 1280px) 100vw, 1280px"
-            />
             <div className="hero-bg-overlay" />
           </div>
           <div className="hero-content">
