@@ -894,13 +894,14 @@ span {
 
   /* Hero */
   .hero-section {
-    min-height: 56vh;
+    height: max(58vh, 280px);
+    min-height: unset;
     border-radius: 20px;
-    padding: 40px 16px 56px;
+    padding: 0;
   }
 
   .hero-bg-img {
-    object-position: center top;
+    object-position: 62% center;
   }
 
   /* Grids → single column */
