@@ -186,7 +186,7 @@ const faqs = [
   },
   {
     q: "Why trust a new agency?",
-    a: "Fair question — so we prove instead of promise. We built and shipped the corporate website for Bejoice Shipping, a 25-year logistics leader in Saudi Arabia, on a fixed timeline and budget. And we run Noon HR, our own SaaS, with real paying users. We don't sell what we can't prove.",
+    a: "Fair question — so we prove instead of promise. We built and shipped the corporate website for Bejoice Shipping, a 25-year logistics leader in Saudi Arabia, on a fixed timeline and budget. And we run Noon HR, our own SaaS, with real paying users.",
   },
   {
     q: "Do you work with Saudi & GCC businesses?",
@@ -237,8 +237,8 @@ export default function Home() {
               Founder-led AI studio — India &amp; GCC
             </p>
             <h1>
-              AI systems that stop
-              <span className="grad-text"> revenue leaks.</span>
+              Transform and grow your business with
+              <span className="grad-text"> AI-powered solutions.</span>
             </h1>
             <p className="hero-sub">
               Conversion-ready websites in days. AI receptionists that answer in
