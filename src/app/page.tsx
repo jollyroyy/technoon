@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   X, ArrowRight, Globe, Bot, Zap, Smartphone, Megaphone, Boxes,
-  CalendarCheck, ClipboardList, Hammer, Rocket, ShieldCheck, MapPin,
+  CalendarCheck, ClipboardList, Hammer, Rocket, MapPin,
   Users, BadgeCheck, Quote
 } from "lucide-react";
 import HeroChat from "./components/HeroChat";
@@ -10,12 +10,7 @@ import PricingSection from "./components/PricingSection";
 
 /* ─────────────────────────  DATA  ───────────────────────── */
 
-const heroChips = [
-  "Founder-led delivery",
-  "Fixed scope, fixed price",
-  "India · Saudi & GCC",
-  "We run our own SaaS",
-];
+const heroChips: string[] = [];
 
 const painPoints = [
   {
@@ -232,11 +227,7 @@ export default function Home() {
         <div className="hero-grid-bg" aria-hidden="true" />
         <div className="hero-inner">
           <div className="hero-copy">
-            <p className="hero-eyebrow">
-              <ShieldCheck size={14} />
-              Founder-led AI studio — India &amp; GCC
-            </p>
-            <h1>
+<h1>
               Transform and grow your business with
               <span className="grad-text"> AI-powered solutions.</span>
             </h1>
