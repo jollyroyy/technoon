@@ -57,10 +57,8 @@ export default function CalEmbed() {
     return () => document.removeEventListener("keydown", handleKey);
   }, [open, handleClose]);
 
-  if (!open) return null;
-
   return (
-    <div className="cal-overlay" onClick={handleClose}>
+    <div className={`cal-overlay${open ? ' open' : ''}`} onClick={handleClose}>
       <div className="cal-modal-box" onClick={(e) => e.stopPropagation()}>
         <button className="cal-close" onClick={handleClose} aria-label="Close">
           <X size={20} />
