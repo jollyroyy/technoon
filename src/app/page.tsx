@@ -5,7 +5,6 @@ import {
   CalendarCheck, ClipboardList, Hammer, Rocket, MapPin,
   Users, BadgeCheck, Quote
 } from "lucide-react";
-import HeroChat from "./components/HeroChat";
 import PricingSection from "./components/PricingSection";
 
 /* ─────────────────────────  DATA  ───────────────────────── */
@@ -174,53 +173,13 @@ const targetStats = [
   { value: "< 24h", label: "Audit turnaround" },
 ];
 
-const faqs = [
-  {
-    q: "How fast is “fast”?",
-    a: "Landing pages go live in 3–5 days. Responsive multi-page corporate sites — like the one we shipped for Bejoice Shipping — take 1–3 weeks. Fixed scope, fixed price, no revision hell.",
-  },
-  {
-    q: "Why trust a new agency?",
-    a: "Fair question — so we prove instead of promise. We built and shipped the corporate website for Bejoice Shipping, a 25-year logistics leader in Saudi Arabia, on a fixed timeline and budget. And we run Noon HR, our own SaaS, with real paying users.",
-  },
-  {
-    q: "Do you work with Saudi & GCC businesses?",
-    a: "Yes — actively. Our featured client is in KSA, and we build with the GCC in mind: Arabic RTL layouts, PDPL awareness, and SAR pricing. We also serve clients across India and internationally.",
-  },
-  {
-    q: "Can I see Noon HR before committing?",
-    a: "Yes. Book a free 30-minute demo, or explore the live product at noon-hr.vercel.app. No credit card, no sales pressure.",
-  },
-  {
-    q: "Do you handle custom builds?",
-    a: "Yes — apps, CRMs, ERPs, and custom SaaS are all in-house. We start with fixed-price scope locked on the discovery call, so you always know the cost before we write a line of code.",
-  },
-  {
-    q: "How do payments work?",
-    a: "Fixed quotes in USD, SAR, or INR — whatever suits you. Typically 50% to start, 50% on delivery. Setup, onboarding, and 30 days of support are always included.",
-  },
-];
 
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqs.map((f) => ({
-    "@type": "Question",
-    name: f.q,
-    acceptedAnswer: { "@type": "Answer", text: f.a },
-  })),
-};
 
 /* ─────────────────────────  PAGE  ───────────────────────── */
 
 export default function Home() {
   return (
     <main className="page-shell" id="top">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
-
       {/* ── HERO ─────────────────────────────── */}
       <section className="hero" id="hero">
         <div className="hero-glow" aria-hidden="true" />
@@ -251,7 +210,6 @@ export default function Home() {
             </ul>
           </div>
           <div className="hero-visual">
-            <HeroChat />
           </div>
         </div>
       </section>
@@ -556,22 +514,6 @@ export default function Home() {
         {/* ── PRICING ──────────────────────────── */}
         <PricingSection />
 
-        {/* ── FAQ ──────────────────────────────── */}
-        <section className="section section-shell" id="faq">
-          <div className="section-heading centered-heading">
-            <p className="eyebrow">FAQ</p>
-            <h2>Quick answers.</h2>
-          </div>
-          <div className="faq-list">
-            {faqs.map((faq) => (
-              <details key={faq.q} className="faq-item">
-                <summary className="faq-q">{faq.q}</summary>
-                <p className="faq-a">{faq.a}</p>
-              </details>
-            ))}
-          </div>
-        </section>
-
         {/* ── CTA ──────────────────────────────── */}
         <section className="section cta-section" id="contact">
           <div className="cta-card cta-centered">
@@ -628,7 +570,6 @@ export default function Home() {
               <a href="#founders">Founders</a>
               <a href="#process">How It Works</a>
               <a href="#pricing">Pricing</a>
-              <a href="#faq">FAQ</a>
             </div>
             <div className="footer-col">
               <p className="footer-col-label">Contact</p>

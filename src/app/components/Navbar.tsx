@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Layout, Bot, BarChart2, Smartphone, Megaphone, Boxes, ChevronDown, Mail, Users, Clock, IndianRupee, Shield, Globe, Zap } from 'lucide-react';
+import { Layout, Bot, BarChart2, Smartphone, Megaphone, Boxes, ChevronDown, Mail, Users, Clock, IndianRupee, Shield, Globe, Zap, Search } from 'lucide-react';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -106,29 +106,6 @@ export default function Navbar() {
                   </div>
                 </a>
                 <div className="dropdown-divider" />
-                <div className="dropdown-group-label">Digital Marketing</div>
-                <a href="#solutions" className="dropdown-item">
-                  <Megaphone size={20} className="dropdown-icon" />
-                  <div>
-                    <span>SEO & SEM</span>
-                    <p>Search engine visibility & paid ads</p>
-                  </div>
-                </a>
-                <a href="#solutions" className="dropdown-item">
-                  <Globe size={20} className="dropdown-icon" />
-                  <div>
-                    <span>PPC & Social Ads</span>
-                    <p>Targeted campaigns, max ROAS</p>
-                  </div>
-                </a>
-                <a href="#solutions" className="dropdown-item">
-                  <Zap size={20} className="dropdown-icon" />
-                  <div>
-                    <span>Brand Promotion</span>
-                    <p>Content · social · influencer</p>
-                  </div>
-                </a>
-                <div className="dropdown-divider" />
                 <div className="dropdown-group-label">Software & SaaS</div>
                 <a href="#solutions" className="dropdown-item">
                   <Boxes size={20} className="dropdown-icon" />
@@ -140,9 +117,47 @@ export default function Navbar() {
               </div>
             </div>
 
+            <div className="nav-dropdown">
+              <button className="nav-dropdown-trigger">
+                Digital Marketing <ChevronDown size={16} className="nav-dropdown-chevron" />
+              </button>
+              <div className="nav-dropdown-menu">
+                <div className="dropdown-group-label">Search & Ads</div>
+                <a href="#solutions" className="dropdown-item">
+                  <Search size={20} className="dropdown-icon" />
+                  <div>
+                    <span>SEO</span>
+                    <p>Organic search, technical SEO, content strategy</p>
+                  </div>
+                </a>
+                <a href="#solutions" className="dropdown-item">
+                  <Globe size={20} className="dropdown-icon" />
+                  <div>
+                    <span>SEM & PPC</span>
+                    <p>Google Ads, paid search, max ROAS</p>
+                  </div>
+                </a>
+                <div className="dropdown-divider" />
+                <div className="dropdown-group-label">Social & Brand</div>
+                <a href="#solutions" className="dropdown-item">
+                  <Megaphone size={20} className="dropdown-icon" />
+                  <div>
+                    <span>Social Media Marketing</span>
+                    <p>Organic + paid across platforms</p>
+                  </div>
+                </a>
+                <a href="#solutions" className="dropdown-item">
+                  <Zap size={20} className="dropdown-icon" />
+                  <div>
+                    <span>Brand Promotion</span>
+                    <p>Content · influencer · reputation</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+
             <a href="#work">Work</a>
             <a href="#pricing">Pricing</a>
-            <a href="#faq">FAQ</a>
           </div>
 
           <div className="nav-actions">
@@ -176,16 +191,17 @@ export default function Navbar() {
         <div className="nav-mobile-category">AI-Powered Services</div>
         <a href="#solutions" onClick={close} className="nav-mobile-sub">&mdash; AI Receptionist</a>
         <a href="#solutions" onClick={close} className="nav-mobile-sub">&mdash; Lead Follow-up Automation</a>
-        <div className="nav-mobile-category">Digital Marketing</div>
-        <a href="#solutions" onClick={close} className="nav-mobile-sub">&mdash; SEO & SEM</a>
-        <a href="#solutions" onClick={close} className="nav-mobile-sub">&mdash; PPC & Social Ads</a>
-        <a href="#solutions" onClick={close} className="nav-mobile-sub">&mdash; Brand Promotion</a>
         <div className="nav-mobile-category">Software & SaaS</div>
         <a href="#solutions" onClick={close} className="nav-mobile-sub">&mdash; Business Software</a>
 
+        <div className="nav-mobile-category">Digital Marketing</div>
+        <a href="#solutions" onClick={close} className="nav-mobile-sub">&mdash; SEO</a>
+        <a href="#solutions" onClick={close} className="nav-mobile-sub">&mdash; SEM & PPC</a>
+        <a href="#solutions" onClick={close} className="nav-mobile-sub">&mdash; Social Media Marketing</a>
+        <a href="#solutions" onClick={close} className="nav-mobile-sub">&mdash; Brand Promotion</a>
+
         <a href="#work" onClick={close}>Featured Work</a>
         <a href="#pricing" onClick={close}>Pricing</a>
-        <a href="#faq" onClick={close}>FAQ</a>
         <button className="btn btn-primary" data-cal-link="technoon/audit" onClick={close}>Book Free Audit</button>
       </div>
     </>
