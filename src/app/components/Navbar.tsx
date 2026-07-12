@@ -72,7 +72,7 @@ export default function Navbar() {
               <Mail size={13} />
               info@technoon.ai
             </a>
-            <a className="btn btn-primary" href="https://cal.com/technoon/audit">Book Free Audit</a>
+            <button className="btn btn-primary" data-cal-link="technoon/audit">Book Free Audit</button>
           </div>
 
           <button
@@ -95,7 +95,7 @@ export default function Navbar() {
         <a href="#technoonhr" onClick={close}>Noon HR</a>
         <a href="#pricing" onClick={close}>Pricing</a>
         <a href="#faq" onClick={close}>FAQ</a>
-        <a href="https://cal.com/technoon/audit" className="btn btn-primary" onClick={close}>Book Free Audit</a>
+        <button className="btn btn-primary" data-cal-link="technoon/audit" onClick={close}>Book Free Audit</button>
       </div>
     </>
   );

@@ -13,7 +13,7 @@ const REPLIES: { keys: RegExp; answer: string }[] = [
   {
     keys: /price|pricing|cost|charge|rate|budget|how much/i,
     answer:
-      "Flat, honest pricing: landing pages $350–700 (3–5 days), multi-page sites $800–1,800, premium corporate builds $2,000–4,500. AI chatbots from $400 setup + $150–300/mo. Noon HR is $3–6 per employee/month. Full details are in the Pricing section above — or book a free audit and we'll quote your exact scope.",
+      "Flat, honest pricing: landing pages $350–700 (3–5 days), responsive multi-page corporate sites $700–1,000 (1–3 weeks). AI chatbots from $400 setup + $150–300/mo. Noon HR is $3–6 per employee/month. Full details are in the Pricing section above — or book a free audit and we'll quote your exact scope.",
   },
   {
     keys: /website|web|landing|site/i,
@@ -120,9 +120,9 @@ export default function ChatWidget() {
         </div>
 
         <div className="chat-actions">
-          <a className="btn btn-primary btn-sm" href="https://cal.com/technoon/audit">
+          <button className="btn btn-primary btn-sm" data-cal-link="technoon/audit">
             <CalendarCheck size={14} /> Book free audit
-          </a>
+          </button>
           {WHATSAPP_NUMBER && (
             <a
               className="btn btn-ghost btn-sm"

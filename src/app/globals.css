@@ -1151,8 +1151,8 @@ h1, h2, h3, h4 {
 
 .pricing-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
 }
 
 .pricing-card {
@@ -1191,7 +1191,7 @@ h1, h2, h3, h4 {
 
 .pricing-amount {
   font-family: var(--font-display), sans-serif;
-  font-size: 21px;
+  font-size: 19px;
   font-weight: 700;
   color: var(--accent-soft);
   margin-bottom: 10px;
@@ -1366,6 +1366,19 @@ h1, h2, h3, h4 {
 
 .footer-col a { font-size: 14px; color: var(--muted); }
 .footer-col a:hover { color: var(--text); }
+
+.footer-linkbtn {
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-body), sans-serif;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.footer-linkbtn:hover { color: var(--text); }
 .footer-email { color: var(--accent-soft) !important; }
 
 .footer-bottom {

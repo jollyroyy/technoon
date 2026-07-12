@@ -81,8 +81,7 @@ Theme is keyed to the logo's blue→purple dotted swirl. Glassmorphism cards
 | Offer | Price (USD) | Timeline |
 |---|---|---|
 | Static / landing page | $350–700 | 3–5 days |
-| Responsive multi-page (5–10 pages, CMS) | $800–1,800 | 7–14 days |
-| Premium / corporate (Bejoice-tier) | $2,000–4,500 | 3–4 weeks |
+| Responsive multi-page (5–10 pages, CMS, Bejoice-tier custom UI) | $700–1,000 | 1–3 weeks |
 | AI chatbot / WhatsApp assistant | $400 + $150–300/mo | 5–10 days |
 | Noon HR | $3–6 / employee / mo (min $60) | live 2–5 days |
 

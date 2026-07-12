@@ -27,25 +27,14 @@ const plans: Plan[] = [
   },
   {
     service: "Responsive Multi-Page Website",
-    detail: "5–10 pages, CMS-ready",
-    timeline: "7–14 days",
+    detail: "5–10 pages, custom UI — Bejoice-tier",
+    timeline: "1–3 weeks",
     price: {
-      USD: "$800 – $1,800",
-      SAR: "SAR 3,000 – 6,700",
-      INR: "₹68,000 – ₹1,55,000",
+      USD: "$700 – $1,000",
+      SAR: "SAR 2,600 – 3,750",
+      INR: "₹60,000 – ₹85,000",
     },
-    includes: "Full site architecture, CMS, contact & quote forms, on-page SEO, blog-ready",
-  },
-  {
-    service: "Premium / Corporate Website",
-    detail: "Bejoice-tier, fully custom UI",
-    timeline: "3–4 weeks",
-    price: {
-      USD: "$2,000 – $4,500",
-      SAR: "SAR 7,500 – 16,900",
-      INR: "₹1,70,000 – ₹3,85,000",
-    },
-    includes: "Custom design system, animations, multilingual / Arabic RTL ready, performance-tuned",
+    includes: "Full site architecture, CMS, custom design system, quote forms, on-page SEO, multilingual / Arabic RTL ready",
     featured: true,
   },
   {
@@ -111,16 +100,14 @@ export default function PricingSection() {
             <div className="pricing-amount">{plan.price[currency]}</div>
             <p className="pricing-timeline">⚡ {plan.timeline}</p>
             <p className="pricing-includes">{plan.includes}</p>
-            <a
+            <button
               className={`btn ${plan.featured ? "btn-primary" : "btn-ghost"} btn-sm pricing-cta`}
-              href={
-                plan.service === "Noon HR"
-                  ? "https://cal.com/technoon/hr-demo"
-                  : "https://cal.com/technoon/audit"
+              data-cal-link={
+                plan.service === "Noon HR" ? "technoon/hr-demo" : "technoon/audit"
               }
             >
               {plan.service === "Noon HR" ? "Book a demo" : "Scope my project"}
-            </a>
+            </button>
           </article>
         ))}
       </div>

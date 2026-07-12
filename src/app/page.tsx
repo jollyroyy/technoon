@@ -182,7 +182,7 @@ const targetStats = [
 const faqs = [
   {
     q: "How fast is “fast”?",
-    a: "Landing pages go live in 3–5 days. Multi-page sites take 7–14 days. Premium corporate builds — like the one we shipped for Bejoice Shipping — take 3–4 weeks. Fixed scope, fixed price, no revision hell.",
+    a: "Landing pages go live in 3–5 days. Responsive multi-page corporate sites — like the one we shipped for Bejoice Shipping — take 1–3 weeks. Fixed scope, fixed price, no revision hell.",
   },
   {
     q: "Why trust a new agency?",
@@ -247,10 +247,10 @@ export default function Home() {
               honest price.
             </p>
             <div className="hero-ctas">
-              <a className="btn btn-primary btn-lg" href="https://cal.com/technoon/audit">
+              <button className="btn btn-primary btn-lg" data-cal-link="technoon/audit">
                 Book a free 30-min audit
                 <ArrowRight size={17} />
-              </a>
+              </button>
               <a className="btn btn-ghost btn-lg" href="#work">
                 See our work
               </a>
@@ -394,9 +394,9 @@ export default function Home() {
                 </p>
                 <cite>Partner feedback · Bejoice Shipping project</cite>
               </blockquote>
-              <a className="btn btn-ghost" href="https://cal.com/technoon/audit">
+              <button className="btn btn-ghost" data-cal-link="technoon/audit">
                 Get a build like this <ArrowRight size={15} />
-              </a>
+              </button>
             </div>
           </div>
         </section>
@@ -422,7 +422,7 @@ export default function Home() {
                 ))}
               </div>
               <div className="hr-ctas">
-                <a className="btn btn-primary" href="https://cal.com/technoon/hr-demo">Book a live demo</a>
+                <button className="btn btn-primary" data-cal-link="technoon/hr-demo">Book a live demo</button>
                 <a className="btn btn-ghost" href="https://noon-hr.vercel.app" target="_blank" rel="noopener noreferrer">
                   Try the product <ArrowRight size={15} />
                 </a>
@@ -597,10 +597,10 @@ export default function Home() {
               </p>
             </div>
             <div className="cta-foot">
-              <a className="btn btn-primary btn-lg" href="https://cal.com/technoon/audit">
+              <button className="btn btn-primary btn-lg" data-cal-link="technoon/audit">
                 Book your free audit call
                 <ArrowRight size={17} />
-              </a>
+              </button>
               <p className="cta-note">No credit card. No sales pitch. Just clarity.</p>
               <div className="cta-divider"><span>or</span></div>
               <a className="cta-email-link" href="mailto:info@technoon.ai">
@@ -644,8 +644,8 @@ export default function Home() {
             <div className="footer-col">
               <p className="footer-col-label">Contact</p>
               <a href="mailto:info@technoon.ai" className="footer-email">info@technoon.ai</a>
-              <a href="https://cal.com/technoon/audit">Book a free audit</a>
-              <a href="https://cal.com/technoon/hr-demo">Noon HR demo</a>
+              <button className="footer-linkbtn" data-cal-link="technoon/audit">Book a free audit</button>
+              <button className="footer-linkbtn" data-cal-link="technoon/hr-demo">Noon HR demo</button>
             </div>
             <div className="footer-col">
               <p className="footer-col-label">Legal</p>
