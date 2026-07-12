@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Manrope, Syne } from "next/font/google";
+import { Manrope, Space_Grotesk } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import Navbar from "./components/Navbar";
@@ -12,9 +12,9 @@ const manrope = Manrope({
   variable: "--font-body"
 });
 
-const syne = Syne({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-display"
 });
 
@@ -82,7 +82,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${manrope.variable} ${syne.variable}`}>
+      <body className={`${manrope.variable} ${spaceGrotesk.variable}`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
