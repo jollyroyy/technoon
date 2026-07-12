@@ -20,7 +20,7 @@ export default function Navbar() {
     <>
       <nav className={`site-navbar${scrolled ? ' scrolled' : ''}`}>
         <div className="nav-inner">
-          <a href="#hero" className="nav-logo" aria-label="Technoon.ai home">
+          <button className="nav-logo" aria-label="Technoon.ai home" onClick={() => document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' })}>
             <Image
               src="/logo.webp"
               alt="Technoon.ai"
@@ -29,7 +29,7 @@ export default function Navbar() {
               priority
               className="nav-logo-img"
             />
-          </a>
+          </button>
 
           <div className="nav-links">
             <div className="nav-dropdown">

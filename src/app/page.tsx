@@ -213,7 +213,6 @@ export default function Home() {
         {/* ── PAIN ─────────────────────────────── */}
         <section className="section section-shell" id="pain">
           <div className="section-heading centered-heading">
-            <p className="eyebrow">Sound familiar?</p>
             <h2>You&apos;re losing revenue.<br />You just can&apos;t see where.</h2>
           </div>
           <div className="pain-cols">
