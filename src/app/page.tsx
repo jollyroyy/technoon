@@ -232,10 +232,8 @@ export default function Home() {
               <span className="grad-text"> AI-powered solutions.</span>
             </h1>
             <p className="hero-sub">
-              Conversion-ready websites in days. AI receptionists that answer in
-              seconds, 24/7. Automation that books meetings while you sleep.
-              For restaurants, gyms, and logistics companies — at a fixed,
-              honest price.
+              Websites in days. AI receptionists 24/7. Automation that books
+              meetings while you sleep.
             </p>
             <div className="hero-ctas">
               <button className="btn btn-primary btn-lg" data-cal-link="technoon/audit">

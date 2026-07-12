@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Layout, Bot, BarChart2, Smartphone, Megaphone, Boxes, ChevronDown, Mail, Users, Clock, IndianRupee, Shield } from 'lucide-react';
+import { Layout, Bot, BarChart2, Smartphone, Megaphone, Boxes, ChevronDown, Mail, Users, Clock, IndianRupee, Shield, Globe, Zap } from 'lucide-react';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -106,14 +106,30 @@ export default function Navbar() {
                   </div>
                 </a>
                 <div className="dropdown-divider" />
-                <div className="dropdown-group-label">Marketing & Software</div>
+                <div className="dropdown-group-label">Digital Marketing</div>
                 <a href="#solutions" className="dropdown-item">
                   <Megaphone size={20} className="dropdown-icon" />
                   <div>
-                    <span>Digital Marketing</span>
-                    <p>SEO · SEM · PPC · brand promotion</p>
+                    <span>SEO & SEM</span>
+                    <p>Search engine visibility & paid ads</p>
                   </div>
                 </a>
+                <a href="#solutions" className="dropdown-item">
+                  <Globe size={20} className="dropdown-icon" />
+                  <div>
+                    <span>PPC & Social Ads</span>
+                    <p>Targeted campaigns, max ROAS</p>
+                  </div>
+                </a>
+                <a href="#solutions" className="dropdown-item">
+                  <Zap size={20} className="dropdown-icon" />
+                  <div>
+                    <span>Brand Promotion</span>
+                    <p>Content · social · influencer</p>
+                  </div>
+                </a>
+                <div className="dropdown-divider" />
+                <div className="dropdown-group-label">Software & SaaS</div>
                 <a href="#solutions" className="dropdown-item">
                   <Boxes size={20} className="dropdown-icon" />
                   <div>
@@ -160,8 +176,11 @@ export default function Navbar() {
         <div className="nav-mobile-category">AI-Powered Services</div>
         <a href="#solutions" onClick={close} className="nav-mobile-sub">&mdash; AI Receptionist</a>
         <a href="#solutions" onClick={close} className="nav-mobile-sub">&mdash; Lead Follow-up Automation</a>
-        <div className="nav-mobile-category">Marketing & Software</div>
-        <a href="#solutions" onClick={close} className="nav-mobile-sub">&mdash; Digital Marketing</a>
+        <div className="nav-mobile-category">Digital Marketing</div>
+        <a href="#solutions" onClick={close} className="nav-mobile-sub">&mdash; SEO & SEM</a>
+        <a href="#solutions" onClick={close} className="nav-mobile-sub">&mdash; PPC & Social Ads</a>
+        <a href="#solutions" onClick={close} className="nav-mobile-sub">&mdash; Brand Promotion</a>
+        <div className="nav-mobile-category">Software & SaaS</div>
         <a href="#solutions" onClick={close} className="nav-mobile-sub">&mdash; Business Software</a>
 
         <a href="#work" onClick={close}>Featured Work</a>
