@@ -1,48 +1,82 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
+import { X } from "lucide-react";
 
-// Loads the official Cal.com embed script once. Any element with a
-// `data-cal-link="technoon/audit"` (or `technoon/hr-demo`) attribute opens
-// the booking calendar in a popup modal instead of navigating away.
+const CAL_URL = "https://cal.com/sudeshna-pal-ruww5f/technoon.ai";
+
 export default function CalEmbed() {
-  useEffect(() => {
-    const w = window as any;
-    (function (C: any, A: string, L: string) {
-      const p = function (a: any, ar: any) { a.q.push(ar); };
-      const d = C.document;
-      C.Cal = C.Cal || function (...args: any[]) {
-        const cal = C.Cal;
-        if (!cal.loaded) {
-          cal.ns = {};
-          cal.q = cal.q || [];
-          d.head.appendChild(d.createElement("script")).src = A;
-          cal.loaded = true;
-        }
-        if (args[0] === L) {
-          const api: any = function (...apiArgs: any[]) { p(api, apiArgs); };
-          const namespace = args[1];
-          api.q = api.q || [];
-          if (typeof namespace === "string") {
-            cal.ns[namespace] = cal.ns[namespace] || api;
-            p(cal.ns[namespace], args);
-            p(cal, ["initNamespace", namespace]);
-          } else p(cal, args);
-          return;
-        }
-        p(cal, args);
-      };
-    })(w, "https://app.cal.com/embed/embed.js", "init");
+  const [open, setOpen] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const needsReset = useRef(false);
 
-    w.Cal("init", { origin: "https://cal.com" });
-    w.Cal("ui", {
-      theme: "dark",
-      cssVarsPerTheme: { dark: { "cal-brand": "#7a5cff" } },
-      hideEventTypeDetails: false,
-      layout: "month_view",
-    });
+  const close = useCallback(() => {
+    setOpen(false);
+    document.body.style.overflow = "";
   }, []);
 
-  return null;
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement).closest("[data-cal-link]");
+      if (!target) return;
+      e.preventDefault();
+      setOpen(true);
+      document.body.style.overflow = "hidden";
+    };
+    document.addEventListener("click", handler);
+    return () => document.removeEventListener("click", handler);
+  }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e: MessageEvent) => {
+      if (e.origin !== "https://cal.com" && e.origin !== "https://app.cal.com") return;
+      const t = e.data?.type;
+      if (t === "cal:close" || t === "close") close();
+      if (t === "bookingSuccessful" || t === "CAL_BOOKING_SUCCESSFUL" || t === "cal:booking:confirmed") {
+        needsReset.current = true;
+      }
+    };
+    window.addEventListener("message", handler);
+    return () => window.removeEventListener("message", handler);
+  }, [open, close]);
+
+  const handleClose = useCallback(() => {
+    if (needsReset.current && iframeRef.current) {
+      needsReset.current = false;
+      iframeRef.current.src = src();
+    }
+    close();
+  }, [close]);
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && open) handleClose();
+    };
+    if (open) document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [open, handleClose]);
+
+  if (!open) return null;
+
+  return (
+    <div className="cal-overlay" onClick={handleClose}>
+      <div className="cal-modal-box" onClick={(e) => e.stopPropagation()}>
+        <button className="cal-close" onClick={handleClose} aria-label="Close">
+          <X size={20} />
+        </button>
+        <iframe
+          ref={iframeRef}
+          src={src()}
+          className="cal-iframe"
+          title="Book a call"
+          allow="calendar"
+        />
+      </div>
+    </div>
+  );
+}
+
+function src() {
+  return `${CAL_URL}?embed=true&theme=dark&layout=month_view&brandColor=7a5cff`;
 }
