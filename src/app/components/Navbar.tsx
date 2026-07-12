@@ -40,8 +40,8 @@ export default function Navbar() {
                 <a href="#solutions" className="dropdown-item">
                   <Layout size={20} className="dropdown-icon" />
                   <div>
-                    <span>Website in 1 Day</span>
-                    <p>Live in 24 hours, fixed price</p>
+                    <span>Conversion Websites</span>
+                    <p>Live in days, fixed price</p>
                   </div>
                 </a>
                 <a href="#solutions" className="dropdown-item">
@@ -61,9 +61,10 @@ export default function Navbar() {
               </div>
             </div>
 
-            <a href="#technoonhr">TechnoonHR</a>
+            <a href="#work">Work</a>
+            <a href="#technoonhr">Noon HR</a>
             <a href="#pricing">Pricing</a>
-            <a href="#process">How We Work</a>
+            <a href="#faq">FAQ</a>
           </div>
 
           <div className="nav-actions">
@@ -86,13 +87,14 @@ export default function Navbar() {
 
       <div className={`nav-mobile${mobileOpen ? ' open' : ''}`}>
         <div className="nav-mobile-category">Services</div>
-        <a href="#solutions" onClick={close} className="nav-mobile-sub">&mdash; Launch-Ready Website</a>
+        <a href="#solutions" onClick={close} className="nav-mobile-sub">&mdash; Conversion Websites</a>
         <a href="#solutions" onClick={close} className="nav-mobile-sub">&mdash; AI Receptionist</a>
         <a href="#solutions" onClick={close} className="nav-mobile-sub">&mdash; Lead Follow-up Automation</a>
 
-        <a href="#technoonhr" onClick={close}>TechnoonHR</a>
+        <a href="#work" onClick={close}>Featured Work</a>
+        <a href="#technoonhr" onClick={close}>Noon HR</a>
         <a href="#pricing" onClick={close}>Pricing</a>
-        <a href="#process" onClick={close}>How We Work</a>
+        <a href="#faq" onClick={close}>FAQ</a>
         <a href="https://cal.com/technoon/audit" className="btn btn-primary" onClick={close}>Book Free Audit</a>
       </div>
     </>
