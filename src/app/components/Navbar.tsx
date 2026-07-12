@@ -22,7 +22,7 @@ export default function Navbar() {
         <div className="nav-inner">
           <a href="#hero" className="nav-logo" aria-label="Technoon.ai home">
             <Image
-              src="/logo.png"
+              src="/logo.webp"
               alt="Technoon.ai"
               width={1536}
               height={1024}

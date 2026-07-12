@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  X, ArrowRight, Globe, Bot, Zap, Smartphone, Megaphone, Boxes,
+  X, ArrowRight, Globe, Bot, Zap,
   CalendarCheck, ClipboardList, Hammer, Rocket, MapPin,
   Users, BadgeCheck, Quote
 } from "lucide-react";
@@ -58,12 +58,6 @@ const solutionCards = [
     copy: "Form submitted → instant reply → meeting booked → CRM updated. Email, SMS, and WhatsApp sequences with zero manual work.",
     meta: "Live in 3–5 days",
   },
-];
-
-const capabilityStrip = [
-  { icon: Smartphone, label: "App Development", detail: "React Native · AI-powered apps · MVPs" },
-  { icon: Megaphone, label: "Digital Marketing", detail: "SEO · SEM · PPC · brand promotion" },
-  { icon: Boxes, label: "Business Software", detail: "CRM · ERP · custom SaaS" },
 ];
 
 const bejoicePoints = [
@@ -216,17 +210,6 @@ export default function Home() {
 
       <div className="content-stack">
 
-        {/* ── PROOF STRIP ──────────────────────── */}
-        <section className="proof-strip" aria-label="Highlights">
-          <div className="proof-strip-inner">
-            <span className="proof-item"><strong>Featured client:</strong> Bejoice Shipping · Saudi Arabia</span>
-            <span className="proof-dot" aria-hidden="true" />
-            <span className="proof-item"><strong>Own product:</strong> Noon HR — live with paying users</span>
-            <span className="proof-dot" aria-hidden="true" />
-            <span className="proof-item"><strong>Delivery:</strong> Fixed price · days, not months</span>
-          </div>
-        </section>
-
         {/* ── PAIN ─────────────────────────────── */}
         <section className="section section-shell" id="pain">
           <div className="section-heading centered-heading">
@@ -278,20 +261,6 @@ export default function Home() {
                 <span className="card-meta">⚡ {card.meta}</span>
               </article>
             ))}
-          </div>
-          <div className="capability-strip">
-            <p className="capability-label">Also under one roof</p>
-            <div className="capability-items">
-              {capabilityStrip.map((cap) => (
-                <div key={cap.label} className="capability-item">
-                  <cap.icon size={18} />
-                  <div>
-                    <span>{cap.label}</span>
-                    <p>{cap.detail}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
         </section>
 

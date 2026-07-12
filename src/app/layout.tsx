@@ -63,7 +63,7 @@ const orgJsonLd = {
   "@type": "Organization",
   name: "Technoon.ai",
   url: "https://technoon.ai",
-  logo: "https://technoon.ai/logo.png",
+  logo: "https://technoon.ai/logo.webp",
   email: "info@technoon.ai",
   description:
     "Founder-led AI & software studio building websites, AI receptionists, automation, and business software for SMBs in India and the GCC.",
