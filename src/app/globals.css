@@ -1358,8 +1358,12 @@ h1, h2, h3, h4 {
   padding-bottom: 48px;
 }
 
+.footer-brand {
+  padding-left: 50px;
+}
+
 .footer-logo-img {
-  width: 140px;
+  width: 200px;
   height: auto;
 }
 
