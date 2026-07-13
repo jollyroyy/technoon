@@ -213,13 +213,13 @@ export default function RootLayout({
         <link
           rel="preload"
           as="image"
-          href="/frames/frame_0001.webp"
+          href="/frames/frame_0002.webp"
           media="(min-width: 768px)"
         />
         <link
           rel="preload"
           as="image"
-          href="/frames-m/frame_0001.webp"
+          href="/frames-m/frame_0002.webp"
           media="(max-width: 767px)"
         />
         <link rel="preload" as="image" href="/logo.webp" />
