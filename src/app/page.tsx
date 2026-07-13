@@ -1,15 +1,51 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  X, ArrowRight, Globe, Bot, Zap,
-  CalendarCheck, ClipboardList, Hammer, Rocket, MapPin,
-  Users, BadgeCheck, Quote
+  X, ArrowRight,
+  BadgeCheck, Quote
 } from "lucide-react";
 import PricingSection from "./components/PricingSection";
+import FooterLogo from "./components/FooterLogo";
+import HeroScrolly, { type HeroChapter } from "./components/HeroScrolly";
+import ProgressRail from "./components/ProgressRail";
+import Reveal from "./components/Reveal";
+import SolutionsScene, { type SolutionSlide } from "./components/SolutionsScene";
+import NoonHrScene from "./components/NoonHrScene";
+import ProcessTimeline, { type ProcessStep } from "./components/ProcessTimeline";
+import CountUp from "./components/CountUp";
 
 /* ─────────────────────────  DATA  ───────────────────────── */
 
-const heroChips: string[] = [];
+/* Hero narrative beats — synced to the frame animation:
+   ring assembles → Voice AI/Support front → dashboards front → full ring + Revenue */
+const heroChapters: HeroChapter[] = [
+  {
+    range: [0, 0.22],
+    heading: "Every function of your business.",
+    headingAccent: "One AI core.",
+    sub: "Websites, voice agents, support, CRM — connected and working as one.",
+  },
+  {
+    range: [0.22, 0.48],
+    heading: "An AI receptionist that",
+    headingAccent: "never sleeps.",
+    sub: "Answers calls and WhatsApp 24/7 — in English and Arabic.",
+  },
+  {
+    range: [0.48, 0.76],
+    heading: "Automation that books meetings",
+    headingAccent: "while you sleep.",
+    sub: "Leads captured, followed up, and scheduled — hands-free.",
+  },
+  {
+    range: [0.76, 1],
+    heading: "See it working on",
+    headingAccent: "your business.",
+    sub: "Founder-built systems, live in days — starting with a free 30-minute audit.",
+  },
+];
+
+const heroTrustLine = "Built by founders · Fixed price · Saudi & India ready";
 
 const painPoints = [
   {
@@ -38,22 +74,21 @@ const painPoints = [
   },
 ];
 
-const solutionCards = [
+const solutionCards: SolutionSlide[] = [
   {
-    icon: Globe,
+    icon: "globe",
     title: "Conversion Websites",
     copy: "Landing pages live in days. Multi-page corporate sites in weeks. Built to convert visitors into booked calls — not to win design awards.",
     meta: "Landing page in 3–5 days",
-    featured: true,
   },
   {
-    icon: Bot,
+    icon: "bot",
     title: "AI Receptionist",
     copy: "Responds in seconds, qualifies leads, books meetings. Runs 24/7 on WhatsApp and your website. Like the one in the corner of this page.",
     meta: "Live in 5–10 days",
   },
   {
-    icon: Zap,
+    icon: "zap",
     title: "Lead Follow-up Automation",
     copy: "Form submitted → instant reply → meeting booked → CRM updated. Email, SMS, and WhatsApp sequences with zero manual work.",
     meta: "Live in 3–5 days",
@@ -137,24 +172,24 @@ const industryCards = [
   },
 ];
 
-const processSteps = [
+const processSteps: ProcessStep[] = [
   {
-    icon: CalendarCheck,
+    icon: "calendar",
     title: "Free Audit Call",
     copy: "30 minutes. We map your revenue leaks and gaps. No obligation.",
   },
   {
-    icon: ClipboardList,
+    icon: "clipboard",
     title: "We Scope It",
     copy: "You get a clear plan — what we build, what it costs, when it ships.",
   },
   {
-    icon: Hammer,
+    icon: "hammer",
     title: "We Build It",
     copy: "Founder-led build, integration, and testing. No junior hand-offs.",
   },
   {
-    icon: Rocket,
+    icon: "rocket",
     title: "You Launch",
     copy: "Go live with full handover, training, and 30 days of support included.",
   },
@@ -174,223 +209,138 @@ const targetStats = [
 export default function Home() {
   return (
     <main className="page-shell" id="top">
+      <ProgressRail />
       {/* ── HERO ─────────────────────────────── */}
-      <section className="hero" id="hero">
-        <div className="hero-glow" aria-hidden="true" />
-        <div className="hero-grid-bg" aria-hidden="true" />
-        <div className="hero-inner">
-          <div className="hero-copy">
-<h1>
-              Transform and grow your business with
-              <span className="grad-text"> AI-powered solutions.</span>
-            </h1>
-            <p className="hero-sub">
-              Websites in days. AI receptionists 24/7. Automation that books
-              meetings while you sleep.
-            </p>
-            <div className="hero-ctas">
-              <button className="btn btn-primary btn-lg" data-cal-link="technoon/audit">
-                Book a free 30-min audit
-                <ArrowRight size={17} />
-              </button>
-              <a className="btn btn-ghost btn-lg" href="#work">
-                See our work
-              </a>
-            </div>
-            <ul className="hero-chips">
-              {heroChips.map((chip) => (
-                <li key={chip}><BadgeCheck size={13} /> {chip}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="hero-visual">
-          </div>
-        </div>
-      </section>
+      <HeroScrolly
+        chapters={heroChapters}
+        trustLine={heroTrustLine}
+        ctaPrimary="Book a free 30-min audit"
+        ctaSecondary="See our work"
+      />
 
       <div className="content-stack">
 
         {/* ── PAIN ─────────────────────────────── */}
         <section className="section section-shell" id="pain">
-          <div className="section-heading centered-heading">
-            <h2>You&apos;re losing revenue.<br />You just can&apos;t see where.</h2>
-          </div>
-          <div className="pain-cols">
-            {painPoints.map((col) => (
-              <div key={col.industry} className="pain-card">
-                <p className="pain-label">{col.industry}</p>
-                <ul className="pain-list">
-                  {col.items.map((item) => (
-                    <li key={item} className="pain-item">
-                      <X size={14} className="pain-x" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+          <Reveal>
+            <div className="section-heading centered-heading">
+              <h2>You&apos;re losing revenue.<br />You just can&apos;t see where.</h2>
+            </div>
+          </Reveal>
+          <Reveal stagger=".pain-card">
+            <div className="pain-cols">
+              {painPoints.map((col) => (
+                <div key={col.industry} className="pain-card">
+                  <p className="pain-label">{col.industry}</p>
+                  <ul className="pain-list">
+                    {col.items.map((item) => (
+                      <li key={item} className="pain-item">
+                        <X size={14} className="pain-x" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </Reveal>
           <p className="pain-bridge">
             This is your business?{" "}
             <a href="#contact" className="pain-link">Let&apos;s fix it <ArrowRight size={14} /></a>
           </p>
         </section>
 
-        {/* ── SOLUTIONS ────────────────────────── */}
-        <section className="section section-shell" id="solutions">
-          <div className="section-heading split-heading">
-            <div>
-              <p className="eyebrow">What we build</p>
-              <h2>Three systems. One goal:<br />more booked revenue.</h2>
-            </div>
-            <p className="section-text">
-              Fixed price. Fixed scope. Delivered by the founders — no account
-              managers, no hand-offs, no agency surprises.
-            </p>
-          </div>
-          <div className="bento-grid">
-            {solutionCards.map((card) => (
-              <article
-                className={`info-card${card.featured ? " bento-featured" : ""}`}
-                key={card.title}
-              >
-                <span className="card-icon"><card.icon size={22} /></span>
-                <h3>{card.title}</h3>
-                <p>{card.copy}</p>
-                <span className="card-meta">⚡ {card.meta}</span>
-              </article>
-            ))}
-          </div>
-        </section>
+        {/* ── SOLUTIONS — pinned scene ─────────── */}
+        <SolutionsScene
+          eyebrow="What we build"
+          headingLine1="One studio."
+          headingLine2="Three ways to fix it."
+          intro="Fixed price. Fixed scope. Delivered by the founders — no account managers, no hand-offs, no agency surprises."
+          slides={solutionCards}
+        />
 
         {/* ── CASE STUDY ───────────────────────── */}
         <section className="section section-shell" id="work">
-          <div className="section-heading split-heading">
-            <div>
-              <p className="eyebrow">Featured client work</p>
-              <h2>Bejoice Shipping — Saudi Arabia</h2>
-            </div>
-            <p className="section-text">
-              AI-powered smart freight forwarding. A corporate website for a
-              25+ year KSA logistics leader — live at bejoiceshipping-ksa.com.
-            </p>
-          </div>
-          <div className="case-grid">
-            <div className="case-mockup" aria-label="Bejoice Shipping website preview">
-              <div className="browser-chrome">
-                <span className="browser-dot" /><span className="browser-dot" /><span className="browser-dot" />
-                <span className="browser-url">bejoiceshipping-ksa.com</span>
+          <Reveal>
+            <div className="section-heading split-heading">
+              <div>
+                <p className="eyebrow">Proof, not promises</p>
+                <h2>Bejoice Shipping — Saudi Arabia</h2>
               </div>
-              <div className="browser-body">
-                <p className="mock-eyebrow">Bejoice Shipping · KSA</p>
-                <p className="mock-headline">AI-Powered Smart<br />Freight Forwarding</p>
-                <p className="mock-sub">FCL · LCL · Breakbulk · Reefer · Hazardous · OOG</p>
-                <div className="mock-stats">
-                  {bejoiceStats.map((s) => (
-                    <div key={s.label} className="mock-stat">
-                      <strong>{s.value}</strong>
-                      <span>{s.label}</span>
-                    </div>
-                  ))}
+              <p className="section-text">
+                AI-powered smart freight forwarding. A corporate website for a
+                25+ year KSA logistics leader — live at bejoiceshipping-ksa.com.
+              </p>
+            </div>
+          </Reveal>
+          <div className="case-grid">
+            <Reveal y={70}>
+              <div className="case-mockup case-parallax" aria-label="Bejoice Shipping website preview">
+                <div className="browser-chrome">
+                  <span className="browser-dot" /><span className="browser-dot" /><span className="browser-dot" />
+                  <span className="browser-url">bejoiceshipping-ksa.com</span>
+                </div>
+                <div className="browser-body">
+                  <p className="mock-eyebrow">Bejoice Shipping · KSA</p>
+                  <p className="mock-headline">AI-Powered Smart<br />Freight Forwarding</p>
+                  <p className="mock-sub">FCL · LCL · Breakbulk · Reefer · Hazardous · OOG</p>
+                  <div className="mock-stats">
+                    {bejoiceStats.map((s) => (
+                      <div key={s.label} className="mock-stat">
+                        <strong><CountUp value={s.value} /></strong>
+                        <span>{s.label}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="case-copy">
-              <ul className="case-points">
-                {bejoicePoints.map((p) => (
-                  <li key={p}><BadgeCheck size={16} /> {p}</li>
-                ))}
-              </ul>
-              <blockquote className="case-quote">
-                <Quote size={20} aria-hidden="true" />
-                <p>
-                  &ldquo;Impressed by the design quality and delivery speed — this
-                  is the work that led to today&apos;s conversation.&rdquo;
-                </p>
-                <cite>Partner feedback · Bejoice Shipping project</cite>
-              </blockquote>
-              <button className="btn btn-ghost" data-cal-link="technoon/audit">
-                Get a build like this <ArrowRight size={15} />
-              </button>
-            </div>
+            </Reveal>
+            <Reveal y={30} delay={0.15}>
+              <div className="case-copy">
+                <ul className="case-points">
+                  {bejoicePoints.map((p) => (
+                    <li key={p}><BadgeCheck size={16} /> {p}</li>
+                  ))}
+                </ul>
+                <blockquote className="case-quote">
+                  <Quote size={20} aria-hidden="true" />
+                  <p>
+                    &ldquo;Impressed by the design quality and delivery speed — this
+                    is the work that led to today&apos;s conversation.&rdquo;
+                  </p>
+                  <cite>Partner feedback · Bejoice Shipping project</cite>
+                </blockquote>
+                <button className="btn btn-ghost" data-cal-link="technoon/audit">
+                  Get a build like this <ArrowRight size={15} />
+                </button>
+              </div>
+            </Reveal>
           </div>
         </section>
 
-        {/* ── TECHNOON HR ──────────────────────── */}
-        <section className="section section-shell technoon-hr-section" id="technoonhr">
-          <div className="hr-grid">
-            <div className="hr-copy">
-              <p className="eyebrow">Our own product</p>
-              <h2>We run what we sell.</h2>
-              <p className="section-text">
-                Noon HR is our in-house SaaS — live with real paying users.
-                Attendance, payroll, and compliance in one place, from
-                <strong> $3–6 per employee/month</strong>. It&apos;s the proof that we
-                build durable software, not just client projects.
-              </p>
-              <div className="hr-features-list">
-                {technoonHrFeatures.map((feature) => (
-                  <div key={feature.title} className="hr-feature-item">
-                    <h4>{feature.title}</h4>
-                    <p>{feature.description}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="hr-ctas">
-                <button className="btn btn-primary" data-cal-link="technoon/hr-demo">Book a live demo</button>
-                <a className="btn btn-ghost" href="https://noon-hr.vercel.app" target="_blank" rel="noopener noreferrer">
-                  Try the product <ArrowRight size={15} />
-                </a>
-              </div>
-            </div>
-            <div className="hr-visual" aria-hidden="true">
-              <div className="hr-mock">
-                <div className="hr-mock-head">
-                  <span className="hr-mock-title">Noon HR</span>
-                  <span className="hr-mock-badge">Live</span>
-                </div>
-                <div className="hr-mock-row">
-                  <div className="hr-mock-card">
-                    <span>Present today</span>
-                    <strong>47 / 52</strong>
-                    <em className="up">▲ on time 94%</em>
-                  </div>
-                  <div className="hr-mock-card">
-                    <span>Payroll — June</span>
-                    <strong>Ready</strong>
-                    <em>52 payslips generated</em>
-                  </div>
-                </div>
-                <div className="hr-mock-row">
-                  <div className="hr-mock-card wide">
-                    <span>Compliance</span>
-                    <div className="hr-mock-bars">
-                      <i style={{ width: "92%" }} /><i style={{ width: "78%" }} /><i style={{ width: "88%" }} />
-                    </div>
-                    <em>PF · ESI · PT — all current</em>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* ── TECHNOON HR — pinned scene ───────── */}
+        <NoonHrScene features={technoonHrFeatures} />
 
         {/* ── FOUNDERS ─────────────────────────── */}
         <section className="section section-shell" id="founders">
-          <div className="section-heading centered-heading">
-            <p className="eyebrow">Who you&apos;ll work with</p>
-            <h2>Two founders. Zero hand-offs.</h2>
-          </div>
-          <div className="founder-grid">
-            {founders.map((f) => (
-              <article key={f.name} className="founder-card">
-                <span className="founder-avatar">{f.initials}</span>
-                <h3>{f.name}</h3>
-                <p className="founder-role">{f.role}</p>
-                <p className="founder-focus">{f.focus}</p>
-              </article>
-            ))}
-          </div>
+          <Reveal>
+            <div className="section-heading centered-heading">
+              <p className="eyebrow">Who you&apos;ll work with</p>
+              <h2>Two founders. Zero hand-offs.</h2>
+            </div>
+          </Reveal>
+          <Reveal stagger=".founder-card">
+            <div className="founder-grid">
+              {founders.map((f) => (
+                <article key={f.name} className="founder-card">
+                  <span className="founder-avatar">{f.initials}</span>
+                  <h3>{f.name}</h3>
+                  <p className="founder-role">{f.role}</p>
+                  <p className="founder-focus">{f.focus}</p>
+                </article>
+              ))}
+            </div>
+          </Reveal>
           <blockquote className="founder-quote">
             &ldquo;We don&apos;t sell what we can&apos;t prove. Every service we offer,
             we run internally first.&rdquo;
@@ -409,6 +359,7 @@ export default function Home() {
               actually fit the way you operate.
             </p>
           </div>
+          <Reveal stagger=".industry-card">
           <div className="card-grid industry-grid">
             {industryCards.map((industry) => (
               <article className="industry-card" key={industry.title}>
@@ -434,49 +385,47 @@ export default function Home() {
               </article>
             ))}
           </div>
+          </Reveal>
         </section>
 
         {/* ── PROCESS ──────────────────────────── */}
         <section className="section section-shell alt-section" id="process">
-          <div className="section-heading split-heading">
-            <div>
-              <p className="eyebrow">How it works</p>
-              <h2>Four steps. Done.</h2>
-            </div>
-            <p className="section-text">
-              No fluff. No delays. You know exactly what happens next.
-            </p>
-          </div>
-          <div className="timeline">
-            {processSteps.map((step, i) => (
-              <div className="timeline-step" key={step.title}>
-                <span className="timeline-icon"><step.icon size={19} /></span>
-                <span className="timeline-num">0{i + 1}</span>
-                <h3>{step.title}</h3>
-                <p>{step.copy}</p>
+          <Reveal>
+            <div className="section-heading split-heading">
+              <div>
+                <p className="eyebrow">How it works</p>
+                <h2>Idea to live in weeks,<br />not months.</h2>
               </div>
-            ))}
-          </div>
+              <p className="section-text">
+                No fluff. No delays. You know exactly what happens next.
+              </p>
+            </div>
+          </Reveal>
+          <ProcessTimeline steps={processSteps} />
         </section>
 
         {/* ── RESULTS ──────────────────────────── */}
         <section className="section section-shell results-shell" id="results">
-          <div className="section-heading centered-heading">
-            <p className="eyebrow">The 90-day target</p>
-            <h2>What we build toward.</h2>
-            <p className="section-text centered-note">
-              Every system we ship is scoped against these outcomes — and we
-              review them with you at the 30, 60, and 90-day mark.
-            </p>
-          </div>
-          <div className="stats-row">
-            {targetStats.map((stat) => (
-              <article className="stat-card" key={stat.label}>
-                <strong>{stat.value}</strong>
-                <span>{stat.label}</span>
-              </article>
-            ))}
-          </div>
+          <Reveal>
+            <div className="section-heading centered-heading">
+              <p className="eyebrow">The 90-day target</p>
+              <h2>What we build toward.</h2>
+              <p className="section-text centered-note">
+                Every system we ship is scoped against these outcomes — and we
+                review them with you at the 30, 60, and 90-day mark.
+              </p>
+            </div>
+          </Reveal>
+          <Reveal stagger=".stat-card">
+            <div className="stats-row">
+              {targetStats.map((stat) => (
+                <article className="stat-card" key={stat.label}>
+                  <strong><CountUp value={stat.value} /></strong>
+                  <span>{stat.label}</span>
+                </article>
+              ))}
+            </div>
+          </Reveal>
         </section>
 
         {/* ── PRICING ──────────────────────────── */}
@@ -484,6 +433,7 @@ export default function Home() {
 
         {/* ── CTA ──────────────────────────────── */}
         <section className="section cta-section" id="contact">
+          <Reveal>
           <div className="cta-card cta-centered">
             <div className="cta-copy">
               <p className="eyebrow">Free audit — 30 minutes</p>
@@ -507,6 +457,7 @@ export default function Home() {
               </a>
             </div>
           </div>
+          </Reveal>
         </section>
 
       </div>
@@ -515,14 +466,7 @@ export default function Home() {
       <footer className="site-footer">
         <div className="footer-inner">
           <div className="footer-brand">
-            <span className="footer-logo-text">Technoon.ai</span>
-            <p className="footer-tagline">
-              Founder-led AI &amp; software studio.<br />
-              Websites, AI systems, and business software — fast, fixed-price,
-              without agency bloat.
-            </p>
-            <p className="footer-loc"><MapPin size={13} /> India · Saudi Arabia &amp; GCC</p>
-            <p className="footer-loc"><Users size={13} /> Sudeshna Pal &amp; Ummer Shaiq — Co-Founders</p>
+            <FooterLogo />
           </div>
           <div className="footer-links">
             <div className="footer-col">

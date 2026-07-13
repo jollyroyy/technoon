@@ -20,7 +20,7 @@ export default function Navbar() {
     <>
       <nav className={`site-navbar${scrolled ? ' scrolled' : ''}`}>
         <div className="nav-inner">
-          <button className="nav-logo" aria-label="Technoon.ai home" onClick={() => document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' })}>
+          <button className="nav-logo" aria-label="Technoon.ai home" onClick={() => (window.__lenis ? window.__lenis.scrollTo('#hero', { immediate: true }) : document.getElementById('hero')?.scrollIntoView())}>
             <Image
               src="/logo.webp"
               alt="Technoon.ai"

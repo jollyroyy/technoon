@@ -13,9 +13,18 @@ A marketing landing page for **Technoon.ai** — a founder-led AI & software stu
 ## Tech Stack
 - **Next.js 15** + React 19 + TypeScript 5.8
 - **No Tailwind.** Plain CSS in `src/app/globals.css`
+- **GSAP + ScrollTrigger** (scroll scenes) + **Lenis** (smooth scroll) — full scrollytelling site
 - **lucide-react** for icons only
-- **Google Fonts:** Manrope (body, `--font-body`), Syne (display/headings, `--font-display`)
+- **Google Fonts:** Manrope (body, `--font-body`), Space Grotesk (display/headings, `--font-display`)
 - Static site — no backend. Chat widget is a scripted client-side demo.
+
+## Scrollytelling Architecture (July 2026 revamp)
+- **Hero** — `HeroScrolly.tsx`: canvas frame-scrub (121 webp frames `public/frames/`, 61-frame 800w mobile set `public/frames-m/`), 600vh pin (350vh mobile), 4 narrative chapter beats crossfade by scroll progress (copy lives in `heroChapters` in `page.tsx`). Progressive loading: every 8th keyframe first, then backfill. Poster `<picture>` under canvas = LCP (preloaded in `layout.tsx` with media queries).
+- **Frame pipeline** — `scripts/process-frames.mjs` (sharp): bakes vignette + watermark cover + brand tint into source PNGs from `C:/Users/ASUS/Downloads/frames/`, outputs both sets. Re-run if frames change.
+- **Global motion** — `SmoothScroll.tsx` (Lenis + GSAP ticker, exposes `window.__lenis`), `Reveal.tsx` (fade-up/stagger wrapper), `ProgressRail.tsx` (fixed right dot nav, hidden <900px).
+- **Pinned scenes** — `SolutionsScene.tsx` (sticky split, 3 offers scrub; static bento fallback <900px), `NoonHrScene.tsx` (dashboard assembles on scroll), `ProcessTimeline.tsx` (drawing line + steps light up), `CountUp.tsx` (animates numeric tokens in stat strings).
+- **Reduced motion** — every component early-returns to a static render on `prefers-reduced-motion`; hero renders `hero-static` poster variant.
+- Scene client components receive icon **names** (strings), not lucide components — server→client boundary can't pass functions.
 
 ---
 

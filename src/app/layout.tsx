@@ -5,6 +5,7 @@ import "./globals.css";
 import Navbar from "./components/Navbar";
 import ChatWidget from "./components/ChatWidget";
 import CalEmbed from "./components/CalEmbed";
+import SmoothScroll from "./components/SmoothScroll";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -83,6 +84,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${manrope.variable} ${spaceGrotesk.variable}`}>
+        {/* Hero first frame — LCP preload, per device frame set (React hoists to <head>) */}
+        <link
+          rel="preload"
+          as="image"
+          href="/frames/frame_0001.webp"
+          media="(min-width: 768px)"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/frames-m/frame_0001.webp"
+          media="(max-width: 767px)"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
@@ -101,6 +115,7 @@ export default function RootLayout({
             </Script>
           </>
         )}
+        <SmoothScroll />
         <Navbar />
         {children}
         <ChatWidget />
