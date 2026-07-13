@@ -22,7 +22,7 @@ import CountUp from "./components/CountUp";
 const heroChapters: HeroChapter[] = [
   {
     range: [0, 0.5],
-    heading: "Leads slip away. Follow-ups fall through.",
+    heading: "",
     headingAccent: "Revenue leaks silently.",
     sub: "Most SMBs lose 30%+ of inbound leads to slow replies, scattered tools, and zero automation.",
   },
