@@ -10,7 +10,7 @@ import LegalPopup from "./components/LegalPopup";
 import HeroScrolly, { type HeroChapter } from "./components/HeroScrolly";
 import ProgressRail from "./components/ProgressRail";
 import Reveal from "./components/Reveal";
-import SolutionsScene, { type SolutionSlide } from "./components/SolutionsScene";
+
 
 import ProcessTimeline, { type ProcessStep } from "./components/ProcessTimeline";
 import CountUp from "./components/CountUp";
@@ -72,27 +72,6 @@ const painPoints = [
       "WhatsApp flooded with 'Where's my shipment?' all day",
       "Customer data split across email, Excel, and group chats",
     ],
-  },
-];
-
-const solutionCards: SolutionSlide[] = [
-  {
-    icon: "globe",
-    title: "Conversion Websites",
-    copy: "Landing pages live in days. Multi-page corporate sites in weeks. Built to convert visitors into booked calls — not to win design awards.",
-    meta: "Landing page in 3–5 days",
-  },
-  {
-    icon: "bot",
-    title: "AI Receptionist",
-    copy: "Responds in seconds, qualifies leads, books meetings. Runs 24/7 on WhatsApp and your website. Like the one in the corner of this page.",
-    meta: "Live in 5–10 days",
-  },
-  {
-    icon: "zap",
-    title: "Lead Follow-up Automation",
-    copy: "Form submitted → instant reply → meeting booked → CRM updated. Email, SMS, and WhatsApp sequences with zero manual work.",
-    meta: "Live in 3–5 days",
   },
 ];
 
@@ -229,15 +208,6 @@ export default function Home() {
             <a href="#contact" className="pain-link">Let&apos;s fix it <ArrowRight size={14} /></a>
           </p>
         </section>
-
-        {/* ── SOLUTIONS — pinned scene ─────────── */}
-        <SolutionsScene
-          eyebrow="What we build"
-          headingLine1="One studio."
-          headingLine2="Three ways to fix it."
-          intro="Fixed price. Fixed scope. Delivered by the founders — no account managers, no hand-offs, no agency surprises."
-          slides={solutionCards}
-        />
 
         {/* ── CASE STUDY ───────────────────────── */}
         <section className="section section-shell" id="work">
