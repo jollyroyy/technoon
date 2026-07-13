@@ -23,8 +23,8 @@ type Props = {
 };
 
 const FRAME_SETS = {
-  desktop: { path: '/frames', count: 120 },
-  mobile: { path: '/frames-m', count: 60 },
+  desktop: { path: '/frames', count: 118 },
+  mobile: { path: '/frames-m', count: 58 },
 } as const;
 
 /** Every Nth frame loads first so scrubbing works almost immediately. */
@@ -156,7 +156,7 @@ export default function HeroScrolly({ chapters, trustLine, ctaPrimary, ctaSecond
 
     const load = (i: number, onDone?: () => void) => {
       const img = new Image();
-      img.src = `${set.path}/frame_${zeroPad(i + 2)}.webp`;
+      img.src = `${set.path}/frame_${zeroPad(i + 4)}.webp`;
       img.onload = () => {
         if (cancelled) return;
         loaded[i] = true;
@@ -312,9 +312,9 @@ export default function HeroScrolly({ chapters, trustLine, ctaPrimary, ctaSecond
 
         {/* Poster under the canvas: LCP element + no-JS fallback */}
         <picture>
-          <source media="(max-width: 767px)" srcSet="/frames-m/frame_0002.webp" />
+          <source media="(max-width: 767px)" srcSet="/frames-m/frame_0004.webp" />
           <img
-            src="/frames/frame_0002.webp"
+            src="/frames/frame_0004.webp"
             alt="Technoon.ai — AI systems that stop revenue leaks"
             className="hero-poster"
             width={1920}
