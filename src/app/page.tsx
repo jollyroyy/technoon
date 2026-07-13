@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import PricingSection from "./components/PricingSection";
 import FooterLogo from "./components/FooterLogo";
+import LegalPopup from "./components/LegalPopup";
 import HeroScrolly, { type HeroChapter } from "./components/HeroScrolly";
 import ProgressRail from "./components/ProgressRail";
 import Reveal from "./components/Reveal";
@@ -430,9 +431,21 @@ export default function Home() {
             <div className="footer-col">
               <p className="footer-col-label">Services</p>
               <a href="#solutions">Conversion Websites</a>
+              <a href="#solutions">App Development</a>
               <a href="#solutions">AI Receptionist</a>
-              <a href="#solutions">Lead Follow-up</a>
-              <a href="#technoonhr">Noon HR</a>
+              <a href="#solutions">Lead Follow-up Automation</a>
+              <a href="#solutions">Business Software</a>
+            </div>
+            <div className="footer-col">
+              <p className="footer-col-label">Digital Marketing</p>
+              <a href="#solutions">SEO</a>
+              <a href="#solutions">SEM &amp; PPC</a>
+              <a href="#solutions">Social Media Marketing</a>
+              <a href="#solutions">Brand Promotion</a>
+            </div>
+            <div className="footer-col">
+              <p className="footer-col-label">Products</p>
+              <a href="https://noon-hr.vercel.app" target="_blank" rel="noopener noreferrer">Noon HR</a>
             </div>
             <div className="footer-col">
               <p className="footer-col-label">Company</p>
@@ -445,19 +458,19 @@ export default function Home() {
               <p className="footer-col-label">Contact</p>
               <a href="mailto:info@technoon.ai" className="footer-email">info@technoon.ai</a>
               <button className="footer-linkbtn" data-cal-link="technoon/audit">Book a free audit</button>
-              <button className="footer-linkbtn" data-cal-link="technoon/hr-demo">Noon HR demo</button>
-            </div>
-            <div className="footer-col">
-              <p className="footer-col-label">Legal</p>
-              <Link href="/privacy">Privacy Policy</Link>
-              <Link href="/terms">Terms of Service</Link>
             </div>
           </div>
         </div>
         <div className="footer-bottom">
-          <p>&copy; {new Date().getFullYear()} Technoon.ai. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Technoon.ai.</p>
+          <div className="footer-legal-links">
+            <button className="legal-popup-trigger" data-legal="privacy">Privacy Policy</button>
+            <span className="footer-legal-sep">·</span>
+            <button className="legal-popup-trigger" data-legal="terms">Terms of Service</button>
+          </div>
         </div>
       </footer>
+      <LegalPopup />
     </main>
   );
 }
