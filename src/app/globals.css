@@ -1860,21 +1860,23 @@ h1, h2, h3, h4 {
   background: var(--bg); /* brand dark visible before first frame */
 }
 
-/* All visual layers fill the full viewport — navbar sits on top via z-index.
-   Only loading screen and chapter text overlays shift down 84px. */
+/* All visual layers fill the viewport below 100px offset. */
 .hero-sticky .hero-glow,
 .hero-sticky .hero-grid-bg,
 .hero-sticky .hero-poster,
 .hero-sticky .hero-grain {
   position: absolute;
   z-index: 0;
-  inset: 0;
+  top: 100px;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 
 .hero-sticky .hero-loading-screen,
 .hero-sticky .hero-chapter {
   position: absolute;
-  top: 84px;
+  top: 100px;
   right: 0;
   bottom: 0;
   left: 0;
@@ -1887,7 +1889,7 @@ h1, h2, h3, h4 {
 */
 .hero-canvas {
   position: absolute;
-  top: 0;
+  top: 100px;
   left: 0;
   z-index: 1;
   display: block;
