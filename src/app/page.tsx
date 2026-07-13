@@ -19,7 +19,20 @@ import CountUp from "./components/CountUp";
 
 /* Hero narrative beats — synced to the frame animation:
    ring assembles → Voice AI/Support front → dashboards front → full ring + Revenue */
-const heroChapters: HeroChapter[] = [];
+const heroChapters: HeroChapter[] = [
+  {
+    range: [0, 0.5],
+    heading: "Leads slip away. Follow-ups fall through.",
+    headingAccent: "Revenue leaks silently.",
+    sub: "Most SMBs lose 30%+ of inbound leads to slow replies, scattered tools, and zero automation.",
+  },
+  {
+    range: [0.5, 1],
+    heading: "See it working on",
+    headingAccent: "your business.",
+    sub: "Founder-built systems, live in days — starting with a free 30-minute audit.",
+  },
+];
 
 const heroBeats = [
   {

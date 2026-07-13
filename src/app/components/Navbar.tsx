@@ -119,7 +119,7 @@ export default function Navbar() {
 
             <div className="nav-dropdown">
               <button className="nav-dropdown-trigger">
-                Digital Marketing <ChevronDown size={16} className="nav-dropdown-chevron" />
+                Marketing <ChevronDown size={16} className="nav-dropdown-chevron" />
               </button>
               <div className="nav-dropdown-menu">
                 <div className="dropdown-group-label">Search & Ads</div>

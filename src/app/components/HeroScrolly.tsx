@@ -27,6 +27,8 @@ const FRAME_SETS = {
   mobile: { path: '/frames-m', count: 121 },
 } as const;
 
+/** CSS top offset — navbar (84px) + 50px gap. */
+const CANVAS_TOP = 134;
 /** Every Nth frame loads first so scrubbing works almost immediately. */
 const KEYFRAME_STEP = 8;
 /** Crossfade width between chapter beats, in progress units. */
@@ -39,7 +41,7 @@ function zeroPad(n: number) {
 /**
  * Cover-crop draw — fills the canvas at native DPR resolution.
  * canvas.width/height are physical pixels; drawImage coords are physical pixels.
- * Anchor: horizontal 50%, vertical 50% (true center).
+ * Anchor: horizontal 50%, vertical top (0%) — top of image is never cropped.
  */
 function drawCover(
   ctx: CanvasRenderingContext2D,
@@ -59,7 +61,7 @@ function drawCover(
   const dw = iw * scale;
   const dh = ih * scale;
   const dx = (cw - dw) / 2;
-  const dy = (ch - dh) / 2;
+  const dy = 0; // top-anchored — never crops the top of the frame
 
   ctx.clearRect(0, 0, cw, ch);
   ctx.drawImage(img, dx, dy, dw, dh);
@@ -108,12 +110,19 @@ export default function HeroScrolly({ chapters, trustLine, ctaPrimary, ctaSecond
 
     const dpr = window.devicePixelRatio || 1;
     const cssW = window.innerWidth;
-    const cssH = window.innerHeight;
+    const availH = window.innerHeight - CANVAS_TOP;
+    const ASPECT = 16 / 9;
+    /** Vertical scale — zoomed-out cinematic height, full width. */
+    const SCALE = 0.88;
+    const cssH = Math.min(Math.round((cssW / ASPECT) * SCALE), availH);
 
     canvas.width = Math.round(cssW * dpr);
     canvas.height = Math.round(cssH * dpr);
     canvas.style.width = `${cssW}px`;
     canvas.style.height = `${cssH}px`;
+    // Full width, vertically centered below the navbar
+    canvas.style.left = '0px';
+    canvas.style.top = `${CANVAS_TOP + Math.max(0, Math.round((availH - cssH) / 2))}px`;
 
     const idx = nearestLoaded(frameIndexRef.current);
     const img = imagesRef.current[idx];
@@ -210,6 +219,9 @@ export default function HeroScrolly({ chapters, trustLine, ctaPrimary, ctaSecond
 
     let lastDrawn = -1;
 
+    /** Max downward shift in px as scroll progresses 0→1. */
+    const PARALLAX_PX = 120;
+
     function loop() {
       const p = progressRef.current;
       const count = frameSetRef.current.count;
@@ -224,6 +236,9 @@ export default function HeroScrolly({ chapters, trustLine, ctaPrimary, ctaSecond
           drawCover(ctx!, canvas!, img);
         }
       }
+
+      // Parallax — canvas drifts downward as user scrolls.
+      canvas!.style.transform = `translateY(${p * PARALLAX_PX}px)`;
 
       // Chapter crossfades — direct style writes, no React re-render.
       chapterRefs.current.forEach((el, i) => {
