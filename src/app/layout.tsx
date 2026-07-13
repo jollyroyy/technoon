@@ -24,9 +24,9 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://technoon.ai"),
-  title: "Technoon.ai — AI Systems That Stop Revenue Leaks | Websites, AI Receptionists, Automation",
+  title: "Technoon.ai — AI Systems That Stop Revenue Leaks",
   description:
-    "Founder-led AI studio for growing businesses in India and the GCC. Conversion-ready websites in days, 24/7 AI receptionists on WhatsApp, lead follow-up automation, and Noon HR — our own HR SaaS. Fixed scope, fixed price.",
+    "Founder-led AI studio for growing businesses in India and the GCC. Conversion-ready websites in days, 24/7 AI receptionists on WhatsApp, lead follow-up automation, and Noon HR — our own HR SaaS.",
   alternates: { canonical: "https://technoon.ai" },
   keywords: [
     "AI agency", "AI automation agency India", "AI agency Saudi Arabia",
@@ -97,6 +97,7 @@ export default function RootLayout({
           href="/frames-m/frame_0001.webp"
           media="(max-width: 767px)"
         />
+        <link rel="preload" as="image" href="/logo.webp" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}

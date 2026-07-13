@@ -315,9 +315,10 @@ export default function HeroScrolly({ chapters, trustLine, ctaPrimary, ctaSecond
           <source media="(max-width: 767px)" srcSet="/frames-m/frame_0001.webp" />
           <img
             src="/frames/frame_0001.webp"
-            alt=""
+            alt="Technoon.ai — AI systems that stop revenue leaks"
             className="hero-poster"
-            aria-hidden="true"
+            width={1920}
+            height={1080}
             style={{ opacity: firstFrameReady ? 0 : 1 }}
           />
         </picture>
@@ -349,6 +350,7 @@ export default function HeroScrolly({ chapters, trustLine, ctaPrimary, ctaSecond
               }}
               className={`hero-chapter${isLast ? ' hero-chapter-final' : ''}`}
               style={{ opacity: i === 0 ? 1 : 0 }}
+              aria-hidden={i !== 0}
             >
               <Heading className="hero-chapter-heading">
                 {ch.heading}
@@ -358,11 +360,11 @@ export default function HeroScrolly({ chapters, trustLine, ctaPrimary, ctaSecond
               {isLast && (
                 <>
                   <div className="hero-ctas">
-                    <button className="btn btn-primary btn-lg" data-cal-link="technoon/audit">
+                    <button className="btn btn-primary btn-lg" data-cal-link="technoon/audit" tabIndex={i === 0 ? 0 : -1}>
                       {ctaPrimary}
                       <ArrowRight size={17} />
                     </button>
-                    <a className="btn btn-ghost btn-lg" href="#work">
+                    <a className="btn btn-ghost btn-lg" href="#work" tabIndex={i === 0 ? 0 : -1}>
                       {ctaSecondary}
                     </a>
                   </div>

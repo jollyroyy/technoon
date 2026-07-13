@@ -3,8 +3,15 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Technoon.ai",
-  description: "How Technoon.ai collects, uses, and protects your information.",
+  description: "How Technoon.ai collects, uses, and protects your information. Learn about data handling for AI, website, and HR services.",
   alternates: { canonical: "https://technoon.ai/privacy" },
+  openGraph: {
+    title: "Privacy Policy | Technoon.ai",
+    description: "How Technoon.ai collects, uses, and protects your information.",
+    url: "https://technoon.ai/privacy",
+    siteName: "Technoon.ai",
+    type: "website",
+  },
 };
 
 export default function PrivacyPage() {

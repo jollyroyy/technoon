@@ -69,6 +69,8 @@ export default function CalEmbed() {
           className="cal-iframe"
           title="Book a call"
           allow="calendar"
+          width="100%"
+          height="100%"
         />
       </div>
     </div>

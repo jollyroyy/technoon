@@ -1331,6 +1331,16 @@ h1, h2, h3, h4 {
 
 .cta-email-link:hover { color: #fff; }
 
+.cta-legal-note {
+  margin: 18px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+.cta-legal-note a {
+  color: var(--accent-soft);
+  text-decoration: underline;
+}
+
 /* ── footer ────────────────────────────────── */
 
 .site-footer {

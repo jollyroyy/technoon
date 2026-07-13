@@ -10,7 +10,7 @@ import HeroScrolly, { type HeroChapter } from "./components/HeroScrolly";
 import ProgressRail from "./components/ProgressRail";
 import Reveal from "./components/Reveal";
 import SolutionsScene, { type SolutionSlide } from "./components/SolutionsScene";
-import NoonHrScene from "./components/NoonHrScene";
+
 import ProcessTimeline, { type ProcessStep } from "./components/ProcessTimeline";
 import CountUp from "./components/CountUp";
 
@@ -107,21 +107,6 @@ const bejoiceStats = [
   { value: "25+", label: "Years in business" },
   { value: "24/7", label: "Operations" },
   { value: "KSA", label: "Market specialist" },
-];
-
-const technoonHrFeatures = [
-  {
-    title: "Attendance",
-    description: "Real-time tracking, geo check-in, absence alerts. No spreadsheets.",
-  },
-  {
-    title: "Payroll",
-    description: "Salaries calculated, payslips generated, bank-ready in minutes.",
-  },
-  {
-    title: "Compliance",
-    description: "Indian labor law built in — multi-country compliance on the roadmap.",
-  },
 ];
 
 const founders = [
@@ -312,9 +297,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── TECHNOON HR — pinned scene ───────── */}
-        <NoonHrScene features={technoonHrFeatures} />
-
         {/* ── FOUNDERS ─────────────────────────── */}
         <section className="section section-shell" id="founders">
           <Reveal>
@@ -426,6 +408,11 @@ export default function Home() {
               <a className="cta-email-link" href="mailto:info@technoon.ai">
                 info@technoon.ai
               </a>
+              <p className="cta-legal-note">
+                By booking, you agree to our{" "}
+                <Link href="/privacy">Privacy Policy</Link> and{" "}
+                <Link href="/terms">Terms of Service</Link>.
+              </p>
             </div>
           </div>
           </Reveal>

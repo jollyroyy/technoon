@@ -3,8 +3,15 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Terms of Service | Technoon.ai",
-  description: "Terms governing the use of Technoon.ai services.",
+  description: "Terms governing the use of Technoon.ai website development, AI automation, and software services including Noon HR.",
   alternates: { canonical: "https://technoon.ai/terms" },
+  openGraph: {
+    title: "Terms of Service | Technoon.ai",
+    description: "Terms governing the use of Technoon.ai website development, AI automation, and software services.",
+    url: "https://technoon.ai/terms",
+    siteName: "Technoon.ai",
+    type: "website",
+  },
 };
 
 export default function TermsPage() {
