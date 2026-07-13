@@ -45,13 +45,7 @@ export default function NoonHrScene({ features }: Props) {
         },
       });
 
-      tl.fromTo('.hr-copy', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.8 })
-        .fromTo('.hr-mock', { opacity: 0, y: 60, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.8 }, '<0.2')
-        .fromTo('.hr-mock-card:nth-child(1)', { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.6 })
-        .fromTo('.hr-mock-card:nth-child(2)', { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.6 }, '<0.25')
-        .fromTo('.hr-mock-card.wide', { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.6 })
-        .fromTo('.hr-mock-bars i', { scaleX: 0 }, { scaleX: 1, transformOrigin: 'left', duration: 0.7, stagger: 0.15 })
-        .to({}, { duration: 0.5 }); // hold at the end
+      tl.fromTo('.hr-copy', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.8 });
     }, container);
 
     return () => ctx.revert();
@@ -86,35 +80,7 @@ export default function NoonHrScene({ features }: Props) {
               </a>
             </div>
           </div>
-          <div className="hr-visual" aria-hidden="true">
-            <div className="hr-mock">
-              <div className="hr-mock-head">
-                <span className="hr-mock-title">Noon HR</span>
-                <span className="hr-mock-badge">Live</span>
-              </div>
-              <div className="hr-mock-row">
-                <div className="hr-mock-card">
-                  <span>Present today</span>
-                  <strong>47 / 52</strong>
-                  <em className="up">▲ on time 94%</em>
-                </div>
-                <div className="hr-mock-card">
-                  <span>Payroll — June</span>
-                  <strong>Ready</strong>
-                  <em>52 payslips generated</em>
-                </div>
-              </div>
-              <div className="hr-mock-row">
-                <div className="hr-mock-card wide">
-                  <span>Compliance</span>
-                  <div className="hr-mock-bars">
-                    <i style={{ width: '92%' }} /><i style={{ width: '78%' }} /><i style={{ width: '88%' }} />
-                  </div>
-                  <em>PF · ESI · PT — all current</em>
-                </div>
-              </div>
-            </div>
-          </div>
+
         </div>
         </div>
       </div>

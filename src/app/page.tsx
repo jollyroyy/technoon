@@ -195,12 +195,6 @@ const processSteps: ProcessStep[] = [
   },
 ];
 
-const targetStats = [
-  { value: "20–35%", label: "Revenue lift we build toward" },
-  { value: "30–60%", label: "Manual work eliminated" },
-  { value: "3–5 days", label: "Landing page live" },
-  { value: "< 24h", label: "Audit turnaround" },
-];
 
 
 
@@ -405,29 +399,6 @@ export default function Home() {
         </section>
 
         {/* ── RESULTS ──────────────────────────── */}
-        <section className="section section-shell results-shell" id="results">
-          <Reveal>
-            <div className="section-heading centered-heading">
-              <p className="eyebrow">The 90-day target</p>
-              <h2>What we build toward.</h2>
-              <p className="section-text centered-note">
-                Every system we ship is scoped against these outcomes — and we
-                review them with you at the 30, 60, and 90-day mark.
-              </p>
-            </div>
-          </Reveal>
-          <Reveal stagger=".stat-card">
-            <div className="stats-row">
-              {targetStats.map((stat) => (
-                <article className="stat-card" key={stat.label}>
-                  <strong><CountUp value={stat.value} /></strong>
-                  <span>{stat.label}</span>
-                </article>
-              ))}
-            </div>
-          </Reveal>
-        </section>
-
         {/* ── PRICING ──────────────────────────── */}
         <PricingSection />
 
