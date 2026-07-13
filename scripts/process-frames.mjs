@@ -1,13 +1,12 @@
 /**
  * Frame polish pipeline for the scrollytelling hero.
  *
- * Input : C:/Users/ASUS/Downloads/frames/frame_000001.png (241 frames, 1280x720)
+ * Input : C:/Users/ASUS/Downloads/frames/frame_000001.png (241 frames, 3840x2160)
  * Output: public/frames/frame_000001.webp   — 1600w desktop set (241 frames)
  *         public/frames-m/frame_000001.webp — 800w mobile set (every 2nd frame, renumbered 1..121)
  *
- * Bakes in: cinematic edge vignette, a dark radial patch over the AI-generator
- * watermark zone (bottom-right, ~x1150 y650 in 720p space), and a faint
- * blue/purple brand tint keyed to the site gradient.
+ * Pipeline: downscale 4K source -> 1280x720 -> apply vignette + brand tint
+ *           + bottom cover (hides full-width vendor watermark) -> resize to outputs
  *
  * Run once: node scripts/process-frames.mjs
  */
@@ -22,7 +21,7 @@ const OUT_MOBILE = 'public/frames-m';
 const W = 1280;
 const H = 720;
 
-// SVG overlay composited onto every frame at source resolution.
+// SVG overlay composited at working resolution (1280x720).
 const overlaySvg = Buffer.from(`
 <svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">
   <defs>
@@ -31,11 +30,6 @@ const overlaySvg = Buffer.from(`
       <stop offset="62%" stop-color="#040310" stop-opacity="0"/>
       <stop offset="86%" stop-color="#040310" stop-opacity="0.34"/>
       <stop offset="100%" stop-color="#040310" stop-opacity="0.62"/>
-    </radialGradient>
-    <radialGradient id="wm" cx="50%" cy="50%" r="50%">
-      <stop offset="0%"  stop-color="#05040e" stop-opacity="0.92"/>
-      <stop offset="55%" stop-color="#05040e" stop-opacity="0.55"/>
-      <stop offset="100%" stop-color="#05040e" stop-opacity="0"/>
     </radialGradient>
     <radialGradient id="tintBlue" cx="50%" cy="50%" r="50%">
       <stop offset="0%"  stop-color="#3e7dff" stop-opacity="0.10"/>
@@ -46,16 +40,14 @@ const overlaySvg = Buffer.from(`
       <stop offset="100%" stop-color="#b04dff" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="bottomFade" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%"  stop-color="#040310" stop-opacity="0"/>
-      <stop offset="72%" stop-color="#040310" stop-opacity="0"/>
-      <stop offset="100%" stop-color="#040310" stop-opacity="0.5"/>
+      <stop offset="0%"    stop-color="#040310" stop-opacity="0"/>
+      <stop offset="84%"   stop-color="#040310" stop-opacity="0"/>
+      <stop offset="93%"   stop-color="#040310" stop-opacity="0.3"/>
+      <stop offset="100%"  stop-color="#040310" stop-opacity="0.95"/>
     </linearGradient>
   </defs>
   <rect width="${W}" height="${H}" fill="url(#vignette)"/>
   <rect width="${W}" height="${H}" fill="url(#bottomFade)"/>
-  <!-- watermark cover: sparkle sits around (1090..1230, 590..710) across the sequence -->
-  <ellipse cx="1160" cy="655" rx="200" ry="130" fill="url(#wm)"/>
-  <!-- brand tint washes -->
   <ellipse cx="230" cy="160" rx="520" ry="360" fill="url(#tintBlue)"/>
   <ellipse cx="1080" cy="560" rx="520" ry="380" fill="url(#tintPurple)"/>
 </svg>
@@ -73,28 +65,34 @@ async function main() {
   const started = Date.now();
 
   // Process in small parallel batches to keep memory sane.
-  const BATCH = 8;
+  const BATCH = 4;
   let mobileIndex = 0;
 
   for (let i = 0; i < files.length; i += BATCH) {
     const batch = files.slice(i, i + BATCH).map(async (file, j) => {
-      const idx = i + j; // 0-based
+      const idx = i + j;
       const src = path.join(SRC, file);
 
-      // Polish once at source resolution.
-      const polished = await sharp(src)
+      // Step 1: Downscale 4K source -> 1280x720 working resolution.
+      const hd = await sharp(src)
+        .resize(W, H, { kernel: 'lanczos3', fit: 'fill' })
+        .png()
+        .toBuffer();
+
+      // Step 2: Composite overlay (vignette, bottom cover, brand tints).
+      const polished = await sharp(hd)
         .composite([{ input: overlaySvg }])
         .png()
         .toBuffer();
 
-      // Desktop: 1600w lanczos upscale + gentle sharpen.
+      // Step 3: Desktop output — 1600x900.
       await sharp(polished)
         .resize(1600, 900, { kernel: 'lanczos3' })
         .sharpen({ sigma: 0.8, m1: 0.6, m2: 0.4 })
         .webp({ quality: 70 })
         .toFile(path.join(OUT_DESKTOP, file.replace('.png', '.webp')));
 
-      // Mobile: every 2nd frame (0,2,4,...) at 800w, renumbered sequentially.
+      // Step 4: Mobile output — every 2nd frame, 800x450, renumbered.
       if (idx % 2 === 0) {
         const n = String(idx / 2 + 1).padStart(6, '0');
         await sharp(polished)
