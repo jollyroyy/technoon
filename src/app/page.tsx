@@ -19,30 +19,23 @@ import CountUp from "./components/CountUp";
 
 /* Hero narrative beats — synced to the frame animation:
    ring assembles → Voice AI/Support front → dashboards front → full ring + Revenue */
-const heroChapters: HeroChapter[] = [
+const heroChapters: HeroChapter[] = [];
+
+const heroBeats = [
   {
-    range: [0, 0.22],
     heading: "Every function of your business.",
     headingAccent: "One AI core.",
     sub: "Websites, voice agents, support, CRM — connected and working as one.",
   },
   {
-    range: [0.22, 0.48],
     heading: "An AI receptionist that",
     headingAccent: "never sleeps.",
     sub: "Answers calls and WhatsApp 24/7 — in English and Arabic.",
   },
   {
-    range: [0.48, 0.76],
     heading: "Automation that books meetings",
     headingAccent: "while you sleep.",
     sub: "Leads captured, followed up, and scheduled — hands-free.",
-  },
-  {
-    range: [0.76, 1],
-    heading: "See it working on",
-    headingAccent: "your business.",
-    sub: "Founder-built systems, live in days — starting with a free 30-minute audit.",
   },
 ];
 
@@ -176,6 +169,56 @@ export default function Home() {
         ctaPrimary="Book a free 30-min audit"
         ctaSecondary="See our work"
       />
+
+      {/* ── NARRATIVE BEATS ─────────────────────── */}
+      <section className="section hero-beats" id="hero-beats">
+        <div className="hero-beats-inner">
+          <Reveal stagger=".hero-beat-card">
+            <div className="hero-beats-grid">
+              {heroBeats.map((beat) => (
+                <article key={beat.heading} className="hero-beat-card">
+                  <h3 className="hero-beat-heading">
+                    {beat.heading}
+                    <span className="grad-text"> {beat.headingAccent}</span>
+                  </h3>
+                  <p className="hero-beat-sub">{beat.sub}</p>
+                </article>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ── HERO OUTRO ─────────────────────────── */}
+      <section className="section hero-outro" id="hero-outro">
+        <div className="hero-outro-inner">
+          <Reveal>
+            <h2 className="hero-outro-heading">
+              See it working on<br />
+              <span className="grad-text">your business.</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="hero-outro-sub">
+              Founder-built systems, live in days — starting with a free 30-minute audit.
+            </p>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <div className="hero-ctas">
+              <button className="btn btn-primary btn-lg" data-cal-link="technoon/audit">
+                Book a free 30-min audit
+                <ArrowRight size={17} />
+              </button>
+              <a className="btn btn-ghost btn-lg" href="#work">
+                See our work
+              </a>
+            </div>
+          </Reveal>
+          <Reveal delay={0.3}>
+            <p className="hero-trust-line">{heroTrustLine}</p>
+          </Reveal>
+        </div>
+      </section>
 
       <div className="content-stack">
 

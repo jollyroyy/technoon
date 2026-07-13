@@ -25,7 +25,7 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 export const metadata: Metadata = {
   metadataBase: new URL("https://technoon.ai"),
   title: {
-    default: "Technoon.ai — Transform Your Business with AI Powered Solutions",
+    default: "Transform Your Business with AI Powered Solutions",
     template: "%s | Technoon.ai",
   },
   description:
@@ -268,13 +268,13 @@ export default function RootLayout({
         <link
           rel="preload"
           as="image"
-          href="/frames/frame_0004.webp"
+          href="/frames/frame_000001.webp"
           media="(min-width: 768px)"
         />
         <link
           rel="preload"
           as="image"
-          href="/frames-m/frame_0004.webp"
+          href="/frames-m/frame_000001.webp"
           media="(max-width: 767px)"
         />
         <link rel="preload" as="image" href="/logo.webp" />

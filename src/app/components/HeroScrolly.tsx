@@ -23,8 +23,8 @@ type Props = {
 };
 
 const FRAME_SETS = {
-  desktop: { path: '/frames', count: 118 },
-  mobile: { path: '/frames-m', count: 58 },
+  desktop: { path: '/frames', count: 241 },
+  mobile: { path: '/frames-m', count: 121 },
 } as const;
 
 /** Every Nth frame loads first so scrubbing works almost immediately. */
@@ -33,7 +33,7 @@ const KEYFRAME_STEP = 8;
 const FADE = 0.05;
 
 function zeroPad(n: number) {
-  return String(n).padStart(4, '0');
+  return String(n).padStart(6, '0');
 }
 
 /**
@@ -156,7 +156,7 @@ export default function HeroScrolly({ chapters, trustLine, ctaPrimary, ctaSecond
 
     const load = (i: number, onDone?: () => void) => {
       const img = new Image();
-      img.src = `${set.path}/frame_${zeroPad(i + 4)}.webp`;
+      img.src = `${set.path}/frame_${zeroPad(i + 1)}.webp`;
       img.onload = () => {
         if (cancelled) return;
         loaded[i] = true;
@@ -273,20 +273,25 @@ export default function HeroScrolly({ chapters, trustLine, ctaPrimary, ctaSecond
 
   // ---------- Reduced motion: static cinematic hero ----------
   if (reducedMotion) {
+    const fallback = chapters[0] || {
+      heading: 'Every function of your business.',
+      headingAccent: 'One AI core.',
+      sub: 'Websites, voice agents, support, CRM — connected and working as one.',
+    };
     return (
       <section className="hero-static" id="hero">
         {/* poster uses <img> not next/image: fixed known asset, cover-fit */}
         <picture>
-          <source media="(max-width: 767px)" srcSet="/frames-m/frame_0061.webp" />
-          <img src="/frames/frame_0121.webp" alt="Technoon.ai — AI systems that stop revenue leaks" className="hero-poster" />
+          <source media="(max-width: 767px)" srcSet="/frames-m/frame_000121.webp" />
+          <img src="/frames/frame_000241.webp" alt="Technoon.ai — AI systems that stop revenue leaks" className="hero-poster" />
         </picture>
         <div className="hero-glow" aria-hidden="true" />
         <div className="hero-overlay hero-overlay-static">
           <h1>
-            {chapters[0].heading}
-            <span className="grad-text"> {chapters[0].headingAccent}</span>
+            {fallback.heading}
+            <span className="grad-text"> {fallback.headingAccent}</span>
           </h1>
-          <p className="hero-sub">{chapters[0].sub}</p>
+          <p className="hero-sub">{fallback.sub}</p>
           <div className="hero-ctas">
             <button className="btn btn-primary btn-lg" data-cal-link="technoon/audit">
               {ctaPrimary}
@@ -312,9 +317,9 @@ export default function HeroScrolly({ chapters, trustLine, ctaPrimary, ctaSecond
 
         {/* Poster under the canvas: LCP element + no-JS fallback */}
         <picture>
-          <source media="(max-width: 767px)" srcSet="/frames-m/frame_0004.webp" />
+          <source media="(max-width: 767px)" srcSet="/frames-m/frame_000001.webp" />
           <img
-            src="/frames/frame_0004.webp"
+            src="/frames/frame_000001.webp"
             alt="Technoon.ai — AI systems that stop revenue leaks"
             className="hero-poster"
             width={1920}

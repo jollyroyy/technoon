@@ -1,9 +1,9 @@
 /**
  * Frame polish pipeline for the scrollytelling hero.
  *
- * Input : C:/Users/ASUS/Downloads/frames/frame_XXXX.png (121 frames, 1280x720)
- * Output: public/frames/frame_XXXX.webp   — 1600w desktop set (121 frames)
- *         public/frames-m/frame_XXXX.webp — 800w mobile set (every 2nd frame, renumbered 1..61)
+ * Input : C:/Users/ASUS/Downloads/frames/frame_000001.png (241 frames, 1280x720)
+ * Output: public/frames/frame_000001.webp   — 1600w desktop set (241 frames)
+ *         public/frames-m/frame_000001.webp — 800w mobile set (every 2nd frame, renumbered 1..121)
  *
  * Bakes in: cinematic edge vignette, a dark radial patch over the AI-generator
  * watermark zone (bottom-right, ~x1150 y650 in 720p space), and a faint
@@ -66,7 +66,7 @@ async function main() {
   await mkdir(OUT_MOBILE, { recursive: true });
 
   const files = (await readdir(SRC))
-    .filter((f) => /^frame_\d{4}\.png$/.test(f))
+    .filter((f) => /^frame_\d{6}\.png$/.test(f))
     .sort();
 
   console.log(`Processing ${files.length} frames...`);
@@ -96,7 +96,7 @@ async function main() {
 
       // Mobile: every 2nd frame (0,2,4,...) at 800w, renumbered sequentially.
       if (idx % 2 === 0) {
-        const n = String(idx / 2 + 1).padStart(4, '0');
+        const n = String(idx / 2 + 1).padStart(6, '0');
         await sharp(polished)
           .resize(800, 450, { kernel: 'lanczos3' })
           .webp({ quality: 65 })
