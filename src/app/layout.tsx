@@ -25,7 +25,7 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 export const metadata: Metadata = {
   metadataBase: new URL("https://technoon.ai"),
   title: {
-    default: "Technoon.ai — AI Systems That Stop Revenue Leaks",
+    default: "Technoon.ai — Transform Your Business with AI Powered Solutions",
     template: "%s | Technoon.ai",
   },
   description:
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     "fixed price website India", "fixed price website Saudi Arabia",
   ],
   openGraph: {
-    title: "Technoon.ai — AI Systems That Stop Revenue Leaks",
+    title: "Technoon.ai — Transform Your Business with AI Powered Solutions",
     description:
       "Websites in days. AI receptionists that never sleep. Automation that books meetings while you work. Founder-led, fixed price — India & GCC.",
     url: "https://technoon.ai",
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Technoon.ai — AI Systems That Stop Revenue Leaks",
+    title: "Technoon.ai — Transform Your Business with AI Powered Solutions",
     description:
       "Websites in days. AI receptionists that never sleep. Founder-led, fixed price — India & GCC.",
     images: ["/og-image.png"]
@@ -87,8 +87,8 @@ export const metadata: Metadata = {
     google: "YOUR_GOOGLE_VERIFICATION_CODE",
   },
   other: {
-    "geo.region": "IN-SA",
-    "geo.placename": "India-Saudi Arabia",
+    "geo.region": "IN-GJ",
+    "geo.placename": "Ahmedabad, Gujarat, India",
     "geo.position": "23.0225;72.5714",
     "ICBM": "23.0225, 72.5714",
   },
@@ -141,7 +141,7 @@ const orgJsonLd = {
       "@type": "WebPage",
       "@id": "https://technoon.ai/#webpage",
       url: "https://technoon.ai",
-      name: "Technoon.ai — AI Systems That Stop Revenue Leaks",
+      name: "Technoon.ai — Transform Your Business with AI Powered Solutions",
       isPartOf: { "@id": "https://technoon.ai/#website" },
       about: { "@id": "https://technoon.ai/#organization" },
       description:
@@ -194,6 +194,60 @@ const orgJsonLd = {
         { "@type": "ListItem", position: 3, name: "Pricing", item: "https://technoon.ai/#pricing" },
       ],
     },
+    {
+      "@type": "FAQPage",
+      "@id": "https://technoon.ai/#faq",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "How much does a website cost?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Landing pages start at $350–700 and ship in 3–5 days. Multi-page corporate sites with CMS are $700–1,000 and take 1–3 weeks. All pricing is fixed — no hidden fees, no scope creep.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What industries do you serve?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "We primarily serve SMBs in India and the GCC across F&B/restaurants, fitness/gyms, and logistics. Our AI and web solutions are adaptable to most service-based businesses.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How does the AI WhatsApp receptionist work?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "It answers customer inquiries 24/7 on WhatsApp and your website, qualifies leads, answers FAQs, and books meetings into your calendar. Setup takes 5–10 days. Pricing is $400 setup + $150–300/month.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Do you serve clients outside India and Saudi Arabia?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. While our core markets are India and the GCC (Saudi Arabia, UAE, Qatar), we work with clients globally. All communication and delivery is remote.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What is Noon HR?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Noon HR is our own HR software product — employee management, attendance, payroll, and leave tracking. Pricing is $3–6 per employee per month with a $60 monthly minimum. Live in 2–5 days.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How do I get started?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Book a free 30-minute audit call via cal.com/technoon/audit. We'll review your business, identify revenue leaks, and give you a clear plan — no pitch, no pressure.",
+          },
+        },
+      ],
+    },
   ],
 };
 
@@ -207,6 +261,7 @@ export default function RootLayout({
       <head>
         <meta name="theme-color" content="#060410" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
       </head>
       <body className={`${manrope.variable} ${spaceGrotesk.variable}`}>
         {/* Hero first frame — LCP preload, per device frame set (React hoists to <head>) */}
