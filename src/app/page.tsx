@@ -21,16 +21,10 @@ import CountUp from "./components/CountUp";
    ring assembles → Voice AI/Support front → dashboards front → full ring + Revenue */
 const heroChapters: HeroChapter[] = [
   {
-    range: [0, 0.5],
+    range: [0, 1],
     heading: "",
-    headingAccent: "Revenue leaks silently.",
-    sub: "Most SMBs lose 30%+ of inbound leads to slow replies, scattered tools, and zero automation.",
-  },
-  {
-    range: [0.5, 1],
-    heading: "See it working on",
-    headingAccent: "your business.",
-    sub: "Founder-built systems, live in days — starting with a free 30-minute audit.",
+    headingAccent: "",
+    sub: "",
   },
 ];
 
@@ -198,37 +192,6 @@ export default function Home() {
                 </article>
               ))}
             </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ── HERO OUTRO ─────────────────────────── */}
-      <section className="section hero-outro" id="hero-outro">
-        <div className="hero-outro-inner">
-          <Reveal>
-            <h2 className="hero-outro-heading">
-              See it working on<br />
-              <span className="grad-text">your business.</span>
-            </h2>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <p className="hero-outro-sub">
-              Founder-built systems, live in days — starting with a free 30-minute audit.
-            </p>
-          </Reveal>
-          <Reveal delay={0.2}>
-            <div className="hero-ctas">
-              <button className="btn btn-primary btn-lg" data-cal-link="technoon/audit">
-                Book a free 30-min audit
-                <ArrowRight size={17} />
-              </button>
-              <a className="btn btn-ghost btn-lg" href="#work">
-                See our work
-              </a>
-            </div>
-          </Reveal>
-          <Reveal delay={0.3}>
-            <p className="hero-trust-line">{heroTrustLine}</p>
           </Reveal>
         </div>
       </section>
