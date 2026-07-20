@@ -173,8 +173,6 @@ export default function Home() {
       <HeroScrolly
         chapters={heroChapters}
         trustLine={heroTrustLine}
-        ctaPrimary="Book a free 30-min audit"
-        ctaSecondary="See our work"
       />
 
       {/* ── NARRATIVE BEATS ─────────────────────── */}

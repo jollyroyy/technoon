@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { ArrowRight } from 'lucide-react';
+
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -18,8 +18,6 @@ export type HeroChapter = {
 type Props = {
   chapters: HeroChapter[];
   trustLine: string;
-  ctaPrimary: string;
-  ctaSecondary: string;
 };
 
 const FRAME_SETS = {
@@ -76,7 +74,7 @@ function chapterOpacity(range: [number, number], p: number, isFirst: boolean, is
   return Math.min(fadeIn, fadeOut);
 }
 
-export default function HeroScrolly({ chapters, trustLine, ctaPrimary, ctaSecondary }: Props) {
+export default function HeroScrolly({ chapters, trustLine }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollHintRef = useRef<HTMLDivElement>(null);
@@ -307,15 +305,6 @@ export default function HeroScrolly({ chapters, trustLine, ctaPrimary, ctaSecond
             <span className="grad-text"> {fallback.headingAccent}</span>
           </h1>
           <p className="hero-sub">{fallback.sub}</p>
-          <div className="hero-ctas">
-            <button className="btn btn-primary btn-lg" data-cal-link="technoon/audit">
-              {ctaPrimary}
-              <ArrowRight size={17} />
-            </button>
-            <a className="btn btn-ghost btn-lg" href="#work">
-              {ctaSecondary}
-            </a>
-          </div>
           <p className="hero-trust-line">{trustLine}</p>
         </div>
       </section>
@@ -379,15 +368,6 @@ export default function HeroScrolly({ chapters, trustLine, ctaPrimary, ctaSecond
               <p className="hero-sub">{ch.sub}</p>
               {isLast && (
                 <>
-                  <div className="hero-ctas">
-                    <button className="btn btn-primary btn-lg" data-cal-link="technoon/audit" tabIndex={i === 0 ? 0 : -1}>
-                      {ctaPrimary}
-                      <ArrowRight size={17} />
-                    </button>
-                    <a className="btn btn-ghost btn-lg" href="#work" tabIndex={i === 0 ? 0 : -1}>
-                      {ctaSecondary}
-                    </a>
-                  </div>
                   <p className="hero-trust-line">{trustLine}</p>
                 </>
               )}
