@@ -36,5 +36,9 @@
 - [x] Preserve the approved left-side headline while responsively cropping the supplied image to keep its revenue cards and graph visible.
 - [x] Verify the exact dashboard-image composition at desktop and mobile breakpoints before saving a new checkpoint.
 - [x] Restore the reference benefit rail with Grow Customers, Save Time, Empower Teams, Manage Workplace, and Integrate & Scale as prominent first-screen pointers.
-- [ ] Remove the redundant Technoon.ai header-logo treatment and retain one clean, correctly scaled lockup.
-- [ ] Verify the simplified logo lockup integrates cleanly at desktop and mobile navigation sizes.
+- [x] Rewrite the “What we improve” section into concise Automation, Growth, and Workplace system offers with clear decision outcomes.
+- [x] Remove all header-logo box, border, and white-rule treatments so the exact Technoon mark sits directly on the deep-ink background.
+- [x] Simplify the hero eyebrow so it supports the headline without competing with the logo.
+- [x] Verify the refined offer section and clean logo presentation at desktop and mobile sizes.
+- [x] Remove the redundant Technoon.ai header-logo treatment and retain one clean, correctly scaled lockup.
+- [x] Verify the simplified logo lockup integrates cleanly at desktop and mobile navigation sizes.

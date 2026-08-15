@@ -26,9 +26,9 @@ const WORKPLACE_IMAGE = "/manus-storage/technoon-workplace-operations_a0790dd6.j
 const GROWTH_IMAGE = "/manus-storage/technoon-growth-system_ff76458a.jpg";
 
 const offerings = [
-  { number: "01", title: "Automation systems", copy: "Remove repeated hand-offs. Route work, approvals and follow-ups without adding more tabs.", tag: "Time + cost" },
-  { number: "02", title: "Growth systems", copy: "Make your brand clearer, your website sharper and every lead easier to act on.", tag: "Brand + revenue" },
-  { number: "03", title: "Workplace systems", copy: "Run people, visitors and gate passes with one accountable operational layer.", tag: "Control + clarity" },
+  { number: "01", title: "Automation systems", copy: "Remove repeat hand-offs. Route work, approvals and follow-ups without more tabs.", tag: "Time + cost" },
+  { number: "02", title: "Growth systems", copy: "Clarify your brand, sharpen your website and turn more interest into action.", tag: "Brand + revenue" },
+  { number: "03", title: "Workplace systems", copy: "Run people, visitors and gate passes through one accountable operating layer.", tag: "Control + clarity" },
 ];
 
 const products = [
@@ -92,7 +92,7 @@ export default function Home() {
           <div className="tech-grid" />
           <div className="site-container reference-hero-layout">
             <div className="reference-copy">
-              <p className="reference-eyebrow">Built for business momentum.</p><h1>Move faster.<br />Spend less.<br /><span>Look sharper.</span></h1><div className="reference-rule" /><p className="reference-description">AI, automation &amp; software that move your business forward.</p><div className="reference-actions"><a href="#contact" className="cta-primary">Let&apos;s Talk <ArrowUpRight className="h-4 w-4" /></a><a href="#solutions" className="cta-reference-secondary"><Play className="h-3.5 w-3.5" />See What We Build</a></div>
+              <p className="reference-eyebrow">Start where the friction lives.</p><h1>Move faster.<br />Spend less.<br /><span>Look sharper.</span></h1><div className="reference-rule" /><p className="reference-description">AI, automation &amp; software that move your business forward.</p><div className="reference-actions"><a href="#contact" className="cta-primary">Let&apos;s Talk <ArrowUpRight className="h-4 w-4" /></a><a href="#solutions" className="cta-reference-secondary"><Play className="h-3.5 w-3.5" />See What We Build</a></div>
             </div>
             <div className="reference-console reference-console--image" aria-label="Technoon business systems dashboard">
               <img src={REFERENCE_DASHBOARD_IMAGE} alt="Technoon business systems dashboard with revenue, growth trend, AI workflow, visitor management and task automation panels" />
