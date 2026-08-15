@@ -137,3 +137,6 @@
 - [x] Restore the previous full hero-image treatment that the user approved before the compact visual change.
 - [x] Remove top-edge clipping from the exact header logo while retaining a fully borderless, boxless presentation.
 - [x] Verify the restored hero image and complete uncut logo across desktop and mobile sizes.
+- [x] Remove product, offering, and imagery-heavy feature sections from the landing-page body.
+- [x] Retain product and capability discovery exclusively in the fixed top-navigation menus.
+- [x] Verify the focused body flow and complete desktop/mobile navigation before saving a checkpoint.
