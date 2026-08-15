@@ -42,3 +42,6 @@
 - [x] Verify the refined offer section and clean logo presentation at desktop and mobile sizes.
 - [x] Remove the redundant Technoon.ai header-logo treatment and retain one clean, correctly scaled lockup.
 - [x] Verify the simplified logo lockup integrates cleanly at desktop and mobile navigation sizes.
+- [x] Remove the “What we improve” heading, introductory copy, and all three connected-offer cards.
+- [x] Rebalance the adjacent section spacing and visual flow after removing the offer block.
+- [x] Verify the revised page flow at desktop and mobile sizes before saving a new checkpoint.

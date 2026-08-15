@@ -25,12 +25,6 @@ const WORKFLOW_IMAGE = "/manus-storage/technoon-workflow-automation_4a8ea3e7.jpg
 const WORKPLACE_IMAGE = "/manus-storage/technoon-workplace-operations_a0790dd6.jpg";
 const GROWTH_IMAGE = "/manus-storage/technoon-growth-system_ff76458a.jpg";
 
-const offerings = [
-  { number: "01", title: "Automation systems", copy: "Remove repeat hand-offs. Route work, approvals and follow-ups without more tabs.", tag: "Time + cost" },
-  { number: "02", title: "Growth systems", copy: "Clarify your brand, sharpen your website and turn more interest into action.", tag: "Brand + revenue" },
-  { number: "03", title: "Workplace systems", copy: "Run people, visitors and gate passes through one accountable operating layer.", tag: "Control + clarity" },
-];
-
 const products = [
   { id: "hr", eyebrow: "01 / People operations", name: "Noon HR", summary: "Attendance, leave, payroll readiness and employee records in one calm source of truth.", features: ["Attendance and leave", "Payroll-ready records", "Employee self-service"], accent: "#2F8CFF" },
   { id: "visitor", eyebrow: "02 / Front of house", name: "Visitor management", summary: "Turn arrivals into a composed, trackable experience for guests, hosts and security teams.", features: ["Pre-register visitors", "Instant host alerts", "Digital visit history"], accent: "#7446F7" },
@@ -102,11 +96,7 @@ export default function Home() {
           <div className="reference-signoff"><i /><span>Built with experience. Focused on impact.</span></div>
         </section>
 
-        <section id="solutions" className="site-container content-section">
-          <div className="section-split"><div><SectionTag>What we improve</SectionTag><h2>Make the business<br />easier to choose<br />and easier to run.</h2><p>Three connected offers. Start with the point of friction. Extend only where the return is clear.</p></div><div className="offer-list">{offerings.map((offering) => <article key={offering.number} className="offer-row"><b>{offering.number}</b><div><h3>{offering.title}</h3><p>{offering.copy}</p></div><span>{offering.tag}</span></article>)}</div></div>
-        </section>
-
-        <section className="dark-band">
+        <section id="solutions" className="dark-band">
           <div className="site-container"><div className="section-split band-intro"><div><SectionTag>Build with us</SectionTag><h2>Stop paying for<br />the gaps between<br />your systems.</h2></div><p>Every delayed reply, repeated entry and missed follow-up costs time, attention and confidence. We make the next action clear for customers and teams.</p></div><div className="service-grid">{[["Workflow design", "Automate repetitive work and keep approvals moving."], ["Conversion websites", "Turn a strong brand into qualified conversations."], ["Marketing operations", "Connect campaigns, follow-up and sales attention."]].map(([title, copy], index) => <article key={title} className="service-card"><div><span>0{index + 1}</span><ArrowUpRight className="h-4 w-4" /></div><h3>{title}</h3><p>{copy}</p></article>)}</div><div className="capability-strip">{["AI receptionist & voice flows", "Lead follow-up automation", "Custom business software", "Responsive conversion websites", "SEO, SEM & performance marketing", "Social & brand promotion"].map((item) => <span key={item}><i />{item}</span>)}</div><div className="band-footer"><p>Founder-led builds / Saudi & India ready</p><TextLink href="#method" light>See how we work</TextLink></div></div>
         </section>
 
