@@ -87,3 +87,7 @@
 - [x] Remove the specified service-footer labels and links.
 - [x] Remove the product-detail live-status panel, feature list, and product action link.
 - [x] Verify the simplified services and product presentation at desktop and mobile sizes before saving a checkpoint.
+- [x] Increase header-logo visibility with a restrained brightness adjustment.
+- [x] Give the footer logo the same seamless deep-ink treatment as the header, with no top-edge artifact.
+- [x] Compact the Free AI Audit form and replace its full-width submit control with a more proportionate action.
+- [x] Verify the refined logos and audit form at desktop and mobile sizes before saving a checkpoint.
