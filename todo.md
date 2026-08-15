@@ -102,3 +102,28 @@
 - [x] State what Technoon does, its mission, and its motto in a concise Who we are section.
 - [x] Remove green signal dots and lime glow accents across the visible landing-page interface.
 - [x] Increase the top-left logo by one additional visual step and raise its brightness without adding a border or box.
+- [x] Remove visible numeric labels and arrow affordances from all landing-page sections and cards.
+- [x] Rebalance the affected layouts and controls without relying on utility markers.
+- [x] Verify the simplified section hierarchy at desktop and mobile sizes before saving a checkpoint.
+- [x] Remove the boxed six-capability grid from the landing-page body.
+- [x] Add the six capabilities as a dedicated, unboxed offering in the top navigation.
+- [x] Verify the simplified page and capability navigation at desktop and mobile sizes before saving a checkpoint.
+- [x] Define five benefit-specific visuals with a shared aspect ratio and relevant system context.
+- [x] Make the hero benefit rail accessible interactive selectors that update the fixed-ratio hero visual in place.
+- [x] Verify visual consistency and selector behavior across desktop and mobile sizes before saving a checkpoint.
+- [x] Refine the Free AI Audit section with a clearer intake hierarchy, premium field surfaces, and a proportionate submit action.
+- [x] Verify the upgraded audit form’s readability and usability at desktop and mobile sizes before saving a checkpoint.
+- [x] Match the top-left logo to the seamless footer treatment by removing its container and white-edge artifact.
+- [x] Verify the seamless header-logo treatment at desktop and mobile sizes before saving a checkpoint.
+- [x] Define distinct visual and supporting context for each of the five hero benefit items.
+- [x] Make the hero benefit rail accessible interactive selectors that update the hero visual in place.
+- [x] Verify the interactive hero selector across desktop and mobile sizes before saving a checkpoint.
+- [x] Increase the header contact detail by three visual steps in size and brightness while keeping the audit CTA primary.
+- [x] Verify the updated header contact hierarchy across desktop and mobile sizes before saving a checkpoint.
+- [x] Reduce the hero headline by two visual steps while preserving its approved copy and accent line.
+- [x] Remove the hero eyebrow “Start where the friction lives.” and rebalance hero spacing.
+- [x] Verify the simplified hero typography at desktop and mobile sizes before saving a checkpoint.
+- [x] Replace photographic and nature-forward panels with abstract technical system textures and editorial interface artifacts.
+- [x] Rebuild the services presentation around the supplied split-layout, outlined-display, cyan-label reference style.
+- [x] Add a clearly labelled illustrative opportunity-ranges section only where claims are explicitly framed as planning ranges, not guarantees.
+- [x] Verify the fixed header, editorial system panels, and mobile composition before saving a checkpoint.
