@@ -140,3 +140,6 @@
 - [x] Remove product, offering, and imagery-heavy feature sections from the landing-page body.
 - [x] Retain product and capability discovery exclusively in the fixed top-navigation menus.
 - [x] Verify the focused body flow and complete desktop/mobile navigation before saving a checkpoint.
+- [ ] Copy the completed project into a separate folder inside the user's Technoon directory.
+- [ ] Push the verified completed project to an appropriate private GitHub repository.
+- [ ] Verify the GitHub repository and provide the built-in hosting publication handoff.
