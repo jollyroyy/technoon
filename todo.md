@@ -84,3 +84,6 @@
 - [x] Remove the existing three-route contact chooser and its trust-point content.
 - [x] Replace the contact experience with a concise Free AI Audit scope-intake form.
 - [x] Verify the focused Free AI Audit contact path at desktop and mobile sizes before saving a checkpoint.
+- [x] Remove the specified service-footer labels and links.
+- [x] Remove the product-detail live-status panel, feature list, and product action link.
+- [x] Verify the simplified services and product presentation at desktop and mobile sizes before saving a checkpoint.
