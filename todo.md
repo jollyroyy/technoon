@@ -127,3 +127,10 @@
 - [x] Rebuild the services presentation around the supplied split-layout, outlined-display, cyan-label reference style.
 - [x] Add a clearly labelled illustrative opportunity-ranges section only where claims are explicitly framed as planning ranges, not guarantees.
 - [x] Verify the fixed header, editorial system panels, and mobile composition before saving a checkpoint.
+- [x] Apply the new editorial white-and-outline heading treatment consistently across every remaining page heading, including the hero.
+- [x] Remove remaining legacy visual sections and older gradient heading treatments that conflict with the supplied reference direction.
+- [x] Reduce the hero heading and visual by a further measured step without weakening responsive hierarchy.
+- [x] Remove the top-left logo’s white-edge/background artifact and verify it sits directly on deep ink.
+- [x] Verify global heading consistency, compact hero proportions, and logo seamlessness on desktop and mobile.
+- [x] Restore the previously approved hero image treatment and reduce its visual footprint by approximately three visual steps.
+- [x] Verify the restored compact hero image remains readable and balanced across desktop and mobile sizes.
