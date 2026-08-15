@@ -134,3 +134,6 @@
 - [x] Verify global heading consistency, compact hero proportions, and logo seamlessness on desktop and mobile.
 - [x] Restore the previously approved hero image treatment and reduce its visual footprint by approximately three visual steps.
 - [x] Verify the restored compact hero image remains readable and balanced across desktop and mobile sizes.
+- [x] Restore the previous full hero-image treatment that the user approved before the compact visual change.
+- [x] Remove top-edge clipping from the exact header logo while retaining a fully borderless, boxless presentation.
+- [x] Verify the restored hero image and complete uncut logo across desktop and mobile sizes.
