@@ -142,4 +142,7 @@
 - [x] Verify the focused body flow and complete desktop/mobile navigation before saving a checkpoint.
 - [ ] Copy the completed project into a separate folder inside the user's Technoon directory.
 - [ ] Push the verified completed project to an appropriate private GitHub repository.
+- [ ] Push the completed project to the user-provided repository: https://github.com/jollyroyy/technoon.
+- [x] Confirm whether the existing public repository main branch should be replaced or the new landing page should be pushed on a separate branch.
+- [ ] Push the completed landing page to the confirmed manus-redesign branch without modifying main.
 - [ ] Verify the GitHub repository and provide the built-in hosting publication handoff.
