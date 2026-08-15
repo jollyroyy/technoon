@@ -50,3 +50,5 @@
 - [x] Connect the contact form and CTA labels to the visitor’s chosen path without adding salesy repetition.
 - [x] Verify the three-path conversion hierarchy at desktop and mobile sizes.
 - [x] Replace the header’s placeholder dropdown links with accessible destination menus and a restrained glass treatment.
+- [x] Replace the display-heading font with a wide neo-grotesk treatment matched to the supplied reference.
+- [x] Verify heading readability and hierarchy across desktop and mobile after the typography update.
