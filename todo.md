@@ -68,3 +68,10 @@
 - [x] Audit the simplified landing page at representative iOS, Android, and tablet viewport sizes.
 - [x] Refine touch targets, safe-area padding, navigation, imagery, and content density for phone and tablet use.
 - [x] Verify the key landing-page paths across small phone, large phone, portrait tablet, and landscape tablet viewports.
+- [x] Study the supplied reference site’s top navigation and non-hero section system.
+- [ ] Rework Technoon’s navigation and non-hero sections around the reference’s design language while preserving approved hero content.
+- [ ] Verify the preserved hero and reference-informed redesign at desktop and mobile sizes before saving a checkpoint.
+- [x] Identify the supplied reference site’s font source and closest usable typography match.
+- [x] Apply the matched display and interface typography consistently across Technoon.ai.
+- [x] Verify the reference-matched type hierarchy at desktop and mobile sizes before saving a checkpoint.
+- [x] Preserve the exact Technoon.ai logo, deep-ink canvas, blue–violet hierarchy, and restrained lime operational cues throughout the typography refinement.

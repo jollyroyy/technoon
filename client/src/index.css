@@ -159,6 +159,12 @@ body { min-width: 320px; overflow-x: clip; }
 @media (hover: none) and (pointer: coarse) { .hero-motion-scene { cursor: default; }.nav-link,.nav-menu-trigger,.mobile-link,.cta-header,.cta-primary,.cta-outline,.cta-reference-secondary { min-height: 44px; }.product-tab { min-height: 70px; }.contact-route { min-height: 64px; }.menu-button { min-height: 44px; min-width: 44px; }.product-tab,.contact-route,.reference-benefit { -webkit-tap-highlight-color: transparent; } }
 @media (max-width: 639px) { .contact-form input,.contact-form textarea { font-size: 16px; }.site-header .site-container { padding-left: max(1rem,env(safe-area-inset-left)); padding-right: max(1rem,env(safe-area-inset-right)); }.site-footer .site-container,.contact-section .site-container,.hero-section--reference .site-container { padding-left: max(1rem,env(safe-area-inset-left)); padding-right: max(1rem,env(safe-area-inset-right)); } }
 
+/* Reference type layer — Unbounded headlines / Inter interface; Technoon’s logo-led palette remains untouched. */
+.tech-shell { font-family: "Inter", sans-serif; }
+.tech-shell :is(h1,h2) { font-family: "Unbounded", sans-serif; font-weight: 500; line-height: .96; letter-spacing: -.075em; }
+.tech-shell h3 { font-family: "Unbounded", sans-serif; font-weight: 500; line-height: 1.12; letter-spacing: -.055em; }
+.tech-shell :is(button,input,textarea,select) { font-family: "Inter", sans-serif; }
+
 /* Clean-brand pass: the exact Technoon mark sits directly on the deep-ink header, with no card, rule, or duplicate framing. */
 .site-header { border-top: 0; }.site-header .brand-lockup--header,.site-header .brand-lockup--header::before,.site-header .brand-lockup--header::after,.site-header .brand-lockup--header .brand-logo { box-sizing: border-box; border: 0 !important; outline: 0; background: transparent !important; box-shadow: none !important; }.site-header .brand-lockup--header { padding: 0; line-height: 0; }.site-header .brand-lockup--header .brand-logo { display: block; width: auto; height: 3.55rem; max-width: 14rem; object-fit: contain; object-position: left center; filter: none; }
 @media (max-width: 639px) { .site-header .brand-lockup--header .brand-logo { height: 2.85rem; max-width: 11.8rem; } }
