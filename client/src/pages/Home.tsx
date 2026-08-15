@@ -77,7 +77,7 @@ export default function Home() {
             <span className="hidden font-mono text-[8px] uppercase tracking-[0.16em] text-white/40 xl:block">Business<br />systems</span>
           </a>
           <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary navigation">
-            <a href="#solutions" className="nav-link">Services</a><a href="#solutions" className="nav-link">Solutions</a><a href="#products" className="nav-link">Products</a><a href="#method" className="nav-link">Method</a><a href="#insights" className="nav-link">Insights</a>
+            <a href="#solutions" className="nav-link nav-link--drop">Services <ChevronDown className="h-3 w-3" /></a><a href="#solutions" className="nav-link nav-link--drop">Solutions <ChevronDown className="h-3 w-3" /></a><a href="#products" className="nav-link">Products</a><a href="#proof" className="nav-link">Work</a><a href="#method" className="nav-link">About</a><a href="#insights" className="nav-link">Insights</a>
           </nav>
           <div className="flex items-center gap-3">
             <a href="#contact" className="cta-header hidden sm:inline-flex">Let’s talk <ArrowUpRight className="h-3.5 w-3.5" /></a>
@@ -88,21 +88,20 @@ export default function Home() {
       </header>
 
       <main id="top">
-        <section className="hero-section">
+        <section className="hero-section hero-section--reference">
           <div className="tech-grid" />
-          <div className="site-container relative grid gap-0 lg:grid-cols-[.82fr_1.18fr]">
-            <div className="hero-copy hero-copy--console">
-              <div><SectionTag>Technoon.ai / Business systems</SectionTag><h1>Move faster.<br />Spend less.<br /><span>Look sharper.</span></h1><p>We build the connected workflows, high-converting websites and workplace systems that turn business friction into momentum.</p><div className="hero-benefits"><div><i><Check className="h-3.5 w-3.5" /></i><span><strong>Automate work.</strong> Save time. Reduce cost.</span></div><div><i><Check className="h-3.5 w-3.5" /></i><span><strong>Engage customers.</strong> Better experience. More useful leads.</span></div><div><i><Check className="h-3.5 w-3.5" /></i><span><strong>Scale confidently.</strong> Systems that grow with you.</span></div></div></div>
-              <div className="hero-actions"><a href="#contact" className="cta-primary">Book a systems review <ArrowUpRight className="h-4 w-4" /></a><TextLink href="#solutions" light>See what we improve</TextLink></div>
+          <div className="site-container reference-hero-layout">
+            <div className="reference-copy">
+              <p className="reference-eyebrow">AI-powered. Human-focused. Strategically.</p><h1>Move faster.<br />Spend less.<br /><span>Look sharper.</span></h1><div className="reference-rule" /><p className="reference-description">AI, automation &amp; software that move your business forward.</p><div className="reference-actions"><a href="#contact" className="cta-primary">Let&apos;s Talk <ArrowUpRight className="h-4 w-4" /></a><a href="#solutions" className="cta-reference-secondary"><Play className="h-3.5 w-3.5" />See What We Build</a></div>
             </div>
-            <div className="hero-console" aria-label="Illustration of a connected Technoon business system">
-              <div className="console-orbit" /><div className="console-orbit console-orbit--two" />
-              <div className="systems-console"><div className="console-topbar"><div><i />Operational overview</div><span>System layer / live</span></div><div className="console-stats"><div><span>Lead response</span><strong>Connected</strong><small>Route and follow up</small></div><div><span>Work hand-offs</span><strong>Visible</strong><small>Map each owner</small></div><div><span>Growth signal</span><strong>Focused</strong><small>Turn visits into action</small></div></div><div className="console-board"><div className="console-grid-lines" /><div className="console-line console-line--one" /><div className="console-line console-line--two" /><div className="console-line console-line--three" /><div className="console-axis"><span>Connected signals</span><span>Less operating drag</span></div></div></div>
-              <div className="console-float console-float--workflow"><span>Workflow layer</span><div><b />Request <em />Approval <em />Action</div></div><div className="console-float console-float--growth"><span>Growth layer</span><div className="mini-bars"><i /><i /><i /><i /><i /></div><strong>Message → enquiry</strong></div><div className="console-phone"><div className="phone-notch" /><CircleCheck className="h-9 w-9" /><span>Visitor checked in</span><b>Clear next action</b><div className="phone-code">▦</div></div>
-              <div className="console-caption"><span>AI · Automation · Software · Websites · Integrations</span><MoveRight className="h-4 w-4" /></div>
+            <div className="reference-console" aria-label="Illustration of Technoon connected business systems">
+              <div className="reference-orbit reference-orbit--one" /><div className="reference-orbit reference-orbit--two" />
+              <div className="reference-dashboard"><aside className="reference-rail"><i className="rail-active" /><i /><i /><i /><i /><i /></aside><div className="reference-dashboard-main"><div className="reference-dashboard-head"><strong>Business Overview</strong><div><span>This month⌄</span><b>◌</b><em>T</em></div></div><div className="reference-stat-row"><div><span>Revenue layer</span><strong>Ready</strong><small>Map the signals</small></div><div><span>Lead flow</span><strong>Connected</strong><small>Follow-up visible</small></div><div><span>Time saved</span><strong>Focused</strong><small>Less manual work</small></div><div><span>Tasks automated</span><strong>Routed</strong><small>Clear ownership</small></div></div><div className="reference-chart"><div className="reference-chart-grid" /><span>Growth trend</span><b>System momentum</b><div className="reference-chart-line" /><div className="reference-months"><i>Jan</i><i>Feb</i><i>Mar</i><i>Apr</i><i>May</i><i>Jun</i><i>Jul</i><i>Aug</i></div></div></div></div>
+              <article className="reference-float reference-float--workflow"><span>AI Workflow</span><small>Lead to customer</small><div><b>◯</b><i /> <b>▣</b><i /> <b>✓</b></div></article><article className="reference-float reference-float--visitor"><span>Visitor Management</span><strong>Checked-in</strong><small>Gate A&nbsp; · &nbsp;Ready</small><em>●</em></article><article className="reference-float reference-float--task"><span>Task Automation</span><small>Invoice Processing</small><strong>Completed</strong><div className="reference-progress"><i /></div></article>
             </div>
           </div>
-          <div className="site-container outcome-rail">{[["01", "Protect response time", "Route leads and approvals before attention goes cold."], ["02", "Lower operating drag", "Replace manual chasing with useful automation."], ["03", "Strengthen the signal", "Make the brand, site and message easier to trust."]].map(([number, title, copy]) => <a key={number} href="#solutions" className="outcome-item"><b>{number}</b><div><strong>{title}</strong><span>{copy}</span></div><ArrowDownRight className="h-4 w-4" /></a>)}</div>
+          <div className="site-container reference-benefits">{[["↗", "Grow Customers", "More leads.", "More sales."], ["ϟ", "Save Time", "Less manual", "work."], ["◌", "Empower Teams", "Work better", "together."], ["◇", "Manage Workplace", "Safer. Simpler.", "Smarter."], ["∞", "Integrate & Scale", "Everything works", "together."]].map(([symbol, title, lineOne, lineTwo]) => <a key={title} href="#solutions" className="reference-benefit"><i>{symbol}</i><div><strong>{title}</strong><span>{lineOne}<br />{lineTwo}</span></div></a>)}</div>
+          <div className="reference-signoff"><i /><span>Built with experience. Focused on impact.</span></div>
         </section>
 
         <section id="solutions" className="site-container content-section">
