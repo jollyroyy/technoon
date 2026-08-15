@@ -171,3 +171,13 @@ body { min-width: 320px; overflow-x: clip; }
 
 /* The supplied raster logo has a stray light pixel rule at its upper edge; conceal only that artifact so the logo reads directly on the header background. */
 .site-header .brand-lockup--header { position: relative; isolation: isolate; }.site-header .brand-lockup--header::after { content: ""; position: absolute; z-index: 2; top: -2px; left: -2px; width: 7.4rem; height: .52rem; background: #0a0a13 !important; pointer-events: none; }
+
+/* Scale calibration: two calmer display-type steps and a smaller, more breathable approved dashboard visual. */
+.reference-copy h1 { font-size: clamp(3.1rem,4.65vw,4.8rem); }
+.section-split h2,.section-heading h2,.contact-grid h2 { font-size: clamp(2.2rem,4vw,4.55rem); }
+.footer-cta h2 { font-size: clamp(2.25rem,4vw,4.05rem); }
+.product-detail h3 { font-size: 2.28rem; }
+.service-card h3,.offer-row h3 { font-size: 1.16rem; }.method-list h3 { font-size: .94rem; }
+.reference-console { min-height: 500px; }.reference-console--image>img { top: -12%; left: -58%; width: 140%; }
+@media (max-width: 1023px) { .reference-copy h1 { font-size: clamp(2.95rem,7.2vw,4.25rem); }.reference-console { min-height: 430px; } }
+@media (max-width: 639px) { .reference-copy h1 { font-size: clamp(2.7rem,11.6vw,3.5rem); }.reference-copy { min-height: 435px; }.reference-console { min-height: 315px; }.reference-console--image>img { top: -7%; left: -53%; width: 132%; }.section-split h2,.section-heading h2,.contact-grid h2 { font-size: clamp(2rem,8vw,2.85rem); }.footer-cta h2 { font-size: clamp(2rem,8vw,2.8rem); } }

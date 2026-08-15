@@ -75,3 +75,6 @@
 - [x] Apply the matched display and interface typography consistently across Technoon.ai.
 - [x] Verify the reference-matched type hierarchy at desktop and mobile sizes before saving a checkpoint.
 - [x] Preserve the exact Technoon.ai logo, deep-ink canvas, blue–violet hierarchy, and restrained lime operational cues throughout the typography refinement.
+- [x] Reduce the global display-heading scale by two visual steps without weakening hierarchy.
+- [x] Reduce the hero dashboard visual by three visual steps while retaining its approved content and interaction.
+- [x] Verify the reduced heading and hero scale at desktop and mobile breakpoints before saving a checkpoint.
