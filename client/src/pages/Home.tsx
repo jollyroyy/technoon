@@ -3,7 +3,7 @@
  * brand source. It must feel operational, concise and premium: no generic AI
  * spectacle, no fabricated social proof, and one clear next action at a time.
  */
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent, type PointerEvent } from "react";
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -109,11 +109,26 @@ export default function Home() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeProduct, setActiveProduct] = useState("hr");
   const [contactPath, setContactPath] = useState<ContactPathId>("audit");
+  const heroVisualRef = useRef<HTMLDivElement>(null);
   const active = products.find((product) => product.id === activeProduct) ?? products[0];
   const selectedContactPath = contactPaths.find((path) => path.id === contactPath) ?? contactPaths[0];
 
   const selectContactPath = (path: ContactPathId) => {
     setContactPath(path);
+  };
+
+  const updateHeroMotion = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "touch" || !heroVisualRef.current) return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 2;
+    const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * 2;
+    heroVisualRef.current.style.setProperty("--hero-x", x.toFixed(3));
+    heroVisualRef.current.style.setProperty("--hero-y", y.toFixed(3));
+  };
+
+  const resetHeroMotion = () => {
+    heroVisualRef.current?.style.setProperty("--hero-x", "0");
+    heroVisualRef.current?.style.setProperty("--hero-y", "0");
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -157,8 +172,9 @@ export default function Home() {
             <div className="reference-copy">
               <p className="reference-eyebrow">Start where the friction lives.</p><h1>Move faster.<br />Spend less.<br /><span>Look sharper.</span></h1><div className="reference-rule" /><p className="reference-description">AI, automation &amp; software that move your business forward.</p><div className="reference-actions"><a href="#contact" onClick={() => selectContactPath("audit")} className="cta-primary">Start a free AI audit <ArrowUpRight className="h-4 w-4" /></a><a href="#solutions" className="cta-reference-secondary"><Play className="h-3.5 w-3.5" />See What We Build</a></div>
             </div>
-            <div className="reference-console reference-console--image" aria-label="Technoon business systems dashboard">
-              <img src={REFERENCE_DASHBOARD_IMAGE} alt="Technoon business systems dashboard with revenue, growth trend, AI workflow, visitor management and task automation panels" />
+            <div ref={heroVisualRef} onPointerMove={updateHeroMotion} onPointerLeave={resetHeroMotion} className="reference-console reference-console--image hero-motion-scene" aria-label="Technoon business systems dashboard">
+              <span className="hero-scene-orbit hero-scene-orbit--one" aria-hidden="true" /><span className="hero-scene-orbit hero-scene-orbit--two" aria-hidden="true" /><span className="hero-scene-pulse hero-scene-pulse--one" aria-hidden="true" /><span className="hero-scene-pulse hero-scene-pulse--two" aria-hidden="true" />
+              <img className="hero-dashboard-image" src={REFERENCE_DASHBOARD_IMAGE} alt="Technoon business systems dashboard with revenue, growth trend, AI workflow, visitor management and task automation panels" />
             </div>
           </div>
           <div className="site-container reference-benefits">{[["↗", "Grow Customers", "More leads.", "More sales."], ["ϟ", "Save Time", "Less manual", "work."], ["◌", "Empower Teams", "Work better", "together."], ["◇", "Manage Workplace", "Safer. Simpler.", "Smarter."], ["∞", "Integrate & Scale", "Everything works", "together."]].map(([symbol, title, lineOne, lineTwo]) => <a key={title} href="#solutions" className="reference-benefit"><i>{symbol}</i><div><strong>{title}</strong><span>{lineOne}<br />{lineTwo}</span></div></a>)}</div>

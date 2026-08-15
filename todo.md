@@ -52,3 +52,6 @@
 - [x] Replace the header’s placeholder dropdown links with accessible destination menus and a restrained glass treatment.
 - [x] Replace the display-heading font with a wide neo-grotesk treatment matched to the supplied reference.
 - [x] Verify heading readability and hierarchy across desktop and mobile after the typography update.
+- [x] Add a restrained layered-motion treatment to the approved hero dashboard visual.
+- [x] Add pointer-responsive depth on supported devices while respecting reduced-motion preferences.
+- [x] Verify the interactive hero experience at desktop and mobile breakpoints before saving a checkpoint.
