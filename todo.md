@@ -1,0 +1,12 @@
+- [x] Confirm the existing project scaffold and reusable components.
+- [x] Inspect the current Technoon.ai website assets and identify the exact logo file.
+- [x] Establish a clearly separated new project folder without modifying the original Technoon site.
+- [x] Capture the selected premium design philosophy in ideas.md.
+- [x] Validate that premium typography, restrained color use, and minimal composition remain consistent across desktop and mobile.
+- [x] Generate the logo and distinct visual assets for the website.
+- [x] Build complete solution pathways for AI workflows, websites, marketing systems, and business software.
+- [x] Build dedicated product pathways for Noon HR, visitor management, and gate-pass management.
+- [x] Add proof, workflow method, industry focus, insights, and understated conversion interactions.
+- [x] Use one clearly visible but restrained primary CTA, plus a lower-commitment product exploration path.
+- [x] Verify desktop and mobile presentation, then make the final visual refinements.
+- [ ] Save a checkpoint and deliver the completed project.
