@@ -10,3 +10,7 @@
 - [x] Use one clearly visible but restrained primary CTA, plus a lower-commitment product exploration path.
 - [x] Verify desktop and mobile presentation, then make the final visual refinements.
 - [ ] Save a checkpoint and deliver the completed project.
+- [x] Rebalance the global color system so the preserved Technoon.ai blue-violet is consistently visible as a secondary brand layer alongside signal lime.
+- [x] Verify the logo-led color refinements across desktop and mobile, then save a new delivery checkpoint.
+- [x] Replace the prior logo asset with the user-supplied definitive Technoon.ai logo in the header and footer.
+- [x] Calibrate the blue–violet and deep-ink palette to the definitive logo while retaining minimal lime operational indicators.

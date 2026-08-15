@@ -22,7 +22,7 @@ import {
   X,
 } from "lucide-react";
 
-const LOGO = "/manus-storage/technoon-logo-exact_93ab0782.webp";
+const LOGO = "/manus-storage/technoon-definitive-logo_a7c1441e.png";
 const HERO_IMAGE = "/manus-storage/technoon-hero-systems_4195453c.jpg";
 const WORKFLOW_IMAGE = "/manus-storage/technoon-workflow-automation_4a8ea3e7.jpg";
 const WORKPLACE_IMAGE = "/manus-storage/technoon-workplace-operations_a0790dd6.jpg";
@@ -35,7 +35,7 @@ const productData = [
     name: "Noon HR",
     summary: "One quiet source of truth for attendance, leave, payroll and compliance.",
     features: ["Attendance and leave", "Payroll-ready records", "Employee self-service"],
-    accent: "bg-[#CEFF45]",
+    accent: "bg-[#2F8CFF]",
   },
   {
     id: "visitor",
@@ -43,7 +43,7 @@ const productData = [
     name: "Visitor management",
     summary: "A composed arrival experience with registrations, approvals and host notifications.",
     features: ["Pre-register visitors", "Instant host alerts", "Digital visit history"],
-    accent: "bg-[#9D8CFF]",
+    accent: "bg-[#7446F7]",
   },
   {
     id: "gate",
@@ -51,7 +51,7 @@ const productData = [
     name: "Gate-pass management",
     summary: "Make people and material movement accountable from request to release.",
     features: ["Configurable approvals", "Material movement logs", "Gate-side verification"],
-    accent: "bg-[#70A8FF]",
+    accent: "bg-[#A447F0]",
   },
 ];
 
@@ -64,8 +64,8 @@ const faqItems = [
 
 function SectionTag({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
   return (
-    <div className={`font-mono flex items-center gap-3 text-[10px] uppercase tracking-[0.18em] ${dark ? "text-[#CEFF45]" : "text-[#57535A]"}`}>
-      <span className={`h-1.5 w-1.5 rounded-full ${dark ? "bg-[#CEFF45]" : "bg-[#151417]"}`} />
+    <div className={`font-mono flex items-center gap-3 text-[10px] uppercase tracking-[0.18em] ${dark ? "text-[#A88BFF]" : "text-[#57535A]"}`}>
+      <span className={`h-1.5 w-1.5 rounded-full ${dark ? "bg-[#377DFF]" : "bg-[#5D46E5]"}`} />
       {children}
     </div>
   );
@@ -93,7 +93,7 @@ export default function Home() {
       <header className="sticky top-0 z-50 border-b border-black/[0.07] bg-[#F7F4ED]/90 backdrop-blur-xl">
         <div className="mx-auto flex h-[76px] max-w-[1440px] items-center justify-between px-5 sm:px-8 lg:px-12">
           <a href="#top" aria-label="Technoon.ai home" className="group flex items-center gap-2.5 transition-transform duration-200 hover:scale-[1.015]">
-            <span className="relative flex h-11 w-[132px] items-center overflow-hidden rounded-[3px] bg-[#111116] px-2.5"><img src={LOGO} alt="Technoon.ai" className="h-full w-full object-contain" /><span className="absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-[#CEFF45]" /></span>
+            <span className="relative flex h-11 w-[142px] items-center overflow-hidden rounded-[3px] border border-[#4633AC]/40 bg-[#0C0C1A] px-1.5 shadow-[0_6px_16px_rgba(66,42,175,0.16)]"><img src={LOGO} alt="Technoon.ai" className="h-full w-full object-contain" /><span className="absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-[#377DFF] shadow-[0_0_10px_#377DFF]" /></span>
             <span className="font-mono hidden text-[8px] uppercase tracking-[0.14em] text-[#777078] xl:block">Systems<br />studio</span>
           </a>
           <nav className="hidden items-center gap-7 lg:flex">
@@ -103,7 +103,7 @@ export default function Home() {
             <a className="line-link text-xs font-semibold text-[#3E3A41]" href="#work">Work</a>
           </nav>
           <div className="flex items-center gap-3">
-            <a href="#contact" className="hidden items-center gap-2 rounded-[3px] bg-[#17161A] px-4 py-2.5 text-xs font-semibold text-white transition-all duration-200 hover:bg-[#333039] active:scale-[0.97] sm:inline-flex">
+            <a href="#contact" className="hidden items-center gap-2 rounded-[3px] bg-gradient-to-r from-[#2D78E9] to-[#7144E7] px-4 py-2.5 text-xs font-semibold text-white shadow-[0_7px_18px_rgba(83,65,210,0.18)] transition-all duration-200 hover:from-[#438DFF] hover:to-[#8158F4] active:scale-[0.97] sm:inline-flex">
               Book a systems review <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
             <button onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu" className="grid h-10 w-10 place-items-center rounded-[3px] border border-black/10 text-[#17161A] lg:hidden">
@@ -115,7 +115,7 @@ export default function Home() {
           <div className="border-t border-black/10 bg-[#F7F4ED] px-5 py-6 lg:hidden">
             <div className="flex flex-col gap-4 text-base font-semibold">
               {[["Solutions", "#solutions"], ["Products", "#products"], ["Method", "#method"], ["Work", "#work"], ["Insights", "#insights"]].map(([label, href]) => <a onClick={() => setMobileOpen(false)} href={href} key={label} className="flex items-center justify-between border-b border-black/10 pb-4">{label}<ChevronRight className="h-4 w-4" /></a>)}
-              <a onClick={() => setMobileOpen(false)} href="#contact" className="mt-2 inline-flex items-center justify-between rounded-[3px] bg-[#17161A] px-4 py-3 text-sm text-white">Book a systems review <ArrowUpRight className="h-4 w-4" /></a>
+              <a onClick={() => setMobileOpen(false)} href="#contact" className="mt-2 inline-flex items-center justify-between rounded-[3px] bg-gradient-to-r from-[#2D78E9] to-[#7144E7] px-4 py-3 text-sm text-white">Book a systems review <ArrowUpRight className="h-4 w-4" /></a>
             </div>
           </div>
         )}
@@ -129,14 +129,14 @@ export default function Home() {
               <div>
                 <SectionTag>Technoon.ai / Business systems</SectionTag>
                 <h1 className="font-display mt-9 max-w-[700px] text-[clamp(3rem,7.5vw,7.25rem)] font-semibold leading-[0.92] tracking-[-0.075em] text-[#17161A]">
-                  The work between systems <span className="relative z-0 inline-block after:absolute after:bottom-[7%] after:left-0 after:-z-10 after:h-[17%] after:w-full after:bg-[#CEFF45]">should disappear.</span>
+                  The work between systems <span className="relative z-0 inline-block after:absolute after:bottom-[7%] after:left-0 after:-z-10 after:h-[17%] after:w-full after:bg-gradient-to-r after:from-[#2F8CFF] after:to-[#8B45F4]">should disappear.</span>
                 </h1>
                 <p className="mt-8 max-w-[530px] text-base leading-7 text-[#625D65] sm:text-lg">
                   Technoon designs the workflows, websites, and workplace software that make an ambitious business easier to run—and easier to grow.
                 </p>
               </div>
               <div className="mt-10 flex flex-col gap-5 sm:flex-row sm:items-center">
-                <a href="#contact" className="inline-flex w-fit items-center gap-3 rounded-[3px] bg-[#17161A] px-5 py-3.5 text-sm font-semibold text-white shadow-[0_8px_25px_rgba(23,22,26,0.12)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#37333E] active:scale-[0.97]">
+                <a href="#contact" className="inline-flex w-fit items-center gap-3 rounded-[3px] bg-gradient-to-r from-[#2D78E9] to-[#7144E7] px-5 py-3.5 text-sm font-semibold text-white shadow-[0_8px_25px_rgba(69,61,201,0.18)] transition-all duration-200 hover:-translate-y-0.5 hover:from-[#438DFF] hover:to-[#8158F4] active:scale-[0.97]">
                   Book a systems review <ArrowUpRight className="h-4 w-4" />
                 </a>
                 <a href="#products" className="inline-flex w-fit items-center gap-2 text-sm font-semibold text-[#17161A]"><span className="line-link">Explore workplace products</span><ArrowDownRight className="h-4 w-4" /></a>
@@ -156,7 +156,7 @@ export default function Home() {
           <div className="relative mx-auto grid max-w-[1440px] grid-cols-1 border-t border-black/10 sm:grid-cols-3">
             {[['01', 'Automate the work', 'AI workflows & integrations'], ['02', 'Grow the demand', 'Websites & marketing systems'], ['03', 'Run the workplace', 'HR, visitors & gate passes']].map(([number, title, caption], index) => (
               <a href={index === 2 ? '#products' : '#solutions'} key={number} className={`group flex items-center gap-4 px-5 py-5 transition-colors hover:bg-white/45 sm:px-8 lg:px-12 ${index < 2 ? 'sm:border-r sm:border-black/10' : ''}`}>
-                <span className="font-mono text-[10px] text-[#6D861B]">{number}</span><div><p className="text-sm font-semibold">{title}</p><p className="mt-0.5 text-xs text-[#736D74]">{caption}</p></div><ArrowUpRight className="ml-auto h-4 w-4 text-[#777078] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                <span className="font-mono text-[10px] text-[#5D46E5]">{number}</span><div><p className="text-sm font-semibold">{title}</p><p className="mt-0.5 text-xs text-[#736D74]">{caption}</p></div><ArrowUpRight className="ml-auto h-4 w-4 text-[#777078] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </a>
             ))}
           </div>
@@ -246,7 +246,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="bg-[#0F0F12] px-5 pb-7 pt-9 text-white sm:px-8 lg:px-12 xl:px-20"><div className="mx-auto max-w-[1440px]"><div className="flex flex-col justify-between gap-8 border-b border-white/15 pb-8 sm:flex-row sm:items-start"><a href="#top" className="group flex items-center gap-2.5"><span className="relative flex h-12 w-[142px] items-center overflow-hidden rounded-[3px] bg-[#17161A] px-2.5"><img src={LOGO} alt="Technoon.ai" className="h-full w-full object-contain" /><span className="absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-[#CEFF45]" /></span><span className="font-mono text-[8px] uppercase tracking-[0.14em] text-white/35">Business<br />systems</span></a><div className="grid grid-cols-2 gap-x-12 gap-y-3 text-xs text-white/60 sm:grid-cols-3"><a href="#solutions" className="hover:text-white">Solutions</a><a href="#products" className="hover:text-white">Products</a><a href="#method" className="hover:text-white">How we work</a><a href="#work" className="hover:text-white">Selected work</a><a href="#insights" className="hover:text-white">Insights</a><a href="mailto:info@technoon.ai" className="hover:text-white">info@technoon.ai</a></div></div><div className="flex flex-col justify-between gap-3 pt-6 font-mono text-[9px] uppercase tracking-[0.14em] text-white/40 sm:flex-row"><span>© {new Date().getFullYear()} Technoon.ai</span><span>Business systems that move as one</span></div></div></footer>
+      <footer className="bg-[#0F0F12] px-5 pb-7 pt-9 text-white sm:px-8 lg:px-12 xl:px-20"><div className="mx-auto max-w-[1440px]"><div className="flex flex-col justify-between gap-8 border-b border-white/15 pb-8 sm:flex-row sm:items-start"><a href="#top" className="group flex items-center gap-2.5"><span className="relative flex h-12 w-[150px] items-center overflow-hidden rounded-[3px] border border-[#4633AC]/40 bg-[#0C0C1A] px-1.5"><img src={LOGO} alt="Technoon.ai" className="h-full w-full object-contain" /><span className="absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-[#377DFF] shadow-[0_0_10px_#377DFF]" /></span><span className="font-mono text-[8px] uppercase tracking-[0.14em] text-white/35">Business<br />systems</span></a><div className="grid grid-cols-2 gap-x-12 gap-y-3 text-xs text-white/60 sm:grid-cols-3"><a href="#solutions" className="hover:text-white">Solutions</a><a href="#products" className="hover:text-white">Products</a><a href="#method" className="hover:text-white">How we work</a><a href="#work" className="hover:text-white">Selected work</a><a href="#insights" className="hover:text-white">Insights</a><a href="mailto:info@technoon.ai" className="hover:text-white">info@technoon.ai</a></div></div><div className="flex flex-col justify-between gap-3 pt-6 font-mono text-[9px] uppercase tracking-[0.14em] text-white/40 sm:flex-row"><span>© {new Date().getFullYear()} Technoon.ai</span><span>Business systems that move as one</span></div></div></footer>
     </div>
   );
 }
