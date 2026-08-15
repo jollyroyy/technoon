@@ -55,3 +55,16 @@
 - [x] Add a restrained layered-motion treatment to the approved hero dashboard visual.
 - [x] Add pointer-responsive depth on supported devices while respecting reduced-motion preferences.
 - [x] Verify the interactive hero experience at desktop and mobile breakpoints before saving a checkpoint.
+- [x] Remove the “How we earn trust / A new studio” proof section and its visual panel.
+- [x] Rebalance the method section’s entry and surrounding spacing after the section removal.
+- [x] Verify the simplified page flow at desktop and mobile sizes before saving a checkpoint.
+- [x] Reduce the hero dashboard scale to restore breathing room around the approved first-screen composition.
+- [x] Apply a consistent blue-to-violet accent to the final line of major display headings.
+- [x] Verify the revised hero and heading hierarchy at desktop and mobile sizes before saving a checkpoint.
+- [x] Reduce the landing page to the essential hero, services, products, method, and contact decision path.
+- [x] Remove the secondary FAQ and insights sections from the landing-page experience.
+- [x] Add restrained scroll-driven parallax to hero and selected section imagery while respecting reduced-motion preferences.
+- [x] Verify performance, readability, and page flow at desktop and mobile sizes before saving a checkpoint.
+- [x] Audit the simplified landing page at representative iOS, Android, and tablet viewport sizes.
+- [x] Refine touch targets, safe-area padding, navigation, imagery, and content density for phone and tablet use.
+- [x] Verify the key landing-page paths across small phone, large phone, portrait tablet, and landscape tablet viewports.
