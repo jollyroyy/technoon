@@ -78,3 +78,9 @@
 - [x] Reduce the global display-heading scale by two visual steps without weakening hierarchy.
 - [x] Reduce the hero dashboard visual by three visual steps while retaining its approved content and interaction.
 - [x] Verify the reduced heading and hero scale at desktop and mobile breakpoints before saving a checkpoint.
+- [x] Remove the complete “How we work / Short path” method section.
+- [x] Remove or redirect navigation and footer links that lead to the retired method section.
+- [x] Verify the simplified product-to-contact flow at desktop and mobile sizes before saving a checkpoint.
+- [x] Remove the existing three-route contact chooser and its trust-point content.
+- [x] Replace the contact experience with a concise Free AI Audit scope-intake form.
+- [x] Verify the focused Free AI Audit contact path at desktop and mobile sizes before saving a checkpoint.
