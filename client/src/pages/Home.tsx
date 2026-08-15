@@ -20,6 +20,7 @@ import {
 
 const LOGO = "/manus-storage/technoon-definitive-logo_a7c1441e.png";
 const HERO_IMAGE = "/manus-storage/technoon-hero-systems_4195453c.jpg";
+const REFERENCE_DASHBOARD_IMAGE = "/manus-storage/technoon-reference-dashboard_30b8829a.png";
 const WORKFLOW_IMAGE = "/manus-storage/technoon-workflow-automation_4a8ea3e7.jpg";
 const WORKPLACE_IMAGE = "/manus-storage/technoon-workplace-operations_a0790dd6.jpg";
 const GROWTH_IMAGE = "/manus-storage/technoon-growth-system_ff76458a.jpg";
@@ -74,7 +75,6 @@ export default function Home() {
         <div className="site-container flex h-[86px] items-center justify-between gap-5">
           <a href="#top" aria-label="Technoon.ai home" className="brand-lockup brand-lockup--header">
             <img src={LOGO} alt="Technoon.ai" className="brand-logo" />
-            <span className="hidden font-mono text-[8px] uppercase tracking-[0.16em] text-white/40 xl:block">Business<br />systems</span>
           </a>
           <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary navigation">
             <a href="#solutions" className="nav-link nav-link--drop">Services <ChevronDown className="h-3 w-3" /></a><a href="#solutions" className="nav-link nav-link--drop">Solutions <ChevronDown className="h-3 w-3" /></a><a href="#products" className="nav-link">Products</a><a href="#proof" className="nav-link">Work</a><a href="#method" className="nav-link">About</a><a href="#insights" className="nav-link">Insights</a>
@@ -92,12 +92,10 @@ export default function Home() {
           <div className="tech-grid" />
           <div className="site-container reference-hero-layout">
             <div className="reference-copy">
-              <p className="reference-eyebrow">AI-powered. Human-focused. Strategically.</p><h1>Move faster.<br />Spend less.<br /><span>Look sharper.</span></h1><div className="reference-rule" /><p className="reference-description">AI, automation &amp; software that move your business forward.</p><div className="reference-actions"><a href="#contact" className="cta-primary">Let&apos;s Talk <ArrowUpRight className="h-4 w-4" /></a><a href="#solutions" className="cta-reference-secondary"><Play className="h-3.5 w-3.5" />See What We Build</a></div>
+              <p className="reference-eyebrow">Built for business momentum.</p><h1>Move faster.<br />Spend less.<br /><span>Look sharper.</span></h1><div className="reference-rule" /><p className="reference-description">AI, automation &amp; software that move your business forward.</p><div className="reference-actions"><a href="#contact" className="cta-primary">Let&apos;s Talk <ArrowUpRight className="h-4 w-4" /></a><a href="#solutions" className="cta-reference-secondary"><Play className="h-3.5 w-3.5" />See What We Build</a></div>
             </div>
-            <div className="reference-console" aria-label="Illustration of Technoon connected business systems">
-              <div className="reference-orbit reference-orbit--one" /><div className="reference-orbit reference-orbit--two" />
-              <div className="reference-dashboard"><aside className="reference-rail"><i className="rail-active" /><i /><i /><i /><i /><i /></aside><div className="reference-dashboard-main"><div className="reference-dashboard-head"><strong>Business Overview</strong><div><span>This month⌄</span><b>◌</b><em>T</em></div></div><div className="reference-stat-row"><div><span>Revenue layer</span><strong>Ready</strong><small>Map the signals</small></div><div><span>Lead flow</span><strong>Connected</strong><small>Follow-up visible</small></div><div><span>Time saved</span><strong>Focused</strong><small>Less manual work</small></div><div><span>Tasks automated</span><strong>Routed</strong><small>Clear ownership</small></div></div><div className="reference-chart"><div className="reference-chart-grid" /><span>Growth trend</span><b>System momentum</b><div className="reference-chart-line" /><div className="reference-months"><i>Jan</i><i>Feb</i><i>Mar</i><i>Apr</i><i>May</i><i>Jun</i><i>Jul</i><i>Aug</i></div></div></div></div>
-              <article className="reference-float reference-float--workflow"><span>AI Workflow</span><small>Lead to customer</small><div><b>◯</b><i /> <b>▣</b><i /> <b>✓</b></div></article><article className="reference-float reference-float--visitor"><span>Visitor Management</span><strong>Checked-in</strong><small>Gate A&nbsp; · &nbsp;Ready</small><em>●</em></article><article className="reference-float reference-float--task"><span>Task Automation</span><small>Invoice Processing</small><strong>Completed</strong><div className="reference-progress"><i /></div></article>
+            <div className="reference-console reference-console--image" aria-label="Technoon business systems dashboard">
+              <img src={REFERENCE_DASHBOARD_IMAGE} alt="Technoon business systems dashboard with revenue, growth trend, AI workflow, visitor management and task automation panels" />
             </div>
           </div>
           <div className="site-container reference-benefits">{[["↗", "Grow Customers", "More leads.", "More sales."], ["ϟ", "Save Time", "Less manual", "work."], ["◌", "Empower Teams", "Work better", "together."], ["◇", "Manage Workplace", "Safer. Simpler.", "Smarter."], ["∞", "Integrate & Scale", "Everything works", "together."]].map(([symbol, title, lineOne, lineTwo]) => <a key={title} href="#solutions" className="reference-benefit"><i>{symbol}</i><div><strong>{title}</strong><span>{lineOne}<br />{lineTwo}</span></div></a>)}</div>

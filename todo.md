@@ -29,3 +29,12 @@
 - [x] Keep any performance-like dashboard labels illustrative and outcome-oriented rather than presenting unsupported client results.
 - [x] Verify desktop fidelity and mobile adaptation before saving the revised first-screen checkpoint.
 - [x] Restore the approved “Move faster. Spend less. Look sharper.” headline while preserving the reference-matched first-screen layout.
+- [x] Remove the redundant Technoon.ai header-logo treatment and retain one clean, correctly scaled lockup.
+- [x] Replace the hero eyebrow with concise strategic support copy that does not repeat the Technoon.ai brand.
+- [x] Verify the simplified brand hierarchy integrates cleanly at desktop and mobile navigation sizes.
+- [x] Upload and use the exact user-supplied hero reference image for the right-side dashboard rather than a recreated dashboard.
+- [x] Preserve the approved left-side headline while responsively cropping the supplied image to keep its revenue cards and graph visible.
+- [x] Verify the exact dashboard-image composition at desktop and mobile breakpoints before saving a new checkpoint.
+- [x] Restore the reference benefit rail with Grow Customers, Save Time, Empower Teams, Manage Workplace, and Integrate & Scale as prominent first-screen pointers.
+- [ ] Remove the redundant Technoon.ai header-logo treatment and retain one clean, correctly scaled lockup.
+- [ ] Verify the simplified logo lockup integrates cleanly at desktop and mobile navigation sizes.
