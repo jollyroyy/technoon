@@ -45,3 +45,8 @@
 - [x] Remove the “What we improve” heading, introductory copy, and all three connected-offer cards.
 - [x] Rebalance the adjacent section spacing and visual flow after removing the offer block.
 - [x] Verify the revised page flow at desktop and mobile sizes before saving a new checkpoint.
+- [x] Add Start a free AI audit as the clear low-commitment primary conversion path.
+- [x] Add Book a discovery call and Request a custom AI solution at strategic high-intent decision points.
+- [x] Connect the contact form and CTA labels to the visitor’s chosen path without adding salesy repetition.
+- [x] Verify the three-path conversion hierarchy at desktop and mobile sizes.
+- [x] Replace the header’s placeholder dropdown links with accessible destination menus and a restrained glass treatment.
