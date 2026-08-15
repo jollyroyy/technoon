@@ -71,16 +71,16 @@ export default function Home() {
   return (
     <div className="tech-shell">
       <header className="site-header">
-        <div className="site-container flex h-[78px] items-center justify-between gap-5">
-          <a href="#top" aria-label="Technoon.ai home" className="brand-lockup">
+        <div className="site-container flex h-[86px] items-center justify-between gap-5">
+          <a href="#top" aria-label="Technoon.ai home" className="brand-lockup brand-lockup--header">
             <img src={LOGO} alt="Technoon.ai" className="brand-logo" />
             <span className="hidden font-mono text-[8px] uppercase tracking-[0.16em] text-white/40 xl:block">Business<br />systems</span>
           </a>
           <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary navigation">
-            <a href="#solutions" className="nav-link">Solutions</a><a href="#products" className="nav-link">Products</a><a href="#method" className="nav-link">Method</a><a href="#insights" className="nav-link">Insights</a>
+            <a href="#solutions" className="nav-link">Services</a><a href="#solutions" className="nav-link">Solutions</a><a href="#products" className="nav-link">Products</a><a href="#method" className="nav-link">Method</a><a href="#insights" className="nav-link">Insights</a>
           </nav>
           <div className="flex items-center gap-3">
-            <a href="#contact" className="cta-primary hidden sm:inline-flex">Book a systems review <ArrowUpRight className="h-3.5 w-3.5" /></a>
+            <a href="#contact" className="cta-header hidden sm:inline-flex">Let’s talk <ArrowUpRight className="h-3.5 w-3.5" /></a>
             <button type="button" onClick={() => setMobileOpen((value) => !value)} aria-label="Toggle menu" aria-expanded={mobileOpen} className="menu-button lg:hidden">{mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}</button>
           </div>
         </div>
@@ -90,12 +90,17 @@ export default function Home() {
       <main id="top">
         <section className="hero-section">
           <div className="tech-grid" />
-          <div className="site-container relative grid gap-0 lg:grid-cols-[1.05fr_.95fr]">
-            <div className="hero-copy">
-              <div><SectionTag>Technoon.ai / Business systems</SectionTag><h1>Move faster.<br />Spend less.<br /><span>Look sharper.</span></h1><p>We build the connected workflows, high-converting websites and workplace systems that turn business friction into momentum.</p></div>
-              <div className="hero-actions"><a href="#contact" className="cta-primary">Book a systems review <ArrowUpRight className="h-4 w-4" /></a><TextLink href="#solutions" light>Explore what we improve</TextLink></div>
+          <div className="site-container relative grid gap-0 lg:grid-cols-[.82fr_1.18fr]">
+            <div className="hero-copy hero-copy--console">
+              <div><SectionTag>Technoon.ai / Business systems</SectionTag><h1>Move faster.<br />Spend less.<br /><span>Look sharper.</span></h1><p>We build the connected workflows, high-converting websites and workplace systems that turn business friction into momentum.</p><div className="hero-benefits"><div><i><Check className="h-3.5 w-3.5" /></i><span><strong>Automate work.</strong> Save time. Reduce cost.</span></div><div><i><Check className="h-3.5 w-3.5" /></i><span><strong>Engage customers.</strong> Better experience. More useful leads.</span></div><div><i><Check className="h-3.5 w-3.5" /></i><span><strong>Scale confidently.</strong> Systems that grow with you.</span></div></div></div>
+              <div className="hero-actions"><a href="#contact" className="cta-primary">Book a systems review <ArrowUpRight className="h-4 w-4" /></a><TextLink href="#solutions" light>See what we improve</TextLink></div>
             </div>
-            <div className="hero-visual"><img src={HERO_IMAGE} alt="A visual model of connected business systems" /><div className="hero-veil" /><div className="hero-caption"><div><p>System view / 01</p><strong>One operating layer. Fewer loose ends.</strong></div><span><MoveRight className="h-4 w-4" /></span></div></div>
+            <div className="hero-console" aria-label="Illustration of a connected Technoon business system">
+              <div className="console-orbit" /><div className="console-orbit console-orbit--two" />
+              <div className="systems-console"><div className="console-topbar"><div><i />Operational overview</div><span>System layer / live</span></div><div className="console-stats"><div><span>Lead response</span><strong>Connected</strong><small>Route and follow up</small></div><div><span>Work hand-offs</span><strong>Visible</strong><small>Map each owner</small></div><div><span>Growth signal</span><strong>Focused</strong><small>Turn visits into action</small></div></div><div className="console-board"><div className="console-grid-lines" /><div className="console-line console-line--one" /><div className="console-line console-line--two" /><div className="console-line console-line--three" /><div className="console-axis"><span>Connected signals</span><span>Less operating drag</span></div></div></div>
+              <div className="console-float console-float--workflow"><span>Workflow layer</span><div><b />Request <em />Approval <em />Action</div></div><div className="console-float console-float--growth"><span>Growth layer</span><div className="mini-bars"><i /><i /><i /><i /><i /></div><strong>Message → enquiry</strong></div><div className="console-phone"><div className="phone-notch" /><CircleCheck className="h-9 w-9" /><span>Visitor checked in</span><b>Clear next action</b><div className="phone-code">▦</div></div>
+              <div className="console-caption"><span>AI · Automation · Software · Websites · Integrations</span><MoveRight className="h-4 w-4" /></div>
+            </div>
           </div>
           <div className="site-container outcome-rail">{[["01", "Protect response time", "Route leads and approvals before attention goes cold."], ["02", "Lower operating drag", "Replace manual chasing with useful automation."], ["03", "Strengthen the signal", "Make the brand, site and message easier to trust."]].map(([number, title, copy]) => <a key={number} href="#solutions" className="outcome-item"><b>{number}</b><div><strong>{title}</strong><span>{copy}</span></div><ArrowDownRight className="h-4 w-4" /></a>)}</div>
         </section>
@@ -124,7 +129,7 @@ export default function Home() {
         <section id="contact" className="contact-section"><div className="site-container contact-grid"><div><SectionTag>Start with one operating gap</SectionTag><h2>Tell us what is<br />costing time,<br />attention or trust.</h2><p>A 30-minute systems review is enough to make the next move clearer. No pressure. No deck. Just one useful conversation.</p><div className="contact-points"><span><CircleCheck className="h-4 w-4" />30-minute working review</span><span><ShieldCheck className="h-4 w-4" />Your information stays private</span></div></div><form onSubmit={handleSubmit} className="contact-form"><label>Your name<input name="name" required placeholder="Name" /></label><label>Work email<input name="email" required type="email" placeholder="name@company.com" /></label><label>Company<input name="company" placeholder="Company name" /></label><label className="full-field">What needs to improve?<textarea name="need" required placeholder="For example: leads are slow to reach sales, the website is not converting, or approvals take too long." /></label><button type="submit" className="cta-primary justify-center">Send a systems review request <ArrowUpRight className="h-4 w-4" /></button><p>By sending this, you open a prepared email to <a href="mailto:info@technoon.ai">info@technoon.ai</a>.</p></form></div></section>
       </main>
 
-      <footer className="site-footer"><div className="site-container"><div className="footer-top"><a href="#top" className="brand-lockup"><img src={LOGO} alt="Technoon.ai" className="brand-logo" /><span className="font-mono text-[8px] uppercase tracking-[0.16em] text-white/40">Business<br />systems</span></a><div><a href="#solutions">Solutions</a><a href="#products">Products</a><a href="#method">How we work</a><a href="#insights">Insights</a><a href="mailto:info@technoon.ai">info@technoon.ai</a></div></div><div className="footer-bottom"><span>© {new Date().getFullYear()} Technoon.ai</span><span>Business systems with less drag</span></div></div></footer>
+      <footer className="site-footer site-footer--refined"><div className="site-container"><div className="footer-cta"><div><SectionTag>One useful next step</SectionTag><h2>Build a business<br />with fewer loose ends.</h2><p>Start with the one workflow, page or workplace process that is taking too much attention.</p></div><a href="#contact" className="cta-primary">Book a systems review <ArrowUpRight className="h-4 w-4" /></a></div><div className="footer-grid"><div className="footer-brand"><a href="#top" className="brand-lockup"><img src={LOGO} alt="Technoon.ai" className="brand-logo" /></a><p>Connected workflows, conversion websites and workplace systems for more capable teams.</p><a href="mailto:info@technoon.ai">info@technoon.ai <ArrowUpRight className="h-3.5 w-3.5" /></a></div><div><span>Build</span><a href="#solutions">Automation systems</a><a href="#solutions">Growth systems</a><a href="#solutions">Workplace systems</a></div><div><span>Products</span><a href="#products">Noon HR</a><a href="#products">Visitor management</a><a href="#products">Gate-pass management</a></div><div><span>Explore</span><a href="#method">How we work</a><a href="#insights">Operator notes</a><a href="#contact">Systems review</a></div></div><div className="footer-bottom"><span>© {new Date().getFullYear()} Technoon.ai</span><span>Business systems with less drag</span><span>Saudi Arabia · India</span></div></div></footer>
     </div>
   );
 }

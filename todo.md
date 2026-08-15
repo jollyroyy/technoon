@@ -20,3 +20,7 @@
 - [x] Reconfirm the definitive logo’s aspect ratio and visibility across header, footer, desktop, and mobile.
 - [x] Transform the visual system into a deep-ink dark theme using the definitive Technoon blue–violet logo colors and controlled light contrast surfaces.
 - [x] Verify all dark-theme text, CTA, and form states remain readable and usable across desktop and mobile.
+- [x] Preserve the user-approved hero copy while rebuilding the desktop composition around a stronger horizontal systems story.
+- [x] Increase logo-led navigation presence and refine the primary and secondary CTA hierarchy without using salesy claims.
+- [x] Redesign the footer into a more intentional premium brand, navigation, and contact close.
+- [x] Verify the revised reference-inspired layout at desktop and mobile breakpoints before saving a new checkpoint.
