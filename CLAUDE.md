@@ -1,175 +1,136 @@
 # technoon.ai — cinematic scroll site
 
-Read this file first, every session. It is the handoff. Keep it current; a stale
-note is worse than none.
+Read this first, every session. It is the handoff. Keep it current.
 
-**This project has no relationship to `C:\Users\ASUS\Desktop\technoon1`.** That is
-earlier, unrelated technoon work. Do not copy, mimic, or reference anything from it.
-The only file borrowed from it is the logo bitmap, and only because it is the
-official mark.
+**No relationship to `Desktop\technoon1`.** Do not copy or reference anything from it.
+
+## How to work here
+
+- Keep answers **short and to the point**. Report only when done.
+- **Do not re-verify the whole site** unless asked. Check what you changed; the full
+  Verification block is a pre-commit gate, not a per-edit ritual.
+- Keep this file compact. Facts, not essays.
 
 ---
 
 ## What this is
 
-A single-page, scroll-driven cinematic website for technoon.ai, an AI agency that
-runs the operational functions of a business. Not a SaaS template, not stacked
-sections. ONE world, ONE camera, ONE continuous story:
+A single-page, scroll-driven cinematic site for technoon.ai, an AI agency that runs a
+business's operational functions. ONE world, ONE camera, ONE continuous story:
 
-```
-BUSINESS → FRAGMENTATION → CHAOS → BOTTLENECK → AI ACTIVATION
-        → SPATIAL SPLASH → CONNECTED SYSTEM → ACCELERATION → technoon.ai
-```
+`BUSINESS → FRAGMENTATION → CHAOS → BOTTLENECK → AI ACTIVATION → SPATIAL SPLASH →
+CONNECTED SYSTEM → ACCELERATION → technoon.ai`
 
-## Where things live
+## Layout
 
 ```
 technoon2/
-├─ CLAUDE.md              ← this file
-├─ vercel.json            ← deploy config. See Deployment below.
-├─ brief/
-│  ├─ storyboard.png      ← PRIMARY visual source of truth (1536x1024, five rows)
-│  ├─ storyboard-hero.png ← the top row cropped out, used as the room reference
-│  └─ logo-source.jpg     ← official mark, 190x112 (see Logo law below)
-├─ review/                ← raw footage, inspection frames, verification. NEVER ships.
-│  ├─ seq1.mp4            ← sequence 1 raw, 15s
-│  ├─ seq2.mp4            ← sequence 2 raw, 15s
-│  ├─ room-sd-1.jpg       ← the approved room, also the video's start frame
-│  ├─ verify-spine.mjs    ← deterministic scroll-spine check (see Verification)
-│  └─ verify-contrast.sh  ← worst-frame legibility audit (see Verification)
-├─ site/                  ← the deployable site. This folder is the whole product.
-│  ├─ index.html
-│  └─ assets/
-│     ├─ vendor/          ← three.module.js, gsap.min.js, ScrollTrigger.min.js, lenis.min.js
-│     ├─ app.css          ← all styles
-│     ├─ app.js           ← the drive loop: scrub, bands, gates, reduced motion
-│     ├─ scene.js         ← the Three.js layer. BUILT BUT CURRENTLY OFF, see below
-│     ├─ detail.js        ← the function card: one native <dialog>, six panels
-│     ├─ cal.js           ← the booking card: Cal.com in a second <dialog>
-│     ├─ hero-scrub.mp4   ← the 30s core, 2 chained Seedance clips, ONE encode
-│     ├─ logo-mark.png    ← THE SHIPPED MARK. 148x102 RGBA, no plate. See Logo law.
-│     └─ *.jpg            ← poster, ending frame, overload still, logo.jpg, favicon
-│                            (logo.jpg is the untouched supplied original, kept
-│                             for reference; the page does not load it)
-└─ 10k-websites-skill/    ← build methodology. Reference only, never ships.
+├─ vercel.json            deploy config (see Deployment)
+├─ brief/                 storyboard.png (source of truth), storyboard-hero.png,
+│                         logo-source.jpg (supplied original), logo-4k.png (master)
+├─ review/                raw footage + tooling. NEVER ships.
+│                         seq1/2.mp4, room-sd-1.jpg, verify-spine.mjs,
+│                         verify-contrast.sh, gen-logo.py, Montserrat-Medium.ttf
+└─ site/                  the deployable product
+   ├─ index.html
+   └─ assets/
+      ├─ vendor/          three.module.js, gsap.min.js, ScrollTrigger.min.js, lenis.min.js
+      ├─ app.css          all styles
+      ├─ app.js           drive loop: scrub, bands, gates, reduced motion
+      ├─ scene.js         Three.js layer — BUILT BUT OFF (SCENE_3D = false)
+      ├─ detail.js        function card: one native <dialog>, six panels
+      ├─ cal.js           booking card: Cal.com in a second <dialog>
+      ├─ hero-scrub.mp4   the 30s core, 2 chained Seedance clips, ONE encode
+      ├─ logo-mark.png    THE SHIPPED MARK, 640x386 RGBA (see Logo law)
+      └─ *.jpg/png        poster, ending, overload still, favicon, logo.jpg (original)
 ```
 
-`site/` is self-contained: plain HTML, CSS, vanilla JS, vendored libraries. No build
-step, no npm at runtime, no framework. Double-clicking `index.html` gives the static
-hero; the full scrub needs a local server because browsers block `fetch` on `file://`.
-
-Preview: `npx http-server "C:\Users\ASUS\Desktop\technoon2\site" -p 8080`
+`site/` is self-contained: plain HTML/CSS/vanilla JS, vendored libs, no build step.
+The full scrub needs a local server (`fetch` is blocked on `file://`).
+Preview: `npx http-server site -p 8080`
 
 ### Deployment
 
-Vercel, from `main` on `github.com/jollyroyy/technoon`. **That repo previously held a
-completely different Next.js site**, so the Vercel project was configured for Next.js
-and kept running `next build` against a repo that has no `package.json`. `vercel.json`
-at the repo root is what corrects it, and it must stay there:
+Vercel, from `main` on `github.com/jollyroyy/technoon`. That repo previously held a
+Next.js site, so the Vercel project still has a Next.js preset. `vercel.json` at the
+repo root overrides it and must stay:
 
 ```json
 { "framework": null, "buildCommand": "", "installCommand": "", "outputDirectory": "site" }
 ```
 
-`framework: null` is Vercel's "Other" preset; an empty `buildCommand` is the
-documented way to skip the build entirely and serve files as-is. `vercel.json`
-overrides the dashboard, so the stale Next.js preset there is now inert — but if
-someone ever "fixes" the dashboard instead of this file, the override is what wins.
+`outputDirectory: "site"` is load-bearing: **only `site/` is served**, which keeps
+`review/` and `brief/` off the internet. Never widen it to `.`. Verify after deploy
+that `/review/room-sd-1.jpg` 404s.
 
-`outputDirectory: "site"` is load-bearing beyond routing: **only `site/` is served**,
-which is what keeps `review/` and `brief/` off the public internet. Do not switch this
-to Root Directory in the dashboard and do not widen it to `.` — that would publish the
-raw footage and the client brief. Verify after any deploy that `/review/room-sd-1.jpg`
-404s.
-
-The old Next.js site is preserved on the `archive/main-nextjs` branch. `main` and
-`technoon2-cinematic` are unrelated histories that both point at this project; keep
-them pushed together or the deploy silently falls behind.
+Old Next.js site preserved on `archive/main-nextjs`. `main` and `technoon2-cinematic`
+are unrelated histories pointing at this project — push them together.
 
 ---
 
-## The five laws (non-negotiable, from the client brief)
+## The five laws
 
-### 1. Logo law — amended 2026-08-16, and this is the one law that moved
+### 1. Logo law — amended twice, the only law that has moved
 
-Originally: `brief/logo-source.jpg` ships **exactly as supplied**, dark navy card and
-all, inside a `--plate` badge so the baked card read as an intentional badge rather
-than a stray rectangle.
+Original: ship `brief/logo-source.jpg` exactly as supplied.
 
-The client killed the badge on 2026-08-16: *"remove the black colour box from the
-logo … it should appear seamlessly over the normal background of the entire
-website."*
+**2026-08-16 (a):** client killed the dark plate. That could not be done by keying a
+background out — the supplied file is a near-WHITE wordmark on a near-black card, and
+on `--pearl` that reads as nothing. Blend modes can't save it either. So: recolour.
 
-**That could not be done by deleting a background, and the reason matters.** The
-supplied file is a near-WHITE wordmark baked onto a near-black card. Key the card out
-and drop the result on `--pearl` and you get an invisible logo. Blend modes cannot
-save it either: `lighten`/`screen` erase the mark along with the card, `multiply`/
-`darken` keep the card. A light-on-dark mark simply has no reading on a light page
-without a colour flip. So there were exactly two options — keep a dark box the client
-rejected, or recolour — and the client picked.
+**2026-08-16 (b):** *"the round shape is not fully done … completely take a very 4K
+kind of image … remove the AI agency."* The supplied file is 190x112 with a ~20px
+x-height. No key, upscale or SDF trace reaches 4K from that — the wordmark comes out
+lumpy. So the mark is now **rebuilt**, not extracted.
 
-**What ships now: `site/assets/logo-mark.png`**, 148x102, RGBA:
+**What ships: `site/assets/logo-mark.png`**, 640x386 RGBA, downscaled from a 3840px
+master (`brief/logo-4k.png`). Generated by **`review/gen-logo.py`**, which is checked
+in and reproducible:
 
-- the navy card is **recovered as alpha**, per pixel, from each pixel's distance from
-  the plate colour — so every glyph keeps its exact position and its exact
-  anti-aliasing. Nothing is retraced.
-- the **neutral** ink of the wordmark is flipped to `--ink` `#0E1330`.
-- every **saturated** pixel — the dot ring, the `.ai` gradient, the tagline rule —
-  keeps its own hue untouched.
-- one mild alpha gamma (0.82), because a stroke that reads as solid on near-black
-  needs more coverage to read as solid on near-white.
+- **Ring:** drawn mathematically — five concentric shells, fully closed 360°, gradient
+  cyan→blue→violet→magenta along the 135° axis, dot size growing toward magenta. The
+  supplied ring was an open spiral, which is what read as "not fully done".
+- **Wordmark:** re-set in **Montserrat Medium**, the supplied mark's own typeface
+  (0.71 IoU against the source raster; next best candidate 0.58). `technoon` in
+  `--ink`, `.ai` in the violet→magenta gradient.
+- **Geometry** is the supplied mark's own: ring centre (95,34) r32, wordmark box
+  x22–169 / y69–87, in its 190x112 space.
+- **No tagline.** "AI AGENCY" and its rules are dropped.
+- `site/assets/favicon.png` is the ring alone at 128x128 — the wordmark dies at 16px.
 
-`site/assets/logo.jpg` and `brief/logo-source.jpg` are both **kept, untouched**, as
-the supplied original. The generator is not checked in; it was a one-shot and the PNG
-is the artifact.
+`brief/logo-source.jpg` and `site/assets/logo.jpg` are kept untouched as the supplied
+original; the page does not load them.
 
-**Still forbidden, unchanged:** redrawing, revectorising, particle-ising, upscaling
-past its own 148x102 extent, or regenerating it through any AI tool. Animation is
-still only opacity, position, scale and parallax. Displayed at 100px in the nav and
-148px (native) in the arrival section; **never wider than 148px**.
+**Forbidden:** re-colouring outside the token palette, particle-ising, or regenerating
+the mark through any AI tool. Animation is opacity, position, scale and parallax only.
+Displayed at 100px in the nav and 148px in the arrival section.
 
-`--plate` survives as a token because the skip link still uses it. `.brand-plate` also
-survives, but purely as the transform hook for the hover lift — **it must stay
-visually inert**. Give it a background, padding or a radius and the box the client
-rejected comes straight back.
+`--plate` survives as a token (the skip link uses it). `.brand-plate` survives purely
+as the hover-lift transform hook — **it must stay visually inert**. A background,
+padding or radius on it brings the rejected box back.
 
-**Flag for the client:** this is a recolour of the supplied mark, which the original
-law banned outright. It was the only way to satisfy the instruction. If they want the
-mark untouched instead, the ask is an **officially supplied light-background version**
-of the logo — that is a client deliverable, not something to solve in code.
+**Flag for the client:** the mark is now a reconstruction, faithful in geometry,
+colour and typeface but not pixel-identical to the 190px JPEG. The clean fix is an
+**officially supplied vector (SVG/AI/EPS) logo**. That is a client deliverable.
 
 ### 2. Text law — the complete allowlist
-The client's brief bans body copy, but carves out text "explicitly required by the
-supplied storyboard or explicitly provided by me". The storyboard's pain and solution
-lines meet BOTH conditions (2026-08-16: "tell the pain points faced by each business
-vertical and how our AI is solving it"). So these strings, and only these, are the
-brand-visible text on the site. A line that is not on this list is a defect.
 
-**The list is closed, but the client can open it.** That second clause, "explicitly
-provided by me", is the only door in. `Free Audit` came through it on 2026-08-16 and
-is listed below because of that, not as an exception to the law. Anything the client
-asks for in writing is admitted the same way and gets added here at the same time.
-Nothing else is.
+The brief bans body copy but carves out text "explicitly required by the supplied
+storyboard or explicitly provided by me". A line not on this list is a defect.
 
-**The same door works in reverse.** `You run the business. / We run what moves it.`
-was the hero heading until 2026-08-16, when the client supplied
-`Move faster. / Spend less. / Look sharper.` to replace it. The old pair is now OFF
-the list and off the page — including `og:description`, which carried it. If it
-appears anywhere again, that is a defect, not nostalgia. `Strategy. Systems. Growth.`
-was NOT part of that swap and still sits under the new heading.
+**The list is closed, but the client can open it** through that second clause —
+`Free Audit` came through it. **It works in reverse too:** `You run the business. /
+We run what moves it.` was replaced 2026-08-16 and is now OFF the list and off the
+page, including `og:description`.
 
 ```
-Move faster.
-Spend less.
-Look sharper.
+Move faster. / Spend less. / Look sharper.
 Strategy. Systems. Growth.
 
 MARKETING              → Too much activity. Not enough impact.
 SALES                  → Leads everywhere. Follow-up nowhere.
 OPERATIONS             → Requests never stop. Agents overwhelmed.
-HR SOLUTIONS           (label only)
-CUSTOM SOLUTIONS       (label only)
-CUSTOMER SUCCESS       (label only)
+HR SOLUTIONS / CUSTOM SOLUTIONS / CUSTOMER SUCCESS   (labels only)
 
 SMART MARKETING        → Smarter campaigns. Better results. Less effort.
 AI-POWERED SALES       → Research. Reach out. Close more. On autopilot.
@@ -182,428 +143,285 @@ You don't worry about the functions.
 We take care of the strategy.
 Intelligence that runs your business. So you can lead it.
 
-Free Audit
-Build Your Intelligent Business
-technoon.ai
+Free Audit / Build Your Intelligent Business / technoon.ai
 ```
 
-No other copy. No "Learn more", no "Explore", no lorem ipsum, no filler.
+**FINANCE was removed entirely 2026-08-16.** Gone from the allowlist, spine, dock,
+`MEDAL_COUNT` and contrast audit. Do not reintroduce it.
 
-**FINANCE was removed entirely on 2026-08-16** at the client's instruction. It is gone
-from the allowlist, the spine, the dock, the 3D medallion count and the contrast audit.
-Do not reintroduce it as a label, a chip or a card.
+**OUTSTANDING (the only thing waiting on the client):** the three label-only functions
+have no offering copy. Their `.detail-panel` blocks reuse the approved closing line
+until the client supplies real pain + solution lines. Do NOT write copy for them.
 
-**OUTSTANDING, and the only thing on this page waiting on the client:** HR SOLUTIONS,
-CUSTOM SOLUTIONS and CUSTOMER SUCCESS are label-only in the storyboard, so their
-function cards have no offering copy of their own. They currently reuse the approved
-closing line. The client chose on 2026-08-16 to supply a real pain line and solution
-line for each. When those arrive they drop straight into the three `.detail-panel`
-blocks in `index.html` and go on the list above. Until then, do NOT write copy for
-them; that is the zero-hallucination law, not a formatting preference.
-
-Permitted non-brand text, because the site would be broken or inaccessible without
-it: `<title>`, the meta description, the skip link, visually-hidden screen-reader
-copies of split headlines, `alt` attributes, `aria-label`s, and `© 2026 technoon.ai`.
+Permitted non-brand text: `<title>`, meta description, skip link, visually-hidden
+screen-reader copies, `alt`, `aria-label`, `© 2026 technoon.ai`.
 
 ### 3. Spelling law
-The brand is **always** `technoon.ai`. Never Technoon, Technoon AI, Technoon.ai,
-TechNoon. Zero spelling mistakes anywhere. Re-run the audit under Verification after
-any copy change.
+Always `technoon.ai`. Never Technoon, Technoon AI, Technoon.ai, TechNoon.
 
 ### 4. Zero-hallucination law
-Never invent customers, partners, awards, certifications, testimonials, statistics,
-case studies, integrations, or ROI figures.
-
-**Decided 2026-08-16:** the storyboard's results panel (+128% revenue, +156% sales,
-+78% efficiency, 8.6x ROI) is **omitted** by client decision, because those numbers
-are unverified. If real verified figures ever arrive, that is the one place they may
-go. Third-party marks in the storyboard (Instagram, Facebook, LinkedIn) are **not**
-reproduced either: they are other companies' trademarks and the brief bans logos in
-generated media. Abstract card and tile shapes read the same at a glance.
+Never invent customers, partners, awards, testimonials, statistics, case studies,
+integrations or ROI figures. The storyboard's results panel (+128% revenue etc.) is
+**omitted** by client decision — unverified. Third-party marks (Instagram, Facebook,
+LinkedIn) are not reproduced.
 
 ### 5. AI-media law
-Generated imagery and video must contain **no** text, lettering, signage, readable
-UI, or logos. Every generation prompt ends with an explicit ban. All real text is
-rendered in HTML/CSS/SVG so it stays perfectly sharp and correctly spelled.
+Generated imagery/video must contain **no** text, lettering, signage, readable UI or
+logos. Every generation prompt ends with an explicit ban. All real text is HTML/CSS/SVG.
 
 ---
 
-## The room (fixed, non-negotiable)
+## The room (fixed)
 
-Client instruction 2026-08-16: **"same exact office space, no deviation."** The room
-is defined by `brief/storyboard-hero.png` and realised in `review/room-sd-1.jpg`,
-which is the video's start frame. Its fixed inventory:
+Client: **"same exact office space, no deviation."** Defined by
+`brief/storyboard-hero.png`, realised in `review/room-sd-1.jpg` (the video's start
+frame). Inventory:
 
-- **Left:** bare warm mid-grey feature wall, white lacquered L-shaped reception
-  counter with a slim silver monitor, black mesh task chair and a small plant, a pale
-  grey sofa with a round chrome-legged side table at the far edge, warm LED strip
-  along the wall base.
-- **Centre:** polished light-grey floor with long reflections, floor-to-ceiling city
-  window wall, two palms in white cylindrical planters, grey lounge armchairs.
-- **Right:** glass-walled conference room, slim dark frames, graphite table, about ten
-  grey mesh chairs, a **blank** wall display, floor lamp and plant at the far edge.
-- **Ceiling:** white with recessed linear warm-white cove strips.
+- **Left:** warm mid-grey feature wall, white L-shaped reception counter with a slim
+  monitor, black mesh chair, small plant, pale grey sofa + chrome-legged side table,
+  warm LED strip at the wall base.
+- **Centre:** polished light-grey floor, floor-to-ceiling city window wall, two palms
+  in white cylindrical planters, grey lounge armchairs.
+- **Right:** glass-walled conference room, slim dark frames, graphite table, ~10 grey
+  mesh chairs, a **blank** wall display, floor lamp and plant.
+- **Ceiling:** white, recessed linear warm-white cove strips.
 
-The wall and the display stay **bare** in every generation. The real logo is never
-generated into a shot; it lives in HTML only.
+The wall and display stay **bare** in every generation; the logo lives in HTML only.
 
-Known drift, accepted: in sequence 2 the left wall returns as textured stone rather
-than flat plaster. Texture identity does not carry across an AI generation. It is not
-visible at the seam (the join happens inside the white void, four seconds before the
-wall reappears) and sits at the frame edge.
+Known drift, accepted: in seq2 the left wall returns as textured stone. The seam sits
+inside the white void four seconds before the wall reappears, at the frame edge.
 
 ---
 
 ## Design system
 
-**Direction: "The Pearl Floor."** One room, the storyboard's room, that the camera
-travels forward through while it fills with overload, freezes, and is then rebuilt as
-an ordered system. Light theme throughout. Never converted to dark.
+**Direction: "The Pearl Floor."** One room the camera travels through as it fills with
+overload, freezes, and is rebuilt as an ordered system. Light theme. Never dark.
 
-**Legibility is INVERTED here, and this trips people up.** The world is bright,
-high-key, near-white, and the type is dark ink. So every scrim is a *light pearl
-wash*, never a dark one, and the text shadow is a light halo. The worst-frame audit
-hunts the **darkest** pixel under the text, not the lightest.
+**Legibility is INVERTED here.** The world is near-white and the type is dark ink, so
+every scrim is a *light pearl wash* and the text shadow is a light halo. The worst-frame
+audit hunts the **darkest** pixel under the text.
 
-**Signature element: the light ribbon.** A wide, soft, flowing band of light grading
-cyan to violet to magenta that threads the business functions together. It is lifted
-straight from the storyboard's rows 3 and 4, where it is the device that visually
-links the functions. It carries the whole boldness budget; everything else stays
-quiet.
+**Signature: the light ribbon** — a soft band grading cyan→violet→magenta, lifted from
+storyboard rows 3–4 where it links the functions. It carries the whole boldness budget.
 
-**Where the ribbon may appear, after 2026-08-16:** the hero rule, the `.ghost` dot,
-and the left edge of each card in the reduced-motion static cut (§13b — the phone
-cinematic cut has no cards to edge, so the hero rule is the only ribbon a phone
-sees). That is the list. The blurred band that used to cross
-behind the dock pills was removed the same day, because at that size and blur it
-stopped reading as a thread joining the functions and started reading as a stray
-purple shape parked in the middle of the frame. The lesson generalises, and it is the
-same one the dot ring taught: **on this page the ribbon works as a crisp, deliberate
-mark and fails as a soft floating glow.** Do not reintroduce it as ambient haze.
+**Where it may appear:** the hero rule, the `.ghost` dot, and the left edge of each card
+in the reduced-motion static cut. That is the list. The blurred band behind the dock
+pills was removed 2026-08-16 — at that size it read as a stray purple shape. **On this
+page the ribbon works as a crisp mark and fails as a soft floating glow.**
 
-**An earlier build used a dot ring as the signature and the client rejected it**
-("why are you focusing too much on the ring? Exclude the ring"). The ring geometry now
-appears exactly once, inside the footage at the AI Moment of Truth, and is never
-reused as a motif. Do not reintroduce it as a HUD, a marker, an orbit, or a section
-device.
-
-**Palette** (sampled from the storyboard, not invented):
+**An earlier dot-ring motif was rejected** ("Exclude the ring"). The ring geometry
+appears once inside the footage at the AI Moment of Truth, and never as a HUD, marker,
+orbit or section device. (The logo's own ring is the mark, not a motif.)
 
 | Token | Hex | Use |
 |---|---|---|
-| `--pearl` | `#F2F4F8` | page canvas. Never pure `#fff`. |
+| `--pearl` | `#F2F4F8` | canvas. Never pure `#fff`. |
 | `--pearl-2` | `#E8ECF4` | recessed surfaces |
 | `--ink` | `#0E1330` | primary type |
 | `--ink-soft` | `#2A3154` | secondary type |
 | `--slate` | `#5A628A` | tertiary, small labels |
-| `--violet` | `#6C4CE0` | primary accent — rare doses only |
+| `--violet` | `#6C4CE0` | primary accent — rare doses |
 | `--cyan` | `#35B8F2` | ribbon cool end |
 | `--magenta` | `#C64BE8` | ribbon warm end |
-| `--plate` | `#080918` | the logo badge, sampled from logo-source.jpg |
+| `--plate` | `#080918` | skip link only |
 
-The accent appears only on: the word "moves", the word "strategy", the kickers, the
-CTA, focus rings, the hero rule, the ribbon, and the lit chain chips. Nowhere else.
+Accent appears only on: "moves", "strategy", the kickers, the CTA, focus rings, the
+hero rule, the ribbon, and the lit chain chips.
 
-**Type** — two faces only, because the site carries a short fixed set of strings and
-a third face would be decoration.
-- Display: **Familjen Grotesk** (500, 700) — headings, labels, kickers, the CTA
-- Body: **Hanken Grotesk** (400, 500) — the sublines and the footer
-
-Never Inter or Roboto as display.
+**Type** — two faces only. Display: **Familjen Grotesk** (500, 700). Body: **Hanken
+Grotesk** (400, 500). Never Inter or Roboto as display. (Montserrat is not a web font
+here — it exists only inside the baked logo PNG.)
 
 ---
 
 ## The scroll spine — sixteen beats
 
-One pinned sticky stage owns **1800vh** of scroll. Progress 0→1 drives the video, the
-3D camera and the caption bands together. No hard section breaks. Minimum band width
-is 0.055 of progress, which is about 94vh, so every beat survives roughly 7 to 8
-normal scroll flicks.
+One pinned sticky stage owns **1800vh**. Progress 0→1 drives video, 3D camera and
+caption bands together. Minimum band width 0.055 (~94vh), so every beat survives 7–8
+scroll flicks.
 
-| Progress | Beat | Visible text |
+| Progress | Beat | Text |
 |---|---|---|
-| 0.000–0.058 | BUSINESS. The office. | `Move faster. Spend less. Look sharper.` + `Strategy. Systems. Growth.` |
-| 0.058–0.120 | FRAGMENTATION | `MARKETING` + its pain line |
-| 0.120–0.185 | FRAGMENTATION | `SALES` + its pain line |
-| 0.185–0.250 | FRAGMENTATION | `OPERATIONS` + its pain line |
+| 0.000–0.058 | BUSINESS. The office. | hero heading + `Strategy. Systems. Growth.` |
+| 0.058–0.120 | FRAGMENTATION | `MARKETING` + pain |
+| 0.120–0.185 | FRAGMENTATION | `SALES` + pain |
+| 0.185–0.250 | FRAGMENTATION | `OPERATIONS` + pain |
 | 0.250–0.323 | CHAOS | `HR SOLUTIONS` |
 | 0.323–0.397 | CHAOS | `CUSTOM SOLUTIONS` |
 | 0.397–0.470 | CHAOS | `CUSTOMER SUCCESS` |
-| 0.470–0.530 | BOTTLENECK, maximum overload | none |
-| 0.530–0.575 | **THE STOP.** Everything freezes. | none |
-| 0.575–0.640 | AI ACTIVATION. The core forms. | none |
+| 0.470–0.530 | BOTTLENECK, max overload | none |
+| 0.530–0.575 | **THE STOP.** | none |
+| 0.575–0.640 | AI ACTIVATION | none |
 | 0.640–0.700 | THE SPATIAL SPLASH | none |
-| 0.700–0.760 | AFTER | `SMART MARKETING` + its line |
-| 0.760–0.820 | AFTER | `AI-POWERED SALES` + its line |
-| 0.820–0.880 | AFTER | `ALWAYS-ON OPERATIONS` + its line |
-| 0.880–0.945 | CONNECTED SYSTEM, ACCELERATION | `ONE BUSINESS. ONE INTELLIGENT SYSTEM.` + all six chips |
-| 0.945–1.000 | technoon.ai. The closing vortex. | closing lines + `Build Your Intelligent Business` |
+| 0.700–0.760 | AFTER | `SMART MARKETING` + line |
+| 0.760–0.820 | AFTER | `AI-POWERED SALES` + line |
+| 0.820–0.880 | AFTER | `ALWAYS-ON OPERATIONS` + line |
+| 0.880–0.945 | CONNECTED SYSTEM | chain line + all six chips |
+| 0.945–1.000 | technoon.ai | closing lines + CTA |
 
-Layout rule that keeps the beats distinct: pain beats sit on the **left rail**, the
-three chaos labels sit in **three different quadrants**, the resolution beats sit on
-the **right rail**, and the chain and close are **centred**. The mirrored side plus a
-calm entrance instead of an agitated one is how before-and-after is expressed
-structurally rather than announced in words.
+Layout rule: pain beats on the **left rail**, the three chaos labels in **three
+quadrants**, resolution beats on the **right rail**, chain and close **centred**. The
+mirrored side is how before-and-after is expressed structurally rather than announced.
 
-The chaos labels were pulled **inboard off the rail** on 2026-08-16 (`pos-a` to
-`pos-c` in app.css) because at the frame edge they sat in the reader's periphery
-through the fastest stretch of the scroll. Their type size and depth are unchanged
-from the storyboard: bigger was tried the same day and rejected. Note that moving a
-caption moves the footage under it, so `review/verify-contrast.sh` carries its own
-crop window per beat and those windows moved too.
+The chaos labels were pulled **inboard off the rail** (`pos-a`–`pos-c` in app.css)
+because at the frame edge they sat in the reader's periphery. Type size unchanged —
+bigger was tried and rejected. Moving a caption moves the footage under it, so the
+contrast audit's per-beat crop windows moved too.
 
-### The phone runs the same film — this is not a separate build
+### The phone runs the same film — not a separate build
 
-Client instruction 2026-08-16: *"the mobile is completely different from what you
-have made … I want to see the exact scroll-driven website, the scrolling effect that
-we are seeing on the desktop, on the mobile as well."*
+Client: *"I want to see the exact scroll-driven website … on the mobile as well."*
+The old build gated every phone to the static cut, which was a different product.
 
-They were right and the old build had earned it: every phone matched the static-hero
-gate, which disarmed the scrub, unpinned the stage, hid the video and stacked the
-sixteen beats as pearl cards. A reader on a phone was looking at a different product.
+**Shared, and must stay shared:** the pinned stage, the 1800vh spine, all sixteen band
+boundaries, `VIDEO_MAP`, the footage, split-text entrances, the wave, the dock, both
+dialogs. ONE spine, ONE drive loop.
 
-**What is shared, and must stay shared:** the pinned sticky stage, the 1800vh spine,
-all sixteen band boundaries, `VIDEO_MAP`, the scrubbed 30s footage, the split-text
-entrances, the wave, the dock and both dialogs. There is **one** spine and one drive
-loop. A change to any of it changes both cuts.
+**What app.css §13 reframes for a tall narrow window, and only this:**
+- rails give up their horizontal OFFSET but keep their ALIGNMENT;
+- the three chaos beats trade quadrants for three distinct HEIGHTS (21vh / 46vh /
+  bottom 19vh);
+- type grows; `.band::before` widens to `-20vh -26vw` and deepens to .94/.80;
+- `.journey` is re-declared in **`svh`** — `vh` is the LARGE viewport on a phone and
+  stays frozen while the URL bar collapses, but `.stage` is already `100svh`, so the
+  spine and the pinned frame would be measured against two different heights.
 
-**What `app.css` §13 reframes for a tall narrow window, and only this:**
+**The static stacked cut lives in §13b** and now belongs to
+`prefers-reduced-motion: reduce` alone. `GATES` in `app.js` matches.
 
-- the left and right rails give up their horizontal OFFSET but keep their
-  ALIGNMENT — which is the thing that still reads pain from resolution;
-- the three chaos beats trade three quadrants for three distinct HEIGHTS
-  (21vh / 46vh / bottom 19vh), because a narrow frame has thirds to spend
-  vertically and none across;
-- the type grows, because the frame shrank;
-- `.band::before` widens to `-20vh -26vw` and deepens to .94/.80, because the
-  footage now fills a much tighter window behind much larger words;
-- `.journey` is re-declared in **`svh`**. On a phone `vh` is the LARGE viewport
-  and stays frozen there while the URL bar collapses, but `.stage` is already
-  `100svh` — so the spine and the pinned frame would be measured against two
-  different heights and the scrub would drift against the film.
+Three things in `app.js` that make the film paint on a phone:
+- **The iOS decode unlock.** iOS holds a `<video>` undecoded until it has played once.
+  Nothing errors — `currentTime` moves, `seeked` fires, the element paints nothing. One
+  muted `play()`/`pause()` on first `touchstart`. Wired **both ways** (listener unlocks
+  if the video is there, `canplay` unlocks if the reader got there first).
+- **The metered-connection bail.** `saveData` or 2g `effectiveType` skips the 12MB
+  download and lands on `failVideo()`; the ROOM falls back to poster.
+- **Lenis `syncTouch` stays OFF.** Touch scroll is native; turning it on hands iOS
+  momentum to a JS lerp and feels worse.
 
-**The static stacked cut still exists** in §13b, and it now belongs to
-`prefers-reduced-motion: reduce` **alone**. That is the only reader who ever asked
-not to be moved. `GATES` in `app.js` is down to that one query to match.
-
-Three things that make the film actually paint on a phone and are easy to delete by
-accident, all in `app.js`:
-
-- **The iOS decode unlock.** iOS holds a `<video>` undecoded until it has played at
-  least once. The symptom is vicious because nothing errors: `currentTime` moves,
-  `seeked` fires, the seek gate stays healthy, and the element paints nothing —
-  a phone scrolling through an invisible film. One muted `play()`/`pause()` on the
-  first `touchstart` hands it the gesture it wants. It is wired **both ways** (the
-  listener unlocks if the video is already there, `canplay` unlocks if the reader
-  got there first) because those two can land in either order.
-- **The metered-connection bail.** `saveData` or a 2g `effectiveType` skips the
-  12MB download and lands on `failVideo()`. The journey still runs; the ROOM falls
-  back from footage to poster, which is exactly where the load watchdog already
-  lands.
-- **Lenis `syncTouch` stays OFF.** Touch scrolling is native, Lenis's
-  `onNativeScroll` re-syncs and re-emits, and `onScroll` fires either way. Turning
-  `syncTouch` on would hand iOS momentum to a JS lerp and it feels worse, not
-  smoother — the scrub already has its own lerp on `shown`.
-
-### The scroll-to-video curve is piecewise, not linear
-`VIDEO_MAP` in `app.js` pins each band to the footage moment it belongs to. The
-footage has its own narrative clock (office 0-3s, fragmenting 3-7s, chaos 7-11s,
-freeze 11-13s, core 13-15s, activation 15-18s, wave 18-22s, connect 22-26s,
-accelerate 26-28s, converge 28-30s). A linear map slid every caption off its moment
-and rushed the freeze, which is the beat the whole story turns on. **If you change a
-band boundary, change its VIDEO_MAP anchor too.**
+### The scroll-to-video curve is piecewise
+`VIDEO_MAP` pins each band to its footage moment (office 0-3s, fragmenting 3-7,
+chaos 7-11, freeze 11-13, core 13-15, activation 15-18, wave 18-22, connect 22-26,
+accelerate 26-28, converge 28-30). A linear map slid every caption off its moment.
+**Change a band boundary → change its VIDEO_MAP anchor.**
 
 ---
 
 ## The cinematic core
 
-Two 15-second silent Seedance 2.5 clips, chained and concatenated into **one**
-30-second file with a single encode, so the join cannot mismatch.
+Two 15s silent Seedance 2.5 clips chained and concatenated into **one** 30s file with a
+single encode, so the join cannot mismatch.
 
-- Model: `bytedance-seedance-pro-2.5` via the Magnific MCP
-- **720p, 16:9, silent** — 6,600 credits per clip
-- 1080p was priced at 16,500/clip = 33,000 for two, over the account balance. Client
-  chose 720p to keep the requested model plus re-roll headroom.
-- Sequence 2 starts from sequence 1's final frame, extracted as a full-quality PNG
-  (`-q:v 1`), never a review-grade jpg. The seam was verified frame by frame across
-  14.6s to 15.5s and is invisible.
+- `bytedance-seedance-pro-2.5` via Magnific MCP, **720p 16:9 silent**, 6,600 credits/clip.
+  1080p was 16,500/clip, over balance.
+- Seq2 starts from seq1's final frame as a full-quality PNG (`-q:v 1`). Seam verified
+  frame by frame 14.6–15.5s; invisible.
 - Encode: `-c:v libx264 -crf 21 -preset slow -g 8 -keyint_min 8 -pix_fmt yuv420p
-  -movflags +faststart -an`. Result: 11.6 MB, 30.08s. The short keyframe interval is
-  what makes scrubbing smooth; do not lengthen it.
+  -movflags +faststart -an` → 11.6 MB, 30.08s. **Do not lengthen the keyframe interval**
+  — it is what makes scrubbing smooth.
 
-720p is acceptable **because of where the footage sits**: it is the environment layer
-behind pearl scrims and the 3D canvas, never a sharp full-bleed surface. The
-foreground is real-time WebGL and HTML type, both razor sharp at any resolution.
+720p is fine because the footage is the environment layer behind pearl scrims, never a
+sharp full-bleed surface. Foreground is HTML type, razor sharp at any resolution.
 
-### The 3D layer is BUILT and currently OFF
+### The 3D layer is BUILT and OFF
 
-`scene.js` is complete, parses, and exports `createScene()`. It is not running.
-`const SCENE_3D = false` in `app.js` is the whole switch; flip it to `true` and the
-layer comes back with nothing else to change.
+`scene.js` is complete and exports `createScene()`. `const SCENE_3D = false` in `app.js`
+is the whole switch. Switched off 2026-08-16 — the drifting tinted objects read as
+"purple shape things". That is a taste verdict on the execution, not the idea.
 
-It was switched off on 2026-08-16 at the client's call. The drifting tinted objects
-read as "purple shape things coming in the middle of things" rather than as the
-business artifacts they were built to be. That is a taste verdict on the execution,
-not on the idea, which is why this is a flag and not a deletion.
-
-The original reasoning still stands and is worth keeping in view if the layer is ever
-revived: cards, envelopes, chat bubbles and notification pips belong in 3D rather than
-in the footage, because AI video hallucinates fake brand logos and garbage text all
-over that content, which would break the AI-media law. If the layer comes back, it
-comes back **untinted** unless the client says otherwise, and `MEDAL_COUNT` in
-`scene.js` must keep matching the number of `.chain-item` pills in `index.html`.
-
-Nothing structural depends on it. Every beat it illustrated is already in the footage,
-which is why the story reads end to end with the canvas dark. What the page gives up
-is the sharp, scroll-reactive artifacts; the footage carries those beats at 720p
-instead.
+If revived: it comes back **untinted** unless the client says otherwise, and
+`MEDAL_COUNT` must match the number of `.chain-item` pills. Nothing structural depends
+on it — every beat it illustrated is already in the footage. The original reasoning:
+cards, envelopes and chat bubbles belong in 3D because AI video hallucinates fake logos
+and garbage text onto that content, which would break the AI-media law.
 
 ---
 
-## Interaction: the dock and the function card
+## Interaction
 
-The only interactive things in the story are the function names. Everything else is
-scroll.
+**The dock.** The six pills in CONNECTED SYSTEM magnify under the pointer like macOS
+dock icons: the pointed-at pill takes the full pop, neighbours a decaying share, so the
+row feels like one elastic surface. `:has()` reaches backwards, the sibling combinator
+forwards. This is the client's "glassmorphic MacBook task bar pop up" and the one place
+carrying a glass material, because it is the one thing that is genuinely a dock.
 
-**The dock.** The six pills in the CONNECTED SYSTEM beat magnify under the pointer the
-way macOS task bar icons do: the pointed-at pill takes the full pop and its neighbours
-take a decaying share, which is what makes the row feel like one elastic surface
-rather than six separate buttons. `:has()` reaches backwards to the pills before the
-hovered one, the sibling combinator reaches forwards. This is the client-requested
-"glassmorphic MacBook task bar pop up" and it is the one place on the page that
-carries a glass material, because it is the one thing that is genuinely a dock.
-
-**A glass plate behind each caption was tried on 2026-08-16 and rejected.** Wrapping
-the pain, chaos and resolution beats in white glass cards was the literal reading of
-the same request, and it turned a cinematic frame into a component gallery. Client:
-"I do not want that white background, it's looking odd." The `.glass` wrapper survives
-in the markup as `display: contents`, a pass-through with no box at all, so each beat
-keeps one hook. **It must stay visually inert.** Give it a background, a padding, a
-backdrop filter or a transform and the boxes come straight back.
+**Glass plates behind captions were rejected** — same request, wrong reading: "I do not
+want that white background, it's looking odd." `.glass` survives as `display: contents`,
+a pass-through hook. **It must stay visually inert.**
 
 **The function card.** Every function surface carries `data-fn` and opens one native
-`<dialog>`, which supplies the focus trap, Escape, the top layer and the inertness of
-the page behind it. Six panels live in `index.html` rather than in a JS object,
-specifically so the spelling and stock-word audits still see every string.
+`<dialog>` (focus trap, Escape, top layer, inertness). Six panels live in `index.html`,
+not a JS object, so the audits still see every string.
 
-**The booking card.** Every CTA on the page — `Free Audit` and all four
-`Build Your Intelligent Business` buttons — opens Cal.com in a second native
-`<dialog>`, driven by `assets/cal.js`. Ported on 2026-08-16 from the previous
-technoon.ai site, which used the same account and the same 30-minute event:
-`https://cal.com/sudeshna-pal-ruww5f/technoon.ai`.
+**The booking card.** All five CTAs open Cal.com in a second `<dialog>` via `cal.js`:
+`https://cal.com/sudeshna-pal-ruww5f/technoon.ai`. Three load-bearing changes from the
+original port:
+- **Triggers are `<a href>` to the booking page carrying `data-cal`;** `cal.js`
+  delegates and calls `preventDefault()`. That ordering IS the fallback. Do not turn
+  them into `<button>`s.
+- **The iframe ships with no `src`** — assigned on first open. Do not put one back.
+- **It stops Lenis and pins the document together**, as `detail.js` does, and reuses
+  `html.detail-open` so the two cards cannot fight over the pin.
 
-Three things about it are load-bearing and were changed from the original:
+Deliberately NOT `preserve-3d`: an iframe in a 3D context renders inconsistently, and
+flat is what lets this one own a scroller safely.
 
-- **The triggers are `<a href>` pointing at the booking page, carrying `data-cal`.**
-  `cal.js` delegates off that attribute and calls `preventDefault()`. That ordering
-  IS the fallback: if the module fails to load, or the browser has no `showModal`,
-  the same click still reaches the same booking page the long way round. Turning
-  these into `<button>`s throws that away for nothing.
-- **The iframe ships with no `src`.** `cal.js` assigns one the first time somebody
-  opens the card. The old site rendered the iframe on every page load whether or
-  not anyone ever booked, which is a third-party connection nobody asked for on a
-  page already carrying a 12MB film. Do not helpfully put a `src` back in the HTML.
-- **It stops Lenis and pins the document together**, exactly as `detail.js` does and
-  for the same reason. The original only set `body.style.overflow`, which is enough
-  on an ordinary page and not enough over an 1800vh scroll-driven film. It reuses
-  the `html.detail-open` class rather than inventing a second one, so the two cards
-  cannot fight over the pin.
-
-Deliberately NOT `preserve-3d`, unlike the function card: an iframe inside a 3D
-context renders inconsistently across browsers, and there is nothing to give depth
-to — the panel is a window onto someone else's page. Flat is also what lets this
-one own a scroller safely.
-
-**The event title lives in Cal.com, not in this repo, and it is currently spelled
-`Technoon.ai`.** That breaks the spelling law and neither the audit nor any code
-here can see it or fix it. It has to be renamed to `technoon.ai` in the Cal.com
-dashboard. Same for anything else Cal.com renders: that surface is outside the text
-allowlist's reach, so it is governed by hand.
+**The Cal.com event title is spelled `Technoon.ai`** — outside this repo and outside the
+audit's reach. It must be renamed in the Cal.com dashboard.
 
 ## Engineering rules that earned their place
 
-- **Fetch the video as a streamed Blob**, not a plain `src`. Many hosts lack HTTP
-  Range support, and without it every seek clamps to zero: scrubbing works locally
-  and silently dies live. Stream it behind the progress ring with a 20-second
-  no-progress watchdog that aborts into the still-image fallback.
-- **Gate every seek.** Never write `currentTime` while a seek is in flight. Coalesce
-  to the newest target, issue exactly one follow-up on `seeked`, and reset the busy
-  flag on `error` so the gate cannot deadlock.
-- **Lerp the displayed time** in a rAF loop that goes idle when converged and when
-  the hero is off-screen. Use the frame-rate-independent form
-  (`1 - Math.pow(1 - k, dt / 16.667)`), or the site feels different at 120Hz.
+- **Fetch the video as a streamed Blob.** Many hosts lack HTTP Range support; without
+  it every seek clamps to zero — scrubbing works locally and silently dies live. Stream
+  behind the progress ring with a 20s no-progress watchdog into the still fallback.
+- **Gate every seek.** Never write `currentTime` while a seek is in flight. Coalesce to
+  the newest target, issue one follow-up on `seeked`, reset the busy flag on `error`.
+- **Lerp the displayed time** in a rAF loop that idles when converged and off-screen.
+  Use `1 - Math.pow(1 - k, dt / 16.667)` or it feels different at 120Hz.
 - **Write to the DOM only on change.** Delta-gate every band opacity, `--k` and chip.
-- **The page must be complete and beautiful if the video never loads.** Test it by
-  renaming the file.
-- **`scene.js` is imported dynamically, never statically.** A static
-  `import { createScene } from './scene.js'` makes the whole drive loop hostage to
-  the 3D layer: if that file is missing or throws at module scope, `app.js` never
-  evaluates and the page loses its captions and its scrub too. The `try/catch`
-  around `createScene()` cannot save that, because it guards the call, not the
-  import. Same law as the video: any layer may fail alone.
-- **`detail.js` follows the same rule, and CSS is what closes the loop.** It is
-  imported dynamically and it alone adds `.detail-ready`. Every pointer cursor and
-  hover underline hangs off that class, so a module that never loads leaves plain
-  words rather than words that look clickable and do nothing.
-- **Never transition a transform that also carries a scroll-driven term.** A dock
-  pill's transform holds both the `--lit` rise written every frame by the wave and
-  the hover pop. `transition: transform` would put a third of a second of lag
-  between the scroll and the light. `--pop` and `--rise` are registered with
-  `@property` and transitioned instead, which leaves the `--lit` term instant.
-  Browsers without `@property` snap the pop, which still reads correctly. The same
-  trap applies to `box-shadow` and `background` on those pills: both interpolate
-  `--lit`, so neither may be transitioned. The hover glow is a separate `::after`
-  for exactly that reason.
-- **A grouping property silently flattens `preserve-3d`.** `backdrop-filter`,
-  `filter`, `opacity` below 1 and `mask` all force `transform-style: flat`, which
-  would collapse the function card's depth layers into a single plane and quietly
-  throw away the 3D. That is why `.detail-card` carries none of them and the
-  frosting lives on `::backdrop` and on a sibling pane instead.
-- **`showModal()` blocks interaction with the page behind it but not scrolling.**
-  Behind this dialog is an 1800vh scroll-driven journey, so a wheel flick over the
-  veil scrubs the film underneath and drops the reader somewhere they never chose.
-  `detail.js` stops Lenis and pins the native scroller together; releasing one
-  without the other is worse than releasing neither.
-- **The poster image is declared in CSS, not assigned by JS.** `initHeroOnce()`
-  only runs inside `enableScrub()`, so any cut that disarms the scrub — now
-  reduced motion, and before 2026-08-16 every phone — would otherwise render
-  the beats on blank pearl with no room behind them. The room is the premise of
-  the page; it cannot depend on the scrub being armed.
-- **Seed `body.paused` at boot, not only on `visibilitychange`.** That event fires
-  on change only, so a page opened into a background tab (middle-click, restored
-  session, prerender) never receives the class and burns every CSS animation
-  while nobody is watching.
-- **Specificity trap, and it now bites in BOTH cuts.** The chaos beats are
-  addressed as `.band--fn.pos-a` to `.pos-c`, which is a two-class selector and
-  therefore OUT-SPECIFIES a bare `.band` reset. §13 (the phone cut) re-aims
-  them with two-class selectors of its own for exactly this reason. §13b (the
-  static cut) instead makes the offsets inert with `position: static` plus
-  `inset: auto !important`; without those, the desktop quadrant offsets survive
-  and shove each card off the screen edge. `text-align: right` on `.pos-b`
-  survives the same way and has to be named explicitly in §13b, and so does its
-  underline origin. Anything one-class (`.band--pain`, `.band--fix`) is fine
-  because both blocks simply come later in the file. **If a fourth position ever
-  returns, it joins all of those lists.**
-- **`.band { padding }` belongs to §13b only.** It is the static cut's card
-  inset. In the phone cinematic cut the beats are captions floating in a room
-  with no box around them, and a padding there pushes the type in off a gutter
-  it is already sitting on. It used to live in the bare `@media (max-width:
-  400px)` block, where it reached both.
-- **`.brand-plate` must stay visually inert**, for the same reason `.glass` must:
-  it is a transform hook, not a surface. A background on it is the dark logo box
-  the client removed, coming back.
-- **`border-image` replaces all four borders**, not just the one you declared a
-  width for. The mobile ribbon edge is painted as a background layer instead, or
-  every card ends up ringed in gradient.
-- **Static-hero gate: the query list is character-for-character identical in the
-  CSS (§13b) and the JS (`GATES`)**, re-evaluated live on preference flips. It is
-  down to ONE query, `(prefers-reduced-motion: reduce)`, since the phone cut
-  landed. If the two sides ever drift, the CSS un-hides a stage the JS never
-  armed and the hero goes blank.
+- **The page must be complete if the video never loads.** Test by renaming the file.
+- **`scene.js` and `detail.js` are imported dynamically, never statically.** A static
+  import makes the drive loop hostage to that file; a `try/catch` guards the call, not
+  the import. Any layer may fail alone. `detail.js` alone adds `.detail-ready`, and
+  every pointer cursor and hover underline hangs off it, so a module that never loads
+  leaves plain words rather than dead-looking links.
+- **Never transition a transform that also carries a scroll-driven term.** A dock pill's
+  transform holds the per-frame `--lit` rise and the hover pop. `--pop`/`--rise` are
+  `@property`-registered and transitioned instead. Same trap for `box-shadow` and
+  `background` on those pills — both interpolate `--lit`. The hover glow is a separate
+  `::after` for exactly that reason.
+- **A grouping property silently flattens `preserve-3d`.** `backdrop-filter`, `filter`,
+  `opacity < 1` and `mask` force `transform-style: flat`, collapsing the function card's
+  depth layers. That is why `.detail-card` carries none of them and the frosting lives
+  on `::backdrop` and a sibling pane.
+- **`showModal()` blocks interaction but not scrolling.** Behind it is an 1800vh film, so
+  a wheel flick over the veil scrubs it. Stop Lenis and pin the native scroller
+  together; releasing one without the other is worse than releasing neither.
+- **The poster image is declared in CSS, not assigned by JS.** `initHeroOnce()` only runs
+  inside `enableScrub()`, so any cut that disarms the scrub would otherwise render the
+  beats on blank pearl. The room is the premise of the page.
+- **Seed `body.paused` at boot**, not only on `visibilitychange` — that event fires on
+  change only, so a page opened into a background tab never gets the class.
+- **Specificity trap, in BOTH cuts.** The chaos beats are `.band--fn.pos-a`–`.pos-c`,
+  two classes, out-specifying a bare `.band` reset. §13 re-aims them with two-class
+  selectors; §13b instead uses `position: static` + `inset: auto !important`, and must
+  name `text-align: right` on `.pos-b` and its underline origin explicitly. Anything
+  one-class (`.band--pain`, `.band--fix`) is fine — both blocks come later in the file.
+  **A fourth position joins all of those lists.**
+- **`.band { padding }` belongs to §13b only.** It is the static cut's card inset; in the
+  phone cinematic cut the beats are captions with no box, and padding pushes type off a
+  gutter it already sits on.
+- **`.brand-plate` and `.glass` must stay visually inert** — transform hooks, not surfaces.
+- **`border-image` replaces all four borders.** Paint the mobile ribbon edge as a
+  background layer or every card ends up ringed in gradient.
+- **Static-hero gate: the query list is character-for-character identical in CSS (§13b)
+  and JS (`GATES`)**, re-evaluated live on preference flips. It is down to ONE query,
+  `(prefers-reduced-motion: reduce)`. Drift un-hides a stage the JS never armed.
 - Splitting text: measure the string BEFORE clearing the element, or every character
-  threshold collapses to the same value and the stagger silently dies.
-- WebGL: DPR capped at 2, no post-processing, no allocations inside `update()`,
-  instanced everything, rAF paused off-screen and on hidden tabs.
+  threshold collapses and the stagger dies.
+- WebGL: DPR capped at 2, no post-processing, no allocations in `update()`, instanced
+  everything, rAF paused off-screen and on hidden tabs.
 - `overflow-x: clip` on both `html` and `body`, with `hidden` declared first.
 - Reduced motion honoured **live and in both directions**.
 
@@ -611,140 +429,87 @@ allowlist's reach, so it is governed by hand.
 
 ## Verification
 
-Run all of this before calling any change done.
+**Scope checks to what you changed.** Run the full block before a commit, not per edit.
 
 ```powershell
 cd C:\Users\ASUS\Desktop\technoon2
-# Spelling: the grouped output must show ONE row, "technoon.ai"
+# Spelling: grouped output must show ONE row, "technoon.ai"
 (Select-String site\index.html -Pattern "[Tt]echnoon[\w.]*" -AllMatches).Matches.Value | Group-Object | Select Count,Name
-# Banned variants: must return nothing. -CaseSensitive is REQUIRED here.
-# Select-String is case-insensitive by default, so without it every correct
-# lowercase "technoon.ai" reports as a violation and the check is worthless.
+# Banned variants: must return nothing. -CaseSensitive is REQUIRED (Select-String is
+# case-insensitive by default, which would flag every correct lowercase hit).
 Select-String site\index.html -CaseSensitive -Pattern "Technoon|TechNoon"
-# Stock words and em dashes: must return nothing except the CUSTOM SOLUTIONS label
+# Stock words / em dashes: nothing except the CUSTOM SOLUTIONS label
 Select-String site\index.html -Pattern "—|leverage|seamless|empower|unlock|robust|actionable|data-driven"
-# ESM parse check, since there is no bundler and a syntax error kills the page
+# ESM parse check (no bundler, a syntax error kills the page)
 Copy-Item site\assets\app.js $env:TEMP\c.mjs -Force; node --check $env:TEMP\c.mjs
 Copy-Item site\assets\scene.js $env:TEMP\s.mjs -Force; node --check $env:TEMP\s.mjs
-# The scroll spine, checked deterministically against the real index.html.
-# Must end "RESULT: PASS". Run this after ANY band boundary or VIDEO_MAP change.
+# Scroll spine — run after ANY band boundary or VIDEO_MAP change. Must end "RESULT: PASS".
 node review\verify-spine.mjs
 # Worst-frame legibility, sampled from the real footage. Must end PASS.
 bash review\verify-contrast.sh
 ```
 
-`review/verify-contrast.sh` samples the footage at each caption's own moment,
-takes the **darkest** pixel in that caption's rail, blends it under the band
-scrim the way the browser does, and reports the contrast against `--ink`.
+`verify-contrast.sh` samples the footage at each caption's moment, takes the **darkest**
+pixel in that caption's rail, blends it under the scrim as the browser does, and reports
+contrast against `--ink`. It runs **two passes**: a 375x812 portrait slot showing a
+1280x720 plate under `cover` keeps only columns 474–806, so two thirds of every desktop
+frame is off screen and the darkest visible pixel is a different one. The phone pass
+audits at its scrim's .80 shoulder, not the .94 centre. As of 2026-08-16: worst desktop
+**9.84:1**, worst phone **10.78:1**, bar 4.5:1.
 
-It runs **two passes** since the phone cut landed, and the second one is not a
-formality. A 375x812 portrait slot showing a 1280x720 plate under `cover` keeps
-only 332 source pixels of width, columns 474–806 — two thirds of every frame the
-desktop pass checks is simply not on screen on a phone, and the darkest pixel in
-the part that IS on screen is a different pixel. The phone pass also audits at
-its own scrim's .80 shoulder rather than its .94 centre.
+`verify-spine.mjs` replicates `updateBands()` and `videoTimeFor()` and sweeps p 0→1. It
+proves four things a browser cannot: every band reaches full opacity and holds a real
+plateau (49–75vh), no two captions are readable at once, all four text-free beats are
+silent, and the video clock never runs backwards. **Prefer it over eyeballing** — a
+backgrounded tab pauses rAF, so scripted scrubbing in an unfocused window reports stale
+band state and invents defects.
 
-As of 2026-08-16: worst desktop caption **9.84:1**, worst phone caption
-**10.78:1**, against a 4.5:1 bar. Re-run it if a scrim alpha, a rail position,
-a phone band height or the footage ever changes.
+`review/gen-logo.py` regenerates the mark, the 4K master and the favicon from geometry.
+Run it only if the mark changes.
 
-`review/verify-spine.mjs` replicates `updateBands()` and `videoTimeFor()` exactly
-and sweeps p from 0 to 1. It proves four things a browser cannot show you
-reliably: every band reaches full opacity and holds a real plateau (currently 49
-to 75vh each), no two captions are ever readable at once, all four text-free
-beats are genuinely silent, and the video clock never runs backwards. Prefer it
-over eyeballing the page — a backgrounded tab pauses `requestAnimationFrame`
-entirely, so scrubbing by script in an unfocused window reports stale band state
-and invents defects that are not there.
-
-Then: zero console errors at desktop and phone widths, no horizontal overflow at
-375px, reverse scrolling works, no stuck animations, every band readable at 120, 240
-and 360px flick steps, reduced motion honoured in both directions, and the page still
-complete with the video removed.
-
-**Mobile responsiveness is a standing client requirement**, not a follow-up task.
-Verify at 375px before reporting anything done — and since 2026-08-16 that means
-verifying the *film*, not a layout: the beats must advance, the footage must
-scrub, and the three chaos beats must land at three different heights.
-
-Practical note for checking the phone cut: Chrome's window often refuses to
-resize below the OS minimum. Loading `/index.html` into a **375x812 iframe**
-inside the page is a faithful substitute — media queries resolve against the
-iframe's own viewport. Drive it with a real wheel `scroll` over the iframe, not
-`scrollTo` from a tool call: the same `requestAnimationFrame` stall CLAUDE.md
-warns about for `verify-spine` applies here, and a scripted jump in an unpainted
-tab reports stale band state and invents defects that are not there.
+**Mobile responsiveness is a standing client requirement.** Verify at 375px, and that
+means the *film*: beats advance, footage scrubs, three chaos beats at three heights.
+Chrome often refuses to resize below the OS minimum — a 375x812 **iframe** inside the
+page is a faithful substitute (media queries resolve against the iframe's viewport).
+Drive it with a real wheel `scroll`, not `scrollTo` from a tool call.
 
 ---
 
-## Decisions log
+## Decisions log (all 2026-08-16)
 
-- **2026-08-16** — Project started fresh in `technoon2`. No code carried over from any
-  previous technoon work.
-- **2026-08-16** — Client chose: Seedance 2.5 at 720p for both clips; logo ships as
-  the supplied JPEG with zero deviation; all claimed business results dropped.
-- **2026-08-16** — Stack: vanilla HTML/CSS/JS with Three.js, GSAP + ScrollTrigger and
-  Lenis vendored locally. Chosen so the brief's 3D and motion requirements are met
-  while the site stays a no-build-step static folder.
-- **2026-08-16** — Video scrub is hand-rolled rAF rather than ScrollTrigger's `scrub`,
-  because ScrollTrigger's per-frame writes fight the seek gate. GSAP drives the DOM
-  choreography below the fold; Lenis drives smooth scroll.
-- **2026-08-16** — **"Same exact office space, no deviation."** The first start frame
-  and first sequence 1 render were a generic glass corridor and were discarded (6,750
-  credits, sunk). The room was rebuilt from `brief/storyboard-hero.png` used as a
-  generation reference; `review/room-sd-1.jpg` won across four takes.
-- **2026-08-16** — **The dot ring was rejected as the site's signature.** Replaced by
-  the storyboard's light ribbon. The ring survives only as the one-time AI core inside
-  the footage.
-- **2026-08-16** — **Story locked to the storyboard's own sequence** with every
-  function given its own beat, per the master prompt's sections 10 to 17.
-- **2026-08-16** — **FINANCE removed entirely**, client instruction. The three
-  remaining chaos beats re-span 0.250 to 0.470 rather than leaving a dead stretch,
-  so their `VIDEO_MAP` anchors, the dock `data-w` weights, `MEDAL_COUNT` in
-  `scene.js` and the contrast crops all moved with them.
-- **2026-08-16** — **The macOS dock pop was adopted; the glass caption plates were
-  rejected.** Same client request, two readings. The dock magnification on the pill
-  row was right; wrapping every caption in a white glass card was wrong and looked
-  like a component gallery. See the Interaction section.
-- **2026-08-16** — **Function names are clickable and open a native `<dialog>`**
-  carrying that function's pain and solution lines. Copy for the three label-only
-  functions is outstanding with the client.
-- **2026-08-16** — **The 3D layer was switched off** with `SCENE_3D = false` after
-  the client read the drifting tinted objects as stray purple shapes. Built, kept,
-  one flag away from returning.
-- **2026-08-16** — **The ribbon glow behind the dock pills was removed** for the
-  same reason. The ribbon stays only where it is a crisp mark.
-- **2026-08-16** — **The Cal.com booking card was ported from the previous
-  technoon.ai site** and wired to all five CTAs, which retired the `#build` hrefs.
-  Two of those were dead self-links (the arrival and detail-card CTAs pointed at
-  the section they already sat in). `#build` is still the narrative arrival
-  section, it just is not a link target any more. See the Interaction section for
-  the three things that changed from the original and why.
-- **2026-08-16** — **The phone now runs the same film as the desktop.** The
-  static-hero gate lost its four phone queries; `GATES` and app.css §13b are down
-  to `prefers-reduced-motion` alone. app.css §13 reframes the same spine for a
-  tall narrow window rather than replacing it. Added with it: the iOS decode
-  unlock, the `saveData` bail, `.journey` in `svh`, and a second phone pass in
-  `review/verify-contrast.sh`. See "The phone runs the same film".
-- **2026-08-16** — **The logo's dark plate was removed**, client instruction. This
-  is the only one of the five laws that has moved, and it moved because it had to:
-  a near-white mark on a near-black card has no reading on a pearl page without a
-  colour flip, so the choice was a box the client rejected or a recolour the
-  original law banned. Ships as `logo-mark.png`. The supplied original is kept
-  untouched. Flagged back to the client — the clean fix is an official
-  light-background mark. See the Logo law.
-- **2026-08-16** — **The hero heading became `Move faster. / Spend less. / Look
-  sharper.`**, client-supplied, replacing `You run the business. / We run what
-  moves it.` The old pair is off the allowlist and off the page. The accent sits
-  on the last word: three parallel lines, so the eye should run the whole promise
-  and land on the payoff rather than stop in the middle.
-- **2026-08-16** — **`review/verify-spine.mjs` had a stale `VIDEO_MAP`** — still on
-  the pre-FINANCE-removal 0.305/0.360/0.415 anchors. Harmless to its pass/fail, but
-  it made the freeze report describe a spine the site does not have. Resynced.
-- **2026-08-16** — **`Free Audit` added to the nav and to the text allowlist**,
-  client-provided, under the brief's own "explicitly provided by me" clause. The
-  primary CTA was reworked for depth: a diagonal grade, a lit top edge and a shaded
-  bottom one, and one slow specular sweep on hover.
+- Project started fresh in `technoon2`. No code carried over.
+- Stack: vanilla HTML/CSS/JS + Three.js, GSAP/ScrollTrigger, Lenis, vendored. No build step.
+- Video scrub is hand-rolled rAF, not ScrollTrigger `scrub` — its per-frame writes fight
+  the seek gate. GSAP drives DOM choreography; Lenis drives smooth scroll.
+- Seedance 2.5 at 720p for both clips; all claimed business results dropped.
+- **"Same exact office space, no deviation."** The first start frame and first seq1 render
+  were a generic glass corridor and were discarded (6,750 credits, sunk). Room rebuilt
+  from `storyboard-hero.png`; `room-sd-1.jpg` won across four takes.
+- **The dot ring was rejected as the site's signature**, replaced by the light ribbon.
+- Story locked to the storyboard's own sequence, every function given its own beat.
+- **FINANCE removed entirely.** The three remaining chaos beats re-span 0.250–0.470;
+  `VIDEO_MAP`, dock `data-w`, `MEDAL_COUNT` and contrast crops moved with them.
+- **Dock pop adopted, glass caption plates rejected** — same request, two readings.
+- **Function names open a native `<dialog>`.** Copy for the three label-only functions
+  is outstanding with the client.
+- **3D layer switched off** (`SCENE_3D = false`) — read as stray purple shapes.
+- **Ribbon glow behind the dock pills removed**, same reason.
+- **Cal.com booking card ported** and wired to all five CTAs, retiring the `#build`
+  hrefs (two were dead self-links). `#build` is still the arrival section.
+- **The phone now runs the same film.** The static-hero gate lost its four phone queries;
+  added the iOS decode unlock, the `saveData` bail, `.journey` in `svh`, and a second
+  phone pass in the contrast audit.
+- **The logo's dark plate was removed** — a near-white mark on a near-black card has no
+  reading on pearl without a colour flip.
+- **The logo was then rebuilt** (fully closed ring, Montserrat Medium wordmark, no
+  tagline, 4K master, ring-only favicon) because 190x112 cannot be scaled to 4K.
+  Flagged: the clean fix is an officially supplied vector logo.
+- **Hero heading became `Move faster. / Spend less. / Look sharper.`**, client-supplied.
+  Accent on the last word so the eye runs the whole promise and lands on the payoff.
+- **`verify-spine.mjs` had a stale `VIDEO_MAP`** (pre-FINANCE anchors). Resynced.
+- **`Free Audit` added** to the nav and the allowlist under the brief's "explicitly
+  provided by me" clause. Primary CTA reworked for depth: diagonal grade, lit top edge,
+  shaded bottom, one slow specular sweep on hover.
 
 ## Credit ledger
 
@@ -752,13 +517,12 @@ tab reports stale band state and invents defects that are not there.
 |---|---|
 | Start balance | 26,569 |
 | 2 corridor frames (discarded) | -150 |
-| 4 storyboard-room frames (2 models) | -300 |
+| 4 storyboard-room frames | -300 |
 | Sequence 1, corridor room (discarded) | -6,600 |
 | Sequence 1, correct room | -6,600 |
 | Sequence 2 | -6,600 |
 | **Remaining** | **6,319** |
 
-A 15-second Seedance 2.5 clip at 720p costs 6,600, so **no further clip is affordable
-at that setting.** If more footage is ever needed: 480p/15s is 3,000, Seedance 2.0
-Mini at 720p/15s is 2,100. Everything still outstanding is 3D, CSS and DOM, which
-costs nothing.
+A 15s Seedance 2.5 clip at 720p costs 6,600, so **no further clip is affordable at that
+setting.** 480p/15s is 3,000; Seedance 2.0 Mini at 720p/15s is 2,100. Everything still
+outstanding is 3D, CSS and DOM, which costs nothing.
