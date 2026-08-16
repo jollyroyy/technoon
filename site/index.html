@@ -3,17 +3,217 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>technoon.ai</title>
-<meta name="description" content="technoon.ai runs marketing, sales, operations, HR, custom solutions and customer success as one intelligent system.">
+<title>technoon.ai | The AI agency that runs your business functions</title>
+<meta name="description" content="technoon.ai runs marketing, sales, operations, HR, custom solutions and customer success as one intelligent system. Brand visuals, campaigns, and the systems behind them.">
 <meta name="theme-color" content="#F2F4F8">
 <link rel="icon" href="assets/favicon.png" type="image/png">
 
-<!-- DEPLOY STEP: replace both absolute URLs with the live address before going online -->
-<meta property="og:title" content="technoon.ai">
+<!-- ═══ SEARCH AND ANSWER ENGINES ═══════════════════════════════════════════
+     Two audiences, one set of tags. Classic search wants a canonical, a
+     sitemap and Open Graph. Answer engines (ChatGPT Search, Perplexity,
+     Google AI Overviews, Copilot) want something they can lift and cite
+     without reading the film: that is what the JSON-LD graph below is for.
+
+     This page is 1800vh of scroll-driven video. A crawler that does not run
+     the drive loop still sees every string, because every caption, offering
+     and process step is real HTML in this document. The structured data
+     restates the same facts in a form a model can quote directly.
+
+     TEXT LAW: nothing below is new visible copy. Every string is either an
+     allowlisted line, a plain statement of fact, or metadata that never
+     renders. ZERO-HALLUCINATION LAW: there is no rating, no review, no
+     founding date, no address, no headcount and no client in this graph,
+     because none of those is verified. Do not add one to "fill it out".
+
+     DEPLOY STEP: the absolute URLs below assume https://technoon.ai/ is the
+     address that actually serves this page. If the custom domain is not
+     attached yet, every one of them has to move to the live address, or the
+     canonical points search engines at a URL that does not resolve.
+═════════════════════════════════════════════════════════════════════════ -->
+<link rel="canonical" href="https://technoon.ai/">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+
+<meta property="og:site_name" content="technoon.ai">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="technoon.ai | The AI agency that runs your business functions">
 <meta property="og:description" content="Move faster. Spend less. Look sharper.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://technoon.ai/">
 <meta property="og:image" content="https://technoon.ai/assets/hero-poster.jpg">
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="1080">
+<meta property="og:image:alt" content="The technoon.ai office, the room the site travels through">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="technoon.ai | The AI agency that runs your business functions">
+<meta name="twitter:description" content="Move faster. Spend less. Look sharper.">
+<meta name="twitter:image" content="https://technoon.ai/assets/hero-poster.jpg">
+<meta name="twitter:image:alt" content="The technoon.ai office, the room the site travels through">
+
+<!-- The graph. One Organization, one WebSite, one WebPage, the six functions
+     as an OfferCatalog carrying all twenty five named offerings, and the four
+     process steps as an ItemList. An answer engine asked "what does
+     technoon.ai do" can answer from this alone.
+
+     Every name and description here is copied verbatim from the visible page
+     below, which is the rule Google states for structured data and the reason
+     an FAQPage block is NOT here: the question and answer pairs are drafted in
+     brief/faq-for-approval.md and stay out of this file until the client
+     approves them as visible copy. Marking up answers that do not appear on
+     the page is a policy violation, not a shortcut. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["Organization", "ProfessionalService"],
+      "@id": "https://technoon.ai/#organization",
+      "name": "technoon.ai",
+      "url": "https://technoon.ai/",
+      "email": "info@technoon.ai",
+      "slogan": "Move faster. Spend less. Look sharper.",
+      "description": "technoon.ai is an AI agency that runs the operational functions of a business. Marketing, sales, operations, HR solutions, custom solutions and customer success are built, connected and operated as one intelligent system.",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://technoon.ai/assets/logo-mark.png",
+        "width": 640,
+        "height": 386
+      },
+      "image": "https://technoon.ai/assets/hero-poster.jpg",
+      "knowsAbout": [
+        "AI agency",
+        "Business operations",
+        "Marketing automation",
+        "Sales automation",
+        "Workflow automation",
+        "AI agents",
+        "AI receptionist",
+        "Human resources automation",
+        "Systems integration",
+        "Customer success operations"
+      ],
+      "potentialAction": {
+        "@type": "ReserveAction",
+        "name": "Free Audit",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://cal.com/sudeshna-pal-ruww5f/technoon.ai",
+          "actionPlatform": [
+            "http://schema.org/DesktopWebPlatform",
+            "http://schema.org/MobileWebPlatform"
+          ]
+        }
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Everything technoon.ai runs",
+        "itemListElement": [
+          {
+            "@type": "OfferCatalog",
+            "name": "Marketing",
+            "description": "Smarter campaigns. Better results. Less effort.",
+            "itemListElement": [
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Brand Visuals", "description": "One look that holds up everywhere it lands." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Campaign Engine", "description": "Built once. Runs every week." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Sites & Landing Pages", "description": "Pages that carry the pitch on their own." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Content Studio", "description": "Enough to publish. Never enough to burn out." } }
+            ]
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Sales",
+            "description": "Research. Reach out. Close more. On autopilot.",
+            "itemListElement": [
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Account Research", "description": "Know the account before the first line." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Outbound Sequences", "description": "Follow-up that never forgets." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Proposals & Quotes", "description": "Out the same day, not the same quarter." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Clean Handoff", "description": "Nothing lost between the deal and the work." } }
+            ]
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Operations",
+            "description": "Instant answers. Happy customers. No missed request.",
+            "itemListElement": [
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AI Receptionist", "description": "Every call picked up. Every message logged." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Request Intake", "description": "Every ask logged, routed, answered." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Workflow Automation", "description": "The repeat work stops being work." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Vendor & Supply", "description": "Orders move without chasing." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Live Reporting", "description": "One view. Current. Always." } }
+            ]
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "HR Solutions",
+            "description": "Hire faster. Onboard cleaner. Keep longer.",
+            "itemListElement": [
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Sourcing & Screening", "description": "The shortlist arrives already sorted." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Onboarding", "description": "Day one runs itself." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Policy & Records", "description": "Answers your team can find alone." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Retention Signals", "description": "Notice people leaving before they do." } }
+            ]
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Custom Solutions",
+            "description": "The system your business actually runs on.",
+            "itemListElement": [
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Process Mapping", "description": "We learn how you already work." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Bespoke Agents", "description": "Built for your business, not a template." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Systems Integration", "description": "Your tools, finally talking." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Internal Tools", "description": "The thing you kept meaning to build." } }
+            ]
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Customer Success",
+            "description": "See the drop early. Fix it before they go.",
+            "itemListElement": [
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Always-On Support", "description": "Answers at 3am, in your voice." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Health Monitoring", "description": "Quiet accounts stop being invisible." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Renewals", "description": "The conversation starts early, not late." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Feedback Loop", "description": "What customers say reaches the people building." } }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://technoon.ai/#website",
+      "url": "https://technoon.ai/",
+      "name": "technoon.ai",
+      "inLanguage": "en",
+      "publisher": { "@id": "https://technoon.ai/#organization" }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://technoon.ai/#webpage",
+      "url": "https://technoon.ai/",
+      "name": "technoon.ai | The AI agency that runs your business functions",
+      "description": "technoon.ai runs marketing, sales, operations, HR, custom solutions and customer success as one intelligent system. Brand visuals, campaigns, and the systems behind them.",
+      "inLanguage": "en",
+      "isPartOf": { "@id": "https://technoon.ai/#website" },
+      "about": { "@id": "https://technoon.ai/#organization" },
+      "primaryImageOfPage": "https://technoon.ai/assets/hero-poster.jpg"
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://technoon.ai/#process",
+      "name": "From first call to running system",
+      "itemListOrder": "https://schema.org/ItemListOrderAscending",
+      "numberOfItems": 4,
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Audit", "description": "We map what your business actually does today." },
+        { "@type": "ListItem", "position": 2, "name": "Design", "description": "We choose which functions to run, and how they connect." },
+        { "@type": "ListItem", "position": 3, "name": "Build", "description": "Systems go live one function at a time." },
+        { "@type": "ListItem", "position": 4, "name": "Run", "description": "We operate them. You lead the business." }
+      ]
+    }
+  ]
+}
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,8 +244,26 @@
        sit here. data-cal is what cal.js delegates off; the href is the working
        fallback if it never loads. -->
   <div class="nav-actions">
+    <!-- Client-supplied 2026-08-16 and on the allowlist as of that date. Subtle
+         is the instruction and subtle is the whole design: no pill, no border,
+         no fill. It is the quietest thing in the nav and reads as a detail
+         rather than a third button competing with the two beside it. First in
+         source order so a screen reader and a keyboard reach the plain contact
+         route before the two that open modals. -->
+    <a class="nav-mail" href="mailto:info@technoon.ai">info@technoon.ai</a>
+    <!-- The nav now offers two DIFFERENT things, which it did not before.
+         `Book free audit of your business` sat here from earlier on 2026-08-16
+         and was reverted the same day: it duplicated the ghost pill beside it,
+         so the bar asked twice for the same click. That duplication was a
+         standing flag in CLAUDE.md and this is what closed it.
+
+         Quiet pill  → the calendar (data-cal). Ready to pick a slot.
+         Primary     → the enquiry form (data-form). Wants to be followed up.
+
+         Those are the only two shapes an enquiry takes, and now each has
+         exactly one door. -->
     <a class="ghost" data-cal href="https://cal.com/sudeshna-pal-ruww5f/technoon.ai" rel="noopener"><span class="ghost-dot" aria-hidden="true"></span>Free Audit</a>
-    <a class="cta cta--nav" data-cal href="https://cal.com/sudeshna-pal-ruww5f/technoon.ai" rel="noopener">Build Your Intelligent Business</a>
+    <a class="cta cta--nav" data-form href="mailto:info@technoon.ai">Build Your Intelligent Business</a>
   </div>
 </nav>
 
@@ -98,34 +316,34 @@
              itself comes apart a little further as the overload builds. ── -->
         <div class="band band--pain" data-a="0.058" data-b="0.120" data-enter="scatter" data-spread="0.20">
           <div class="glass">
-            <p class="kicker"><button class="fn-open" type="button" data-fn="marketing" aria-haspopup="dialog">MARKETING</button></p>
-            <h2 class="say">
+            <h2 class="kicker"><button class="fn-open" type="button" data-fn="marketing" aria-haspopup="dialog">MARKETING</button></h2>
+            <p class="say">
               <span class="sr-only">Too much activity. Not enough impact.</span>
               <span class="split" data-split="char" aria-hidden="true">Too much activity.</span>
               <span class="split" data-split="char" aria-hidden="true">Not enough impact.</span>
-            </h2>
+            </p>
           </div>
         </div>
 
         <div class="band band--pain" data-a="0.120" data-b="0.185" data-enter="scatter" data-spread="0.38">
           <div class="glass">
-            <p class="kicker"><button class="fn-open" type="button" data-fn="sales" aria-haspopup="dialog">SALES</button></p>
-            <h2 class="say">
+            <h2 class="kicker"><button class="fn-open" type="button" data-fn="sales" aria-haspopup="dialog">SALES</button></h2>
+            <p class="say">
               <span class="sr-only">Leads everywhere. Follow-up nowhere.</span>
               <span class="split" data-split="char" aria-hidden="true">Leads everywhere.</span>
               <span class="split" data-split="char" aria-hidden="true">Follow-up nowhere.</span>
-            </h2>
+            </p>
           </div>
         </div>
 
         <div class="band band--pain" data-a="0.185" data-b="0.250" data-enter="scatter" data-spread="0.56">
           <div class="glass">
-            <p class="kicker"><button class="fn-open" type="button" data-fn="operations" aria-haspopup="dialog">OPERATIONS</button></p>
-            <h2 class="say">
+            <h2 class="kicker"><button class="fn-open" type="button" data-fn="operations" aria-haspopup="dialog">OPERATIONS</button></h2>
+            <p class="say">
               <span class="sr-only">Requests never stop. Agents overwhelmed.</span>
               <span class="split" data-split="char" aria-hidden="true">Requests never stop.</span>
               <span class="split" data-split="char" aria-hidden="true">Agents overwhelmed.</span>
-            </h2>
+            </p>
           </div>
         </div>
 
@@ -187,37 +405,37 @@
              before and after, expressed structurally instead of announced. ── -->
         <div class="band band--fix" data-a="0.700" data-b="0.760" data-enter="rise" data-ramp="0.024">
           <div class="glass">
-            <p class="kicker kicker--on"><button class="fn-open" type="button" data-fn="marketing" aria-haspopup="dialog">SMART MARKETING</button></p>
-            <h2 class="say">
+            <h2 class="kicker kicker--on"><button class="fn-open" type="button" data-fn="marketing" aria-haspopup="dialog">SMART MARKETING</button></h2>
+            <p class="say">
               <span class="sr-only">Smarter campaigns. Better results. Less effort.</span>
               <span class="split" data-split="word" aria-hidden="true">Smarter campaigns.</span>
               <span class="split" data-split="word" aria-hidden="true">Better results.</span>
               <span class="split" data-split="word" aria-hidden="true">Less effort.</span>
-            </h2>
+            </p>
           </div>
         </div>
 
         <div class="band band--fix" data-a="0.760" data-b="0.820" data-enter="rise" data-ramp="0.024">
           <div class="glass">
-            <p class="kicker kicker--on"><button class="fn-open" type="button" data-fn="sales" aria-haspopup="dialog">AI-POWERED SALES</button></p>
-            <h2 class="say">
+            <h2 class="kicker kicker--on"><button class="fn-open" type="button" data-fn="sales" aria-haspopup="dialog">AI-POWERED SALES</button></h2>
+            <p class="say">
               <span class="sr-only">Research. Reach out. Close more. On autopilot.</span>
               <span class="split" data-split="word" aria-hidden="true">Research. Reach out.</span>
               <span class="split" data-split="word" aria-hidden="true">Close more.</span>
               <span class="split" data-split="word" aria-hidden="true">On autopilot.</span>
-            </h2>
+            </p>
           </div>
         </div>
 
         <div class="band band--fix" data-a="0.820" data-b="0.880" data-enter="rise" data-ramp="0.024">
           <div class="glass">
-            <p class="kicker kicker--on"><button class="fn-open" type="button" data-fn="operations" aria-haspopup="dialog">ALWAYS-ON OPERATIONS</button></p>
-            <h2 class="say">
+            <h2 class="kicker kicker--on"><button class="fn-open" type="button" data-fn="operations" aria-haspopup="dialog">ALWAYS-ON OPERATIONS</button></h2>
+            <p class="say">
               <span class="sr-only">Instant answers. Happy customers. No missed request.</span>
               <span class="split" data-split="word" aria-hidden="true">Instant answers.</span>
               <span class="split" data-split="word" aria-hidden="true">Happy customers.</span>
               <span class="split" data-split="word" aria-hidden="true">No missed request.</span>
-            </h2>
+            </p>
           </div>
         </div>
 
@@ -253,7 +471,15 @@
             <span class="split" data-split="word" aria-hidden="true">We take care of the <em>strategy</em>.</span>
           </h2>
           <p class="sub">Intelligence that runs your business. So you can lead it.</p>
-          <a class="cta cta--hero" data-cal href="https://cal.com/sudeshna-pal-ruww5f/technoon.ai" rel="noopener">Build Your Intelligent Business</a>
+          <!-- THE SPLIT, client instruction 2026-08-16: "Book Free Audit"
+               opens the calendar, "Build Your Intelligent Business" opens a
+               form. Every CTA on this page used to be data-cal; the three
+               Build CTAs now carry data-form instead and are the only three
+               that do. The href is a real mailto to the same inbox the form
+               posts to, so the same ordering that makes the booking triggers
+               safe makes these safe: if form.js never loads, the click still
+               reaches a human. -->
+          <a class="cta cta--hero" data-form href="mailto:info@technoon.ai">Build Your Intelligent Business</a>
         </div>
 
       </div><!-- /.bands -->
@@ -269,6 +495,110 @@
     </div><!-- /.stage -->
   </section>
 
+  <!-- ═══ EVERYTHING WE RUN ═══════════════════════════════════════════════
+       The film carries the story but a crawler cannot read it, and a reader
+       who wants the scope has nowhere to look. This is that page in text.
+
+       THE STACK. Six cards that collect into a real deck as you scroll,
+       built on position:sticky with a static per-card offset and scale. No
+       JS, no rAF, no scripted timeline: the cards are simply pinned at
+       staggered heights and the scroll does the rest, which is why it reads
+       as paper stacking rather than as an effect playing.
+
+       It sits HERE, immediately after the journey closes, because that is the
+       highest point on the page it can occupy. Everything above is inside the
+       pinned 1800vh stage, where a sticky child fights the pin.
+
+       Each kicker is a .fn-open button carrying data-fn, so detail.js wires
+       these up with no change at all: they open the same six function cards
+       the bands and the dock open.
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="index" aria-labelledby="index-h">
+    <h2 class="index-h" id="index-h">Everything technoon.ai runs</h2>
+
+    <ol class="stack" role="list">
+      <li class="stack-card" style="--i:0">
+        <p class="stack-kicker"><button class="fn-open" type="button" data-fn="marketing" aria-haspopup="dialog">MARKETING</button></p>
+        <p class="stack-line">Smarter campaigns. Better results. Less effort.</p>
+        <ul class="stack-list" role="list">
+          <li>Brand Visuals</li><li>Campaign Engine</li><li>Sites &amp; Landing Pages</li><li>Content Studio</li>
+        </ul>
+      </li>
+
+      <li class="stack-card" style="--i:1">
+        <p class="stack-kicker"><button class="fn-open" type="button" data-fn="sales" aria-haspopup="dialog">SALES</button></p>
+        <p class="stack-line">Research. Reach out. Close more. On autopilot.</p>
+        <ul class="stack-list" role="list">
+          <li>Account Research</li><li>Outbound Sequences</li><li>Proposals &amp; Quotes</li><li>Clean Handoff</li>
+        </ul>
+      </li>
+
+      <li class="stack-card" style="--i:2">
+        <p class="stack-kicker"><button class="fn-open" type="button" data-fn="operations" aria-haspopup="dialog">OPERATIONS</button></p>
+        <p class="stack-line">Instant answers. Happy customers. No missed request.</p>
+        <ul class="stack-list" role="list">
+          <li>AI Receptionist</li><li>Request Intake</li><li>Workflow Automation</li><li>Vendor &amp; Supply</li><li>Live Reporting</li>
+        </ul>
+      </li>
+
+      <li class="stack-card" style="--i:3">
+        <p class="stack-kicker"><button class="fn-open" type="button" data-fn="hr" aria-haspopup="dialog">HR SOLUTIONS</button></p>
+        <p class="stack-line">Hire faster. Onboard cleaner. Keep longer.</p>
+        <ul class="stack-list" role="list">
+          <li>Sourcing &amp; Screening</li><li>Onboarding</li><li>Policy &amp; Records</li><li>Retention Signals</li>
+        </ul>
+      </li>
+
+      <li class="stack-card" style="--i:4">
+        <p class="stack-kicker"><button class="fn-open" type="button" data-fn="custom" aria-haspopup="dialog">CUSTOM SOLUTIONS</button></p>
+        <p class="stack-line">The system your business actually runs on.</p>
+        <ul class="stack-list" role="list">
+          <li>Process Mapping</li><li>Bespoke Agents</li><li>Systems Integration</li><li>Internal Tools</li>
+        </ul>
+      </li>
+
+      <li class="stack-card" style="--i:5">
+        <p class="stack-kicker"><button class="fn-open" type="button" data-fn="success" aria-haspopup="dialog">CUSTOMER SUCCESS</button></p>
+        <p class="stack-line">See the drop early. Fix it before they go.</p>
+        <ul class="stack-list" role="list">
+          <li>Always-On Support</li><li>Health Monitoring</li><li>Renewals</li><li>Feedback Loop</li>
+        </ul>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ═══ HOW IT RUNS ═══ mechanism only, no claims, no numbers ═══════════
+       Numbered on purpose: this is a real sequence and the order carries
+       information. That is the only thing that earns a numeral here. -->
+  <section class="process" aria-labelledby="process-h">
+    <h2 class="process-h" id="process-h">From first call to running system</h2>
+
+    <!-- The flow line. It is not decoration: the four steps are a real
+         sequence, and this is the only element on the page that says so
+         visually rather than by numbering.
+
+         It REPLACES the per-step top rule above 860px, where the four steps
+         sit in one row. One continuous hairline reads as a sequence; four
+         separate ones read as four cards. Below 860px the row wraps to a
+         stack, a horizontal line through it would mean nothing, and the
+         per-step rules come back. See §12b in app.css.
+
+         Two elements and no script. The run and the arrowhead are driven by
+         one scroll-linked custom property, so the arrow is always exactly at
+         the end of the drawn line by construction rather than by measurement.
+         The BASE state is fully drawn with the arrow landed, per the authoring
+         rule in CLAUDE.md, so a browser with no scroll timelines and a reader
+         who asked for less motion both get the finished picture. -->
+    <div class="flow" aria-hidden="true"><span class="flow-run"></span></div>
+
+    <ol class="steps" role="list">
+      <li class="step"><p class="step-name">Audit</p><p class="step-line">We map what your business actually does today.</p></li>
+      <li class="step"><p class="step-name">Design</p><p class="step-line">We choose which functions to run, and how they connect.</p></li>
+      <li class="step"><p class="step-name">Build</p><p class="step-line">Systems go live one function at a time.</p></li>
+      <li class="step"><p class="step-name">Run</p><p class="step-line">We operate them. You lead the business.</p></li>
+    </ol>
+  </section>
+
   <!-- ═══ ARRIVAL ═══ the journey settles and the room is still there ═══ -->
   <section class="arrival" id="build" aria-label="Build Your Intelligent Business">
     <div class="arrival-inner">
@@ -277,14 +607,14 @@
           <img src="assets/logo-mark.png" width="148" height="89" alt="technoon.ai" loading="lazy" decoding="async">
         </span>
       </p>
-      <a class="cta cta--arrival" data-cal href="https://cal.com/sudeshna-pal-ruww5f/technoon.ai" rel="noopener">Build Your Intelligent Business</a>
+      <a class="cta cta--arrival" data-form href="mailto:info@technoon.ai">Build Your Intelligent Business</a>
     </div>
   </section>
 
 </main>
 
 <footer class="foot">
-  <p>&copy; 2026 technoon.ai</p>
+  <p>&copy; 2026 technoon.ai &middot; <a class="foot-mail" href="mailto:info@technoon.ai">info@technoon.ai</a></p>
 </footer>
 
 <!-- ═══ THE FUNCTION CARD ═══════════════════════════════════════════════════
@@ -297,13 +627,21 @@
      harder to get wrong.
 
      The copy is markup, not a JS object, so the spelling and stock-word audits
-     in CLAUDE.md still see every string they are meant to police.
+     in CLAUDE.md still see every string they are meant to police. Every
+     offering name and line below is HTML for exactly that reason. Do not move
+     them into detail.js to "tidy up": that hides them from the audits.
 
-     TEXT LAW: every line below is already on the allowlist. Nothing here is
-     invented. HR SOLUTIONS, CUSTOM SOLUTIONS and CUSTOMER SUCCESS are
-     label-only in the storyboard, so they carry the approved closing line
-     until technoon.ai supplies real per-function copy. That is the one thing
-     on this page waiting on the client, and it is a copy swap, not a rebuild.
+     TEXT LAW: every line below is on the allowlist. Nothing here is invented.
+     The offering tiles, the three new pain/resolution pairs for HR SOLUTIONS,
+     CUSTOM SOLUTIONS and CUSTOMER SUCCESS, and the WHAT WE RUN eyebrow came
+     through the brief's "explicitly provided by me" clause on 2026-08-16 and
+     are recorded in the allowlist in CLAUDE.md.
+
+     Each panel is three zones: the pain/resolution pair, one capability
+     artifact, and the offerings. The artifact is pure SVG drawn from the
+     page's own primitives: lanes, pills, cells, hairlines and the ribbon.
+     No rings, no orbits, no arcs: the dot-ring motif is rejected as a site
+     device. No numbers anywhere, invented or otherwise.
 ═══════════════════════════════════════════════════════════════════════════ -->
 <dialog class="detail" id="fn-detail">
   <div class="detail-card">
@@ -316,43 +654,247 @@
       </svg>
     </button>
 
+    <!-- Every artifact below is authored so its BASE CSS state is the RESOLVED
+         frame and the keyframes travel away from it and back. That is what
+         makes `animation: none` under reduced motion land on the picture that
+         carries the meaning instead of on a broken first frame. -->
+
     <div class="detail-panel" data-fn="marketing" hidden>
-      <p class="detail-kicker">MARKETING</p>
-      <p class="detail-line">Too much activity. Not enough impact.</p>
-      <p class="detail-kicker detail-kicker--on">SMART MARKETING</p>
-      <p class="detail-line detail-line--fix">Smarter campaigns. Better results. Less effort.</p>
+      <div class="detail-story">
+        <p class="detail-kicker">MARKETING</p>
+        <p class="detail-line">Too much activity. Not enough impact.</p>
+        <p class="detail-kicker detail-kicker--on">SMART MARKETING</p>
+        <p class="detail-line detail-line--fix">Smarter campaigns. Better results. Less effort.</p>
+
+        <!-- four channels converging into one campaign -->
+        <div class="fn-art fn-art--converge" aria-hidden="true">
+          <svg viewBox="0 0 320 104" focusable="false">
+            <defs>
+              <!-- userSpaceOnUse, not the default objectBoundingBox: the shape
+                   this paints is a HORIZONTAL LINE, whose bounding box has zero
+                   height, and a gradient in bounding-box units on a zero-extent
+                   box is not rendered at all. The line simply disappears. Same
+                   reason for every gradient in this dialog. -->
+              <linearGradient id="art-rib-mk" gradientUnits="userSpaceOnUse" x1="180" y1="0" x2="316" y2="0">
+                <stop offset="0" stop-color="#35B8F2"/>
+                <stop offset=".52" stop-color="#6C4CE0"/>
+                <stop offset="1" stop-color="#C64BE8"/>
+              </linearGradient>
+            </defs>
+            <g class="art-lane">
+              <path d="M4 10H140q40 0 40 42"/>
+              <path d="M4 38H152q28 0 28 14"/>
+              <path d="M4 66H152q28 0 28-14"/>
+              <path d="M4 94H140q40 0 40-42"/>
+            </g>
+            <path class="art-merge" pathLength="100" d="M180 52H316" stroke="url(#art-rib-mk)"/>
+          </svg>
+        </div>
+
+      </div>
+
+      <div class="detail-run">
+        <p class="offer-eyebrow">WHAT WE RUN</p>
+        <ul class="offers" role="list">
+          <li class="offer"><span class="offer-name">Brand Visuals</span><span class="offer-line">One look that holds up everywhere it lands.</span></li>
+          <li class="offer"><span class="offer-name">Campaign Engine</span><span class="offer-line">Built once. Runs every week.</span></li>
+          <li class="offer"><span class="offer-name">Sites &amp; Landing Pages</span><span class="offer-line">Pages that carry the pitch on their own.</span></li>
+          <li class="offer"><span class="offer-name">Content Studio</span><span class="offer-line">Enough to publish. Never enough to burn out.</span></li>
+        </ul>
+      </div>
     </div>
 
     <div class="detail-panel" data-fn="sales" hidden>
-      <p class="detail-kicker">SALES</p>
-      <p class="detail-line">Leads everywhere. Follow-up nowhere.</p>
-      <p class="detail-kicker detail-kicker--on">AI-POWERED SALES</p>
-      <p class="detail-line detail-line--fix">Research. Reach out. Close more. On autopilot.</p>
+      <div class="detail-story">
+        <p class="detail-kicker">SALES</p>
+        <p class="detail-line">Leads everywhere. Follow-up nowhere.</p>
+        <p class="detail-kicker detail-kicker--on">AI-POWERED SALES</p>
+        <p class="detail-line detail-line--fix">Research. Reach out. Close more. On autopilot.</p>
+
+        <!-- leads stepping down the pipeline instead of sitting in it -->
+        <div class="fn-art fn-art--steps" aria-hidden="true">
+          <svg viewBox="0 0 320 104" focusable="false">
+            <defs>
+              <linearGradient id="art-rib-sl" gradientUnits="userSpaceOnUse" x1="254" y1="0" x2="314" y2="0">
+                <stop offset="0" stop-color="#6C4CE0"/>
+                <stop offset="1" stop-color="#C64BE8"/>
+              </linearGradient>
+            </defs>
+            <g class="art-step">
+              <rect x="6" y="6" width="58" height="15" rx="7.5"/>
+              <rect x="68" y="27" width="58" height="15" rx="7.5"/>
+              <rect x="130" y="48" width="58" height="15" rx="7.5"/>
+              <rect x="192" y="69" width="58" height="15" rx="7.5"/>
+            </g>
+            <rect class="art-closed" x="254" y="83" width="60" height="15" rx="7.5" fill="url(#art-rib-sl)"/>
+          </svg>
+        </div>
+
+      </div>
+
+      <div class="detail-run">
+        <p class="offer-eyebrow">WHAT WE RUN</p>
+        <ul class="offers" role="list">
+          <li class="offer"><span class="offer-name">Account Research</span><span class="offer-line">Know the account before the first line.</span></li>
+          <li class="offer"><span class="offer-name">Outbound Sequences</span><span class="offer-line">Follow-up that never forgets.</span></li>
+          <li class="offer"><span class="offer-name">Proposals &amp; Quotes</span><span class="offer-line">Out the same day, not the same quarter.</span></li>
+          <li class="offer"><span class="offer-name">Clean Handoff</span><span class="offer-line">Nothing lost between the deal and the work.</span></li>
+        </ul>
+      </div>
     </div>
 
     <div class="detail-panel" data-fn="operations" hidden>
-      <p class="detail-kicker">OPERATIONS</p>
-      <p class="detail-line">Requests never stop. Agents overwhelmed.</p>
-      <p class="detail-kicker detail-kicker--on">ALWAYS-ON OPERATIONS</p>
-      <p class="detail-line detail-line--fix">Instant answers. Happy customers. No missed request.</p>
+      <div class="detail-story">
+        <p class="detail-kicker">OPERATIONS</p>
+        <p class="detail-line">Requests never stop. Agents overwhelmed.</p>
+        <p class="detail-kicker detail-kicker--on">ALWAYS-ON OPERATIONS</p>
+        <p class="detail-line detail-line--fix">Instant answers. Happy customers. No missed request.</p>
+
+        <!-- the queue clearing faster than it fills -->
+        <div class="fn-art fn-art--queue" aria-hidden="true">
+          <svg viewBox="0 0 320 104" focusable="false">
+            <defs>
+              <linearGradient id="art-rib-op" gradientUnits="userSpaceOnUse" x1="0" y1="6" x2="0" y2="98">
+                <stop offset="0" stop-color="#35B8F2"/>
+                <stop offset="1" stop-color="#6C4CE0"/>
+              </linearGradient>
+            </defs>
+            <g class="art-cell">
+              <rect x="6" y="10" width="33" height="22" rx="6"/><rect x="45" y="10" width="33" height="22" rx="6"/><rect x="84" y="10" width="33" height="22" rx="6"/><rect x="123" y="10" width="33" height="22" rx="6"/><rect x="162" y="10" width="33" height="22" rx="6"/><rect x="201" y="10" width="33" height="22" rx="6"/><rect x="240" y="10" width="33" height="22" rx="6"/><rect x="279" y="10" width="33" height="22" rx="6"/>
+              <rect x="6" y="41" width="33" height="22" rx="6"/><rect x="45" y="41" width="33" height="22" rx="6"/><rect x="84" y="41" width="33" height="22" rx="6"/><rect x="123" y="41" width="33" height="22" rx="6"/><rect x="162" y="41" width="33" height="22" rx="6"/><rect x="201" y="41" width="33" height="22" rx="6"/><rect x="240" y="41" width="33" height="22" rx="6"/><rect x="279" y="41" width="33" height="22" rx="6"/>
+              <rect x="6" y="72" width="33" height="22" rx="6"/><rect x="45" y="72" width="33" height="22" rx="6"/><rect x="84" y="72" width="33" height="22" rx="6"/><rect x="123" y="72" width="33" height="22" rx="6"/><rect x="162" y="72" width="33" height="22" rx="6"/><rect x="201" y="72" width="33" height="22" rx="6"/><rect x="240" y="72" width="33" height="22" rx="6"/><rect x="279" y="72" width="33" height="22" rx="6"/>
+            </g>
+            <rect class="art-sweep" x="0" y="6" width="3" height="92" rx="1.5" fill="url(#art-rib-op)"/>
+          </svg>
+        </div>
+
+        <!-- five here, not four: AI Receptionist was added to OPERATIONS on
+             2026-08-16. .offers--five re-samples the ribbon across five tiles so
+             the set still spans cyan to magenta exactly once. -->
+      </div>
+
+      <div class="detail-run">
+        <p class="offer-eyebrow">WHAT WE RUN</p>
+        <ul class="offers offers--five" role="list">
+          <li class="offer"><span class="offer-name">AI Receptionist</span><span class="offer-line">Every call picked up. Every message logged.</span></li>
+          <li class="offer"><span class="offer-name">Request Intake</span><span class="offer-line">Every ask logged, routed, answered.</span></li>
+          <li class="offer"><span class="offer-name">Workflow Automation</span><span class="offer-line">The repeat work stops being work.</span></li>
+          <li class="offer"><span class="offer-name">Vendor &amp; Supply</span><span class="offer-line">Orders move without chasing.</span></li>
+          <li class="offer"><span class="offer-name">Live Reporting</span><span class="offer-line">One view. Current. Always.</span></li>
+        </ul>
+      </div>
     </div>
 
     <div class="detail-panel" data-fn="hr" hidden>
-      <p class="detail-kicker detail-kicker--on">HR SOLUTIONS</p>
-      <p class="detail-line detail-line--fix">Intelligence that runs your business. So you can lead it.</p>
+      <div class="detail-story">
+        <p class="detail-kicker">HR SOLUTIONS</p>
+        <p class="detail-line">Great people. Slow process.</p>
+        <p class="detail-kicker detail-kicker--on">EFFORTLESS HR</p>
+        <p class="detail-line detail-line--fix">Hire faster. Onboard cleaner. Keep longer.</p>
+
+        <!-- one person crossing three gates, each lighting as they pass -->
+        <div class="fn-art fn-art--gates" aria-hidden="true">
+          <svg viewBox="0 0 320 104" focusable="false">
+            <defs>
+              <linearGradient id="art-rib-hr" gradientUnits="userSpaceOnUse" x1="8" y1="0" x2="62" y2="0">
+                <stop offset="0" stop-color="#6C4CE0"/>
+                <stop offset="1" stop-color="#C64BE8"/>
+              </linearGradient>
+            </defs>
+            <g class="art-gate">
+              <path d="M84 12V92"/><path d="M154 12V92"/><path d="M224 12V92"/>
+            </g>
+            <rect class="art-pass" x="8" y="38" width="54" height="28" rx="9" fill="url(#art-rib-hr)"/>
+          </svg>
+        </div>
+
+      </div>
+
+      <div class="detail-run">
+        <p class="offer-eyebrow">WHAT WE RUN</p>
+        <ul class="offers" role="list">
+          <li class="offer"><span class="offer-name">Sourcing &amp; Screening</span><span class="offer-line">The shortlist arrives already sorted.</span></li>
+          <li class="offer"><span class="offer-name">Onboarding</span><span class="offer-line">Day one runs itself.</span></li>
+          <li class="offer"><span class="offer-name">Policy &amp; Records</span><span class="offer-line">Answers your team can find alone.</span></li>
+          <li class="offer"><span class="offer-name">Retention Signals</span><span class="offer-line">Notice people leaving before they do.</span></li>
+        </ul>
+      </div>
     </div>
 
     <div class="detail-panel" data-fn="custom" hidden>
-      <p class="detail-kicker detail-kicker--on">CUSTOM SOLUTIONS</p>
-      <p class="detail-line detail-line--fix">Intelligence that runs your business. So you can lead it.</p>
+      <div class="detail-story">
+        <p class="detail-kicker">CUSTOM SOLUTIONS</p>
+        <p class="detail-line">Your edge cases. Nobody's software.</p>
+        <p class="detail-kicker detail-kicker--on">BUILT FOR YOU</p>
+        <p class="detail-line detail-line--fix">The system your business actually runs on.</p>
+
+        <!-- loose parts locking into one lattice on a single beat -->
+        <div class="fn-art fn-art--lattice" aria-hidden="true">
+          <svg viewBox="0 0 320 104" focusable="false">
+            <g class="art-node">
+              <circle cx="30" cy="34" r="5"/><circle cx="82" cy="34" r="5"/><circle cx="134" cy="34" r="5"/><circle cx="186" cy="34" r="5"/><circle cx="238" cy="34" r="5"/><circle cx="290" cy="34" r="5"/>
+              <circle cx="30" cy="70" r="5"/><circle cx="82" cy="70" r="5"/><circle cx="134" cy="70" r="5"/><circle cx="186" cy="70" r="5"/><circle cx="238" cy="70" r="5"/><circle cx="290" cy="70" r="5"/>
+            </g>
+            <g class="art-link">
+              <path pathLength="100" d="M30 34H290"/><path pathLength="100" d="M30 70H290"/><path pathLength="100" d="M82 34V70"/><path pathLength="100" d="M186 34V70"/>
+            </g>
+          </svg>
+        </div>
+
+      </div>
+
+      <div class="detail-run">
+        <p class="offer-eyebrow">WHAT WE RUN</p>
+        <ul class="offers" role="list">
+          <li class="offer"><span class="offer-name">Process Mapping</span><span class="offer-line">We learn how you already work.</span></li>
+          <li class="offer"><span class="offer-name">Bespoke Agents</span><span class="offer-line">Built for your business, not a template.</span></li>
+          <li class="offer"><span class="offer-name">Systems Integration</span><span class="offer-line">Your tools, finally talking.</span></li>
+          <li class="offer"><span class="offer-name">Internal Tools</span><span class="offer-line">The thing you kept meaning to build.</span></li>
+        </ul>
+      </div>
     </div>
 
     <div class="detail-panel" data-fn="success" hidden>
-      <p class="detail-kicker detail-kicker--on">CUSTOMER SUCCESS</p>
-      <p class="detail-line detail-line--fix">Intelligence that runs your business. So you can lead it.</p>
+      <div class="detail-story">
+        <p class="detail-kicker">CUSTOMER SUCCESS</p>
+        <p class="detail-line">Customers leave quietly.</p>
+        <p class="detail-kicker detail-kicker--on">PROACTIVE SUCCESS</p>
+        <p class="detail-line detail-line--fix">See the drop early. Fix it before they go.</p>
+
+        <!-- the dip caught on the way down, not after -->
+        <div class="fn-art fn-art--signal" aria-hidden="true">
+          <svg viewBox="0 0 320 104" focusable="false">
+            <defs>
+              <linearGradient id="art-rib-cs" gradientUnits="userSpaceOnUse" x1="6" y1="0" x2="314" y2="0">
+                <stop offset="0" stop-color="#35B8F2"/>
+                <stop offset="1" stop-color="#6C4CE0"/>
+              </linearGradient>
+            </defs>
+            <path class="art-base" d="M6 52H314"/>
+            <!-- pathLength normalises the draw to 0-100 regardless of the actual
+                 geometry, so the dash maths cannot desync if the curve is ever
+                 reshaped. Without it the dasharray has to be hand-matched to the
+                 real path length, and a path that overruns the viewBox draws in
+                 broken segments. Same reason on .art-merge and .art-link. -->
+            <path class="art-curve" pathLength="100" d="M6 52H96q20 0 30 20t26 14 24-24 28-10h110" stroke="url(#art-rib-cs)"/>
+            <circle class="art-mark" cx="118" cy="64" r="6"/>
+          </svg>
+        </div>
+
+      </div>
+
+      <div class="detail-run">
+        <p class="offer-eyebrow">WHAT WE RUN</p>
+        <ul class="offers" role="list">
+          <li class="offer"><span class="offer-name">Always-On Support</span><span class="offer-line">Answers at 3am, in your voice.</span></li>
+          <li class="offer"><span class="offer-name">Health Monitoring</span><span class="offer-line">Quiet accounts stop being invisible.</span></li>
+          <li class="offer"><span class="offer-name">Renewals</span><span class="offer-line">The conversation starts early, not late.</span></li>
+          <li class="offer"><span class="offer-name">Feedback Loop</span><span class="offer-line">What customers say reaches the people building.</span></li>
+        </ul>
+      </div>
     </div>
 
-    <a class="cta detail-cta" data-cal href="https://cal.com/sudeshna-pal-ruww5f/technoon.ai" rel="noopener">Build Your Intelligent Business</a>
+    <a class="cta detail-cta" data-form href="mailto:info@technoon.ai">Build Your Intelligent Business</a>
   </div>
 </dialog>
 
@@ -386,6 +928,102 @@
 
     <iframe class="cal-frame" title="Free Audit" loading="lazy"
             referrerpolicy="strict-origin-when-cross-origin"></iframe>
+  </div>
+</dialog>
+
+<!-- ═══ THE ENQUIRY CARD ═════════════════════════════════════════════════════
+     The THIRD dialog on this page, opened by the three data-form CTAs. Client
+     instruction 2026-08-16: "Book Free Audit should open the calendar widget,
+     Build Your Intelligent Business should open a form." Those are two
+     different asks from a reader. One is ready to pick a slot; the other wants
+     to describe a business first.
+
+     Built on exactly the contract the other two dialogs already have, because
+     a third modal that behaves differently is a third set of bugs:
+
+       - native <dialog>, so focus trap, Escape, top layer and inertness come
+         from the platform rather than from this file;
+       - triggers are real <a href="mailto:..."> intercepted by form.js, so a
+         module that never loads costs the reader a nicer form, not the contact;
+       - it stops Lenis and pins the document TOGETHER, and its release() checks
+         for a sibling dialog[open] before unpinning. Three dialogs now share
+         one pin. None of them may release it alone.
+
+     The heading and the sub line are allowlisted copy reused verbatim. The
+     field labels are functional UI chrome, in the same category as the skip
+     link and the Close buttons.
+
+     NOTE the form has no action attribute. form.js posts it, and until an
+     endpoint is configured it falls back to composing the same message as a
+     mailto. See FORM_ENDPOINT in assets/form.js.
+═══════════════════════════════════════════════════════════════════════════ -->
+<dialog class="enq" id="enq-form" aria-labelledby="enq-h">
+  <div class="enq-panel">
+    <button class="enq-close" type="button" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <h2 class="enq-h" id="enq-h">Build Your Intelligent Business</h2>
+    <p class="enq-sub">Strategy. Systems. Growth.</p>
+
+    <form class="enq-form" novalidate>
+      <!-- The honeypot. Off screen rather than display:none, because a bot that
+           renders CSS skips hidden fields but fills positioned ones. tabindex
+           and autocomplete keep it away from real people and their password
+           managers. aria-hidden keeps it away from screen readers. -->
+      <div class="enq-pot" aria-hidden="true">
+        <label for="enq-pot">Leave this empty</label>
+        <input id="enq-pot" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div class="enq-row">
+        <label class="enq-label" for="enq-name">Name</label>
+        <input class="enq-input" id="enq-name" name="name" type="text"
+               required autocomplete="name" maxlength="120">
+      </div>
+
+      <div class="enq-row">
+        <label class="enq-label" for="enq-email">Email</label>
+        <input class="enq-input" id="enq-email" name="email" type="email"
+               required autocomplete="email" maxlength="200" inputmode="email">
+      </div>
+
+      <div class="enq-row">
+        <label class="enq-label" for="enq-company">Company</label>
+        <input class="enq-input" id="enq-company" name="company" type="text"
+               autocomplete="organization" maxlength="120">
+      </div>
+
+      <div class="enq-row">
+        <label class="enq-label" for="enq-fn">What do you want to run?</label>
+        <select class="enq-input enq-select" id="enq-fn" name="function">
+          <option value="">All of it</option>
+          <option value="Marketing">Marketing</option>
+          <option value="Sales">Sales</option>
+          <option value="Operations">Operations</option>
+          <option value="HR Solutions">HR Solutions</option>
+          <option value="Custom Solutions">Custom Solutions</option>
+          <option value="Customer Success">Customer Success</option>
+        </select>
+      </div>
+
+      <div class="enq-row">
+        <label class="enq-label" for="enq-msg">Anything else</label>
+        <textarea class="enq-input enq-area" id="enq-msg" name="message"
+                  rows="3" maxlength="2000"></textarea>
+      </div>
+
+      <p class="enq-error" id="enq-error" role="alert" hidden></p>
+
+      <button class="cta enq-send" type="submit">Send</button>
+
+      <!-- The status line. role=status so a submit that succeeds is announced
+           rather than only shown, and it is the same element the error above
+           deliberately is not: an error is assertive, a success is polite. -->
+      <p class="enq-status" id="enq-status" role="status" hidden></p>
+    </form>
   </div>
 </dialog>
 

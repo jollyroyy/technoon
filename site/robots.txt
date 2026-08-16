@@ -1,0 +1,96 @@
+# technoon.ai — robots.txt
+#
+# This file is served from site/, which is the only directory vercel.json
+# publishes. review/ and brief/ are not on the internet at all, so nothing here
+# needs to hide them; there is no path to disallow.
+#
+# Two kinds of crawler are named below and BOTH are allowed on purpose.
+#
+#   Retrieval / answer bots  (OAI-SearchBot, ChatGPT-User, PerplexityBot,
+#   Perplexity-User, Claude-SearchBot, Claude-User, DuckAssistBot, Applebot)
+#   are what make this page eligible to be CITED inside a ChatGPT or Perplexity
+#   answer. Blocking these is the single most common way a site disappears from
+#   AI search without anyone noticing.
+#
+#   Training bots (GPTBot, ClaudeBot, Google-Extended, Applebot-Extended,
+#   meta-externalagent, Amazonbot, Bytespider, cohere-ai, Timpibot) feed model
+#   training sets. For a new agency with no archive to protect, being known to
+#   a model before anyone searches is an asset, not a cost. If the client ever
+#   wants out of training while staying citable, flip ONLY the training group
+#   to Disallow and leave the retrieval group alone. That distinction is the
+#   whole point of listing them separately.
+#
+# A named group REPLACES the wildcard group for that crawler, so every group
+# below is written out in full rather than inheriting from `User-agent: *`.
+
+User-agent: *
+Allow: /
+
+# ── OpenAI ──────────────────────────────────────────────────────────────────
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+# ── Perplexity ──────────────────────────────────────────────────────────────
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# ── Anthropic ───────────────────────────────────────────────────────────────
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+# ── Google ──────────────────────────────────────────────────────────────────
+User-agent: Googlebot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# ── Microsoft / Bing / Copilot ──────────────────────────────────────────────
+User-agent: Bingbot
+Allow: /
+
+User-agent: BingPreview
+Allow: /
+
+# ── Apple ───────────────────────────────────────────────────────────────────
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# ── The rest ────────────────────────────────────────────────────────────────
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Timpibot
+Allow: /
+
+Sitemap: https://technoon.ai/sitemap.xml

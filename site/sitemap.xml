@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- technoon.ai is one page. A sitemap with a single URL still earns its place:
+     it is what Search Console validates against, and it carries the lastmod
+     that tells a crawler the page changed. Update lastmod when the copy or the
+     structured data changes, not when a stylesheet does.
+
+     DEPLOY STEP: the URL below has to match the address that actually serves
+     the page, and the canonical tag in index.html. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://technoon.ai/</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

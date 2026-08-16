@@ -118,17 +118,30 @@ export function initDetail(opts = {}) {
     dialog.removeEventListener('pointerleave', onLeave);
     if (raf !== null) { cancelAnimationFrame(raf); raf = null; }
 
-    document.documentElement.classList.remove('detail-open');
-    const lenis = getLenis();
-    if (lenis && typeof lenis.start === 'function') lenis.start();
+    /* The booking card is a SECOND dialog sharing this exact pin, and the CTA
+       inside this card opens it. Whichever of the two closes first must not
+       unpin while the other is still on screen, or 1800vh of scroll-driven
+       journey starts scrubbing behind an open modal. By the time `close`
+       fires, this dialog has already lost its open attribute, so the query
+       below only matches a sibling that is genuinely still up. cal.js carries
+       the mirror of this check; releasing one scroller without the other is
+       worse than releasing neither. */
+    const other = document.querySelector('dialog[open]');
+    if (!other) {
+      document.documentElement.classList.remove('detail-open');
+      const lenis = getLenis();
+      if (lenis && typeof lenis.start === 'function') lenis.start();
+    }
 
     if (opener) {
       opener.setAttribute('aria-expanded', 'false');
       /* browsers do restore focus on close, but only when the opener is still
          focusable and on screen. These triggers live inside scroll-driven
          bands that may have gone visibility:hidden in the meantime, so put it
-         back explicitly and let it fail quietly when it cannot. */
-      try { opener.focus({ preventScroll: true }); } catch (_) {}
+         back explicitly and let it fail quietly when it cannot. Skipped while
+         another dialog holds the top layer: everything outside it is inert,
+         so the call would be a no-op that also fights that card for focus. */
+      if (!other) { try { opener.focus({ preventScroll: true }); } catch (_) {} }
       opener = null;
     }
   }
@@ -143,12 +156,25 @@ export function initDetail(opts = {}) {
 
   if (closeBtn) closeBtn.addEventListener('click', () => dialog.close());
 
-  /* A link inside the card has to close before it scrolls: the anchor handler
-     in app.js drives Lenis, and Lenis is stopped while the card is open, so
-     the scroll would be swallowed. Capture phase runs this before the
-     listener app.js bound directly to the anchor. */
+  /* A link inside the card has to close before it acts.
+
+     For an in-page anchor: the handler in app.js drives Lenis, and Lenis is
+     stopped while the card is open, so the scroll would be swallowed.
+
+     For the booking CTA and the enquiry CTA: cal.js and form.js both delegate
+     off document in the bubble phase, so without this their card opens ON TOP
+     of this one. Two modals in the top layer sharing one pin, and the first to
+     close unpins the film for both. Closing here first means the other module
+     opens into a clean single-modal state, and the release() guard in all
+     three files covers the ordering.
+
+     data-form was added 2026-08-16 when the card's own CTA stopped being a
+     booking trigger and became an enquiry trigger. It has exactly the problem
+     data-cal had, so it gets exactly the same treatment.
+
+     Capture phase is what puts this ahead of all of those listeners. */
   card.addEventListener('click', e => {
-    if (e.target.closest('a[href^="#"]')) dialog.close();
+    if (e.target.closest('a[href^="#"], [data-cal], [data-form]')) dialog.close();
   }, true);
 
   /* ── wire every trigger ─────────────────────────────────────────────── */

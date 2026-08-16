@@ -565,3 +565,11 @@ import('./detail.js')
 import('./cal.js')
   .then(m => m.initCal({ lenis: () => lenis }))
   .catch(() => {});   // the CTAs stay plain links to the booking page
+
+/* The enquiry card, on the same terms again. Client instruction 2026-08-16
+   split the CTAs: the two Free Audit ones open the calendar above, the three
+   Build Your Intelligent Business ones open this. Same Lenis getter, same
+   reason: three dialogs now share one pin and none may release it alone. */
+import('./form.js')
+  .then(m => m.initForm({ lenis: () => lenis }))
+  .catch(() => {});   // the CTAs stay plain mailto links to the same inbox

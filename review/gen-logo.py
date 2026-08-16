@@ -1,14 +1,21 @@
-"""Rebuild the technoon.ai mark at 4K.
+"""Rebuild the technoon.ai mark at 4K — the supplied mark, at resolution.
 
-Ring: drawn mathematically, fully closed (the supplied bitmap's ring was an open
-spiral and reads as unfinished). Wordmark: re-set in Montserrat Medium, the
-typeface the supplied mark uses (0.71 IoU against the source raster, the next
-candidate scores 0.58). Tagline "AI AGENCY" and its rules are dropped.
-Everything sits on the supplied mark's own geometry, in its own coordinates.
+Sphere: the SUPPLIED sphere, traced dot by dot out of brief/logo-source.jpg by
+review/trace-ring.py and redrawn as crisp circles. Its swirl, its shell spacing,
+its dot sizes and its colours are the supplied art's own; the only thing added
+is a sharp edge, which is the one thing a 190x112 JPEG cannot give. Nothing here
+is a redesign — an earlier pass drew a mathematical closed ring instead and it
+was rejected, correctly, as not being the client's mark.
+
+Wordmark: re-set in Montserrat Medium, the typeface the supplied mark uses
+(0.71 IoU against the source raster, the next candidate scores 0.58), so it is
+sharp at any size. Tagline "AI AGENCY" and its rules are dropped, and the dark
+card is dropped: the mark ships on transparency for a light page.
 
 Montserrat-Medium.ttf is SIL Open Font License 1.1 (Julieta Ulanovsky et al.).
-Run from anywhere:  python review/gen-logo.py
+Run from anywhere:  python review/trace-ring.py && python review/gen-logo.py
 """
+import json
 import os
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
@@ -16,6 +23,7 @@ from PIL import Image, ImageDraw, ImageFont
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 FONT = os.path.join(HERE, 'Montserrat-Medium.ttf')
+DOTS = os.path.join(HERE, 'ring-dots.json')
 
 # supplied-mark geometry, in its 190x112 pixel space
 BOX = (20.0, 0.0, 171.0, 91.0)          # l, t, r, b  -> the trimmed content box
@@ -23,21 +31,8 @@ RING_C, RING_R = (95.0, 34.0), 32.0
 WORD = (22.0, 69.0, 169.0, 87.0)        # l, t, r, b  of the wordmark bbox
 
 INK = (14, 19, 48)
-CYAN = (0x35, 0xB8, 0xF2)
-BLUE = (0x3E, 0x8B, 0xF0)
 VIOLET = (0x6C, 0x4C, 0xE0)
 MAGENTA = (0xC6, 0x4B, 0xE8)
-RING_RAMP = [(0.00, CYAN), (0.34, BLUE), (0.62, VIOLET), (1.00, MAGENTA)]
-
-# radius fraction, dot radius fraction, dot count
-SHELLS = [(0.44, 0.046, 26), (0.575, 0.053, 34), (0.71, 0.057, 42),
-          (0.845, 0.051, 50), (0.965, 0.026, 58)]
-
-
-def ramp(u, stops):
-    u = float(np.clip(u, 0, 1))
-    p = [s[0] for s in stops]
-    return tuple(int(round(np.interp(u, p, [s[1][c] for s in stops]))) for c in range(3))
 
 
 def build(width):
@@ -48,19 +43,16 @@ def build(width):
 
     canvas = Image.new('RGBA', (W, H), (0, 0, 0, 0))
 
-    # ---- ring ----------------------------------------------------------
+    # ---- the supplied sphere, redrawn ----------------------------------
+    # Every dot below came off the supplied JPEG. Its position, radius and
+    # colour are measurements, not parameters — there is nothing here to tune.
     ring = Image.new('RGBA', (W * ss, H * ss), (0, 0, 0, 0))
     dr = ImageDraw.Draw(ring)
-    cx, cy = (RING_C[0] - l) * S * ss, (RING_C[1] - t) * S * ss
-    rr = RING_R * S * ss
-    for frac, dot, n in SHELLS:
-        rad = rr * frac
-        for i in range(n):
-            th = 2 * np.pi * i / n + frac * 1.7         # per-shell phase: the spiral read
-            x, y = cx + rad * np.cos(th), cy + rad * np.sin(th)
-            g = np.clip((((x - cx) + (y - cy)) / (2 * rr * 0.965) + 1) / 2, 0, 1)
-            d = rr * dot * (0.70 + 0.75 * g)
-            dr.ellipse([x - d, y - d, x + d, y + d], fill=ramp(g, RING_RAMP) + (255,))
+    for d in json.load(open(DOTS)):
+        x, y = (d['x'] - l) * S * ss, (d['y'] - t) * S * ss
+        rad = d['r'] * S * ss
+        c = tuple(int(round(v * 255)) for v in d['c'])
+        dr.ellipse([x - rad, y - rad, x + rad, y + rad], fill=c + (255,))
     canvas.alpha_composite(ring.resize((W, H), Image.LANCZOS))
 
     # ---- wordmark ------------------------------------------------------

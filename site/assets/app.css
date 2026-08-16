@@ -172,6 +172,9 @@ body.paused *::after { animation-play-state: paused !important; }
   display: inline-flex;
   transition: transform .3s cubic-bezier(.2,.7,.2,1);
 }
+/* 100px is the widest the stacked mark goes in a 64px nav: the sphere sits
+   above the wordmark, so the lockup is 0.6 as tall as it is wide and anything
+   wider gets its sphere clipped by the nav's own height. */
 .brand-plate img { width: 100px; height: auto; }
 .brand:hover .brand-plate { transform: translateY(-1px) scale(1.015); }
 
@@ -181,6 +184,40 @@ body.paused *::after { animation-play-state: paused !important; }
   display: flex;
   align-items: center;
   gap: clamp(8px, 1vw, 14px);
+}
+
+/* The address, top right. Client instruction 2026-08-16 was "subtle", and
+   subtle here means it is not a third button: no pill, no fill, no border, no
+   backdrop filter. Body face rather than display, --slate rather than --ink,
+   and the only thing that happens on hover is the underline arriving. It reads
+   as a detail printed on the bar rather than as something to press, which is
+   exactly what an address is next to two calls to action.
+
+   It is NOT --violet. The accent budget on this page is spent on "moves",
+   "strategy", the kickers, the CTA, the focus ring, the hero rule, the ribbon
+   and the lit chain chips. An email address is not on that list. */
+.nav-mail {
+  font-family: var(--body);
+  font-size: clamp(11px, .88vw, 13px);
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--slate);
+  padding: 6px 2px;
+  border-bottom: 1px solid transparent;
+  transition: color .3s ease, border-color .3s ease;
+}
+.nav-mail:hover {
+  color: var(--ink-soft);
+  border-bottom-color: rgba(90,98,138,.36);
+}
+
+/* A narrow bar carries the mark and two actions and is already tight at that.
+   The address is the thing that gives way, because it is the only one of the
+   four with a permanent home elsewhere: .foot-mail. Declared here rather than
+   in §13 so it travels with the rule it turns off. */
+@media (max-width: 860px) {
+  .nav-mail { display: none; }
 }
 
 /* The quiet one. It sits beside the primary rather than competing with it: no
@@ -851,7 +888,10 @@ main:focus { outline: none; }
   --rx: 0deg;
   --ry: 0deg;
   position: relative;
-  width: min(680px, 100%);
+  /* widened from 680px when the panels grew a capability artifact and a 2x2
+     offerings grid. The dialog owns the scroller (see the note above), so a
+     taller card simply scrolls inside the veil. */
+  width: min(880px, 100%);
   padding: clamp(30px, 4.4vw, 56px);
   border-radius: clamp(22px, 2.2vw, 32px);
   border: 1px solid rgba(255,255,255,.55);
@@ -939,12 +979,359 @@ main:focus { outline: none; }
   color: var(--ink);
   transform: translateZ(22px);
 }
-.detail-line--fix { color: var(--ink); }
+/* The resolved line is differentiated by DEPTH, not colour. The card is a real
+   preserve-3d stage, so bringing this line 8px closer than the pain line above
+   it does the work an accent colour would have done, without spending another
+   dose of violet on a page whose accent budget is nearly all committed. */
+.detail-line--fix { transform: translateZ(30px); }
+
+/* ── the capability artifact ──────────────────────────────────────────────
+   One per function. Pure SVG, drawn only from primitives this page already
+   owns: lanes, pills, cells, hairlines, nodes and the ribbon. No rings, no
+   orbits, no arcs — the dot-ring motif is rejected as a site device (see the
+   design system in CLAUDE.md). No numbers, invented or otherwise.
+
+   THE AUTHORING RULE, and the reason these survive `prefers-reduced-motion`:
+   the BASE css state of every artifact is its RESOLVED frame. The keyframes
+   travel away from that state and return to it. So killing the animation
+   lands on the picture that carries the meaning, never on a broken first
+   frame. Exactly one element per artifact moves; the rest is always drawn. */
+.fn-art {
+  margin: clamp(20px, 3vh, 30px) 0 0;
+  padding: clamp(12px, 1.6vw, 18px);
+  border: 1px solid rgba(255,255,255,.55);
+  border-radius: clamp(14px, 1.4vw, 18px);
+  background: linear-gradient(160deg, rgba(255,255,255,.52), rgba(232,236,244,.58));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.75);
+  transform: translateZ(8px);
+}
+.fn-art svg { display: block; width: 100%; height: auto; }
+
+/* Shared ink for the "already there" scaffolding of every artifact.
+
+   SCOPED TO THE SCAFFOLDING GROUPS ON PURPOSE, and this is a trap worth
+   naming. The lit part of each artifact takes its paint from a gradient
+   referenced in the markup as fill="url(#…)" / stroke="url(#…)". Two things
+   would break it if this rule were a blanket `.fn-art path, rect, circle`:
+
+     1. CSS beats a presentation attribute, so `fill: none` would erase the
+        filled shapes and `stroke: var(--slate)` would grey the ribbon ones.
+     2. Moving the paint into CSS does NOT fix it. A url(#fragment) inside an
+        external stylesheet resolves against the STYLESHEET's URL, so
+        `url(#art-rib-mk)` written here means assets/app.css#art-rib-mk, which
+        does not exist, and the element paints nothing at all.
+
+   So the gradients stay in the markup and CSS never names a fill or stroke on
+   an element that carries one. Only geometry, opacity and motion below. */
+.fn-art .art-lane path,
+.fn-art .art-step rect,
+.fn-art .art-cell rect,
+.fn-art .art-gate path,
+.fn-art .art-node circle,
+.fn-art .art-link path,
+.fn-art .art-base { fill: none; stroke: var(--slate); stroke-width: 1.5; stroke-opacity: .30; }
+
+/* stroked-not-filled, so they still need fill:none — never a stroke */
+.fn-art .art-merge,
+.fn-art .art-curve { fill: none; }
+/* filled-not-stroked */
+.fn-art .art-closed,
+.fn-art .art-sweep,
+.fn-art .art-pass { stroke: none; }
+
+/* MARKETING · four channels converging into one campaign.
+   The merge line redraws; the four lanes are always there. */
+.fn-art--converge .art-merge {
+  stroke-width: 3.5;
+  stroke-opacity: 1;
+  stroke-linecap: round;
+  stroke-dasharray: 100;   /* the paths carry pathLength="100" */
+  stroke-dashoffset: 0;
+  animation: art-draw 4.2s cubic-bezier(.4,0,.2,1) infinite;
+}
+@keyframes art-draw { 0% { stroke-dashoffset: 100; } 55%, 100% { stroke-dashoffset: 0; } }
+
+/* SALES · leads stepping down instead of sitting still.
+   The staircase is always drawn; each tread lights in turn. */
+.fn-art--steps .art-step rect { animation: art-lift 3.6s ease-in-out infinite; }
+.fn-art--steps .art-step rect:nth-child(2) { animation-delay: .22s; }
+.fn-art--steps .art-step rect:nth-child(3) { animation-delay: .44s; }
+.fn-art--steps .art-step rect:nth-child(4) { animation-delay: .66s; }
+@keyframes art-lift {
+  0%, 60%, 100% { stroke-opacity: .30; }
+  22%           { stroke-opacity: .95; }
+}
+
+/* OPERATIONS · the queue clearing faster than it fills.
+   Base is the CLEARED grid with the sweep parked at the far edge. The bar
+   travels back across and each column brightens as it is passed. Column index
+   is (n-1) % 8 in a row-major 8x3 grid, so eight rules cover all 24 cells. */
+.fn-art--queue .art-sweep { transform: translateX(309px); animation: art-sweep 4.4s ease-in-out infinite; }
+@keyframes art-sweep { 0% { transform: translateX(0); } 70%, 100% { transform: translateX(309px); } }
+
+.fn-art--queue .art-cell rect { animation: art-clear 4.4s ease-in-out infinite; }
+.fn-art--queue .art-cell rect:nth-child(8n+2) { animation-delay: .09s; }
+.fn-art--queue .art-cell rect:nth-child(8n+3) { animation-delay: .18s; }
+.fn-art--queue .art-cell rect:nth-child(8n+4) { animation-delay: .27s; }
+.fn-art--queue .art-cell rect:nth-child(8n+5) { animation-delay: .36s; }
+.fn-art--queue .art-cell rect:nth-child(8n+6) { animation-delay: .45s; }
+.fn-art--queue .art-cell rect:nth-child(8n+7) { animation-delay: .54s; }
+.fn-art--queue .art-cell rect:nth-child(8n)   { animation-delay: .63s; }
+@keyframes art-clear {
+  0%          { stroke-opacity: .74; }
+  16%         { stroke-opacity: .74; }
+  30%, 100%   { stroke-opacity: .18; }
+}
+
+/* HR · one person crossing three gates, each lighting as they pass.
+   Base is past the last gate with every gate lit. */
+/* rests fully CLEAR of the last gate at x=224, not straddling it: the resting
+   frame is the one reduced motion freezes on, and half-through a gate reads
+   as stuck rather than as passed. */
+.fn-art--gates .art-pass { transform: translateX(228px); animation: art-pass 4.6s cubic-bezier(.5,0,.3,1) infinite; }
+@keyframes art-pass { 0% { transform: translateX(0); } 75%, 100% { transform: translateX(228px); } }
+
+.fn-art--gates .art-gate path { stroke-opacity: .85; animation: art-gate 4.6s ease-in-out infinite; }
+.fn-art--gates .art-gate path:nth-child(2) { animation-delay: .5s; }
+.fn-art--gates .art-gate path:nth-child(3) { animation-delay: 1s; }
+@keyframes art-gate { 0%, 16% { stroke-opacity: .18; } 34%, 100% { stroke-opacity: .85; } }
+
+/* CUSTOM · loose parts locking into one lattice on a single beat.
+   Base is locked and linked; the nodes scatter and return. */
+.fn-art--lattice .art-node circle { stroke-opacity: .8; animation: art-snap 5s cubic-bezier(.2,.8,.2,1) infinite; }
+.fn-art--lattice .art-node circle:nth-child(2n)  { animation-delay: .1s; }
+.fn-art--lattice .art-node circle:nth-child(3n)  { animation-delay: .2s; }
+.fn-art--lattice .art-node circle:nth-child(5n)  { animation-delay: .3s; }
+@keyframes art-snap {
+  0%        { transform: translate(9px, -7px); stroke-opacity: .22; }
+  48%, 100% { transform: translate(0, 0);      stroke-opacity: .8; }
+}
+.fn-art--lattice .art-link path {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 0;
+  animation: art-link 5s cubic-bezier(.4,0,.2,1) infinite;
+}
+@keyframes art-link { 0%, 40% { stroke-dashoffset: 100; } 70%, 100% { stroke-dashoffset: 0; } }
+
+/* CUSTOMER SUCCESS · the dip caught on the way down, not after.
+   Base is the recovered curve with the marker sitting on the onset. */
+.fn-art--signal .art-base { stroke-dasharray: 4 7; stroke-opacity: .22; }
+.fn-art--signal .art-curve {
+  stroke-width: 3;
+  stroke-opacity: 1;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 0;
+  animation: art-signal 4.8s cubic-bezier(.4,0,.2,1) infinite;
+}
+@keyframes art-signal { 0% { stroke-dashoffset: 100; } 62%, 100% { stroke-dashoffset: 0; } }
+
+.fn-art--signal .art-mark {
+  fill: var(--violet);
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-opacity: .9;
+  animation: art-mark 4.8s cubic-bezier(.3,.7,.2,1) infinite;
+}
+@keyframes art-mark {
+  0%, 26%   { transform: translateX(-104px); opacity: 0; }
+  46%, 100% { transform: translateX(0);      opacity: 1; }
+}
+
+/* ── the offerings ────────────────────────────────────────────────────────
+   The named work behind each function. Every string is markup, never a JS
+   object, so the spelling and stock-word audits still see it. */
+.offer-eyebrow {
+  margin: clamp(24px, 3.4vh, 34px) 0 clamp(11px, 1.5vh, 15px);
+  padding-top: clamp(18px, 2.6vh, 26px);
+  border-top: 1px solid rgba(90,98,138,.16);
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(10px, .82vw, 12px);
+  letter-spacing: .30em;
+  text-transform: uppercase;
+  color: var(--slate);
+  transform: translateZ(30px);
+}
+
+/* ONE column, always. The panel puts this in its own half of the card (see the
+   two-column rule below), where a single file of cards is what makes the deal
+   read as a deck rather than as a grid filling in. It also lets the ribbon walk
+   run top to bottom, which is the direction the reader is already moving. */
+.offers {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(8px, .9vw, 11px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transform: translateZ(16px);
+  transform-style: preserve-3d;
+}
+
+/* ── the deal ─────────────────────────────────────────────────────────────
+   The offerings arrive as a deck being dealt: collected in one pile, tilted
+   like a held hand, then ejected one by one into their places. It is the same
+   idea as the sticky stack further down the page, played at card scale and
+   forwards instead of in reverse.
+
+   THE AUTHORING RULE APPLIES HERE TOO, and it is the whole reason this is an
+   entrance and not a loop: the BASE state of every tile is its RESOLVED place
+   in the grid. The keyframe travels away from that and back. `backwards` fill
+   holds the pile only while the tile is waiting for its turn, so killing the
+   animation — reduced motion, a paused tab, a browser that never ran it —
+   lands on the finished grid rather than on a heap in the corner.
+
+   The pile sits on the FIRST tile's slot, so every later tile travels back up
+   the column by its own index. The offset is a percentage of the tile itself,
+   which is why this needs no measurement and no script: the deck lands in the
+   right place at any card width, and it does not have to be exact — a deck is
+   not a grid. */
+.offers > * {
+  --rot: 0deg;
+  --nth: 0;
+  animation: offer-deal .62s cubic-bezier(.2,.86,.28,1.02) backwards;
+  animation-delay: calc(.18s + var(--nth) * .08s);
+}
+@keyframes offer-deal {
+  from {
+    opacity: 0;
+    transform: translate3d(calc(var(--nth) * -6px), calc(var(--nth) * -106%), -70px)
+               rotate(var(--rot))
+               scale(.92);
+  }
+  24% { opacity: 1; }
+}
+
+/* the pile's fan. Alternating, small, and never the same angle twice running,
+   so it reads as cards held in a hand rather than as a rotation applied. */
+.offers > :nth-child(1) { --nth: 0; --rot: -4deg; }
+.offers > :nth-child(2) { --nth: 1; --rot:  3deg; }
+.offers > :nth-child(3) { --nth: 2; --rot: -2.2deg; }
+.offers > :nth-child(4) { --nth: 3; --rot:  4.4deg; }
+.offers > :nth-child(5) { --nth: 4; --rot: -3deg; }
+
+/* Each tile samples a consecutive quarter of the ribbon along its left edge,
+   so a function's four offerings read as one spectrum rather than four
+   unrelated boxes. Painted as a BACKGROUND LAYER, not border-image: an
+   ordinary gradient border would ring the whole tile. */
+.offer {
+  --pop: 1;
+  --rise: 0px;
+  --c1: var(--cyan);
+  --c2: var(--violet);
+  padding: clamp(12px, 1.4vw, 16px) clamp(13px, 1.5vw, 17px)
+           clamp(13px, 1.5vw, 17px) clamp(17px, 1.9vw, 21px);
+  border: 1px solid rgba(255,255,255,.62);
+  border-radius: clamp(11px, 1.1vw, 14px);
+  background:
+    linear-gradient(180deg, var(--c1), var(--c2)) left center / 3px 100% no-repeat,
+    linear-gradient(155deg, rgba(255,255,255,.80), rgba(255,255,255,.50));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.85), 0 1px 5px rgba(14,19,48,.05);
+  /* lifts TOWARD the reader on the card's own 3D stage, rather than only up
+     the page. --pop and --rise are the @property pair section 8 registers for
+     the dock, reused here so the page has one interaction vocabulary and the
+     transition never touches a transform carrying another term. */
+  transform: translateZ(calc(12px - 1.6 * var(--rise)))
+             translateY(var(--rise))
+             scale(var(--pop));
+  transition: --pop .3s cubic-bezier(.2,.7,.2,1),
+              --rise .3s cubic-bezier(.2,.7,.2,1),
+              box-shadow .3s ease,
+              border-color .3s ease;
+}
+/* four tiles walk the ribbon in four equal steps, cyan to magenta exactly
+   once. A function with a different number of offerings needs its own walk,
+   or the set stops reading as one spectrum — hence the --five variant. */
+.offers > :nth-child(1) { --c1: #35B8F2; --c2: #4E86EA; }
+.offers > :nth-child(2) { --c1: #4E86EA; --c2: #6C4CE0; }
+.offers > :nth-child(3) { --c1: #6C4CE0; --c2: #9A4AE4; }
+.offers > :nth-child(4) { --c1: #9A4AE4; --c2: #C64BE8; }
+
+.offers--five > :nth-child(1) { --c1: #35B8F2; --c2: #467FEB; }
+.offers--five > :nth-child(2) { --c1: #467FEB; --c2: #5866E5; }
+.offers--five > :nth-child(3) { --c1: #5866E5; --c2: #834CE2; }
+.offers--five > :nth-child(4) { --c1: #834CE2; --c2: #A54AE5; }
+.offers--five > :nth-child(5) { --c1: #A54AE5; --c2: #C64BE8; }
+
+@media (hover: hover) and (pointer: fine) {
+  .offer:hover {
+    --pop: 1.028;
+    --rise: -5px;
+    border-color: rgba(108,76,224,.28);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 14px 30px rgba(14,19,48,.10);
+  }
+}
+
+.offer-name {
+  display: block;
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(14px, 1.15vw, 16px);
+  letter-spacing: -.005em;
+  color: var(--ink);
+}
+.offer-line {
+  display: block;
+  margin-top: 5px;
+  font-family: var(--body);
+  font-weight: 400;
+  font-size: clamp(12.5px, 1vw, 14px);
+  line-height: 1.42;
+  color: var(--ink-soft);
+}
+
+/* ── the panel's two columns ──────────────────────────────────────────────
+   The story on the left, the deck on the right. Before this the card was one
+   tall column: the reader clicked a function and landed on a headline and a
+   diagram, with every named offering below the fold. What the card is FOR was
+   the part you had to scroll to find.
+
+   The two zones are WRAPPED, not laid out from the flat sequence of paragraphs
+   they used to be, and that is not tidiness. With every paragraph its own grid
+   item, the offerings block has to span the story's rows, and a spanning item
+   distributes its height back across the rows it spans — so a five-offering
+   function stretched the gap between its own kicker and its own headline to
+   four hundred pixels. Two wrappers give each column its own flow and the
+   problem disappears.
+
+   Declared as a width query, not a phone query: a narrow desktop window needs
+   the same single-column answer a phone does. */
+.detail-story > :first-child { margin-top: 0; }
+
+@media (min-width: 800px) {
+  .detail-panel:not([hidden]) {
+    display: grid;
+    grid-template-columns: minmax(0, .92fr) minmax(0, 1fr);
+    column-gap: clamp(26px, 3.2vw, 44px);
+    align-items: start;
+    transform-style: preserve-3d;
+  }
+  .detail-story,
+  .detail-run { transform-style: preserve-3d; }
+
+  .detail-run .offer-eyebrow {
+    /* the rule above it belonged to the stacked layout, where it separated the
+       story from the offerings. Side by side there is nothing above it to
+       separate from, and the border reads as a stray line. */
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  /* the headline now lives in half the width it was measured for */
+  .detail-story .detail-line { font-size: clamp(20px, 1.85vw, 28px); }
+}
 
 .detail-cta {
   margin-top: clamp(28px, 4.4vh, 44px);
   transform: translateZ(46px);
 }
+/* The base .cta hover/active rules are a bare translateY, which would drop
+   this button out of its Z-plane and animate the fall over 300ms inside a
+   preserve-3d card. Both states have to restate the depth. */
+.detail-cta:hover  { transform: translateZ(46px) translateY(-2px); }
+.detail-cta:active { transform: translateZ(46px) translateY(0); }
 
 .detail-close {
   position: absolute;
@@ -1000,9 +1387,18 @@ html.detail-open,
 html.detail-open body { overflow: hidden; }
 
 /* the tilt is pointer sugar; a reader who asked for less motion gets a card
-   that simply sits still, and the entrance stops rotating too */
+   that simply sits still, and the entrance stops rotating too.
+
+   Killing the artifact animations is safe precisely because each one was
+   authored with its RESOLVED frame as the base CSS state — see the authoring
+   rule above .fn-art. What is left is six finished pictures, not six broken
+   first frames. The tiles keep their depth; they only lose the lift. */
 @media (prefers-reduced-motion: reduce) {
   .detail-card { transform: none !important; animation: none; }
+  .fn-art *    { animation: none !important; }
+  .offer       { transition: none; }
+  /* the deck is already dealt: the base state IS the finished grid */
+  .offers > *  { animation: none !important; }
 }
 
 /* ════════════════════════════════════════════════════════════════════════
@@ -1161,6 +1557,291 @@ html.cal-ready [data-cal] { cursor: pointer; }
 }
 
 /* ════════════════════════════════════════════════════════════════════════
+   10b · THE ENQUIRY CARD
+   The third dialog. Same veil, same panel material and same bottom sheet on a
+   phone as the booking card above, because the two are the same object to a
+   reader: a card that came up over the film and takes their details. Only the
+   contents differ.
+
+   Note what is NOT here: backdrop-filter, filter, opacity or mask on the panel
+   itself. Those are the four grouping properties, and this panel does not need
+   a 3D context so it does not have one to flatten. The frosting lives on
+   ::backdrop, exactly as it does for the function card and for the same
+   reason spelled out in CLAUDE.md.
+   ════════════════════════════════════════════════════════════════════════ */
+
+.enq {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  overflow: visible;
+  background: transparent;
+}
+.enq:not([open]) { display: none; }
+.enq[open] {
+  display: grid;
+  place-items: center;
+  padding: clamp(14px, 3.4vh, 40px) clamp(14px, 4vw, 40px);
+}
+
+.enq::backdrop {
+  background: rgba(242,244,248,.74);
+  backdrop-filter: blur(16px) saturate(120%);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  animation: veil .4s ease both;
+}
+
+.enq-panel {
+  position: relative;
+  width: min(560px, 100%);
+  max-height: 86vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;   /* a scroll that runs out here stops here */
+  /* Tight on purpose. At 1568x745 the untightened version overflowed its own
+     86vh by a few pixels and put a scrollbar down the side of a card that had
+     nothing to scroll to, which reads as a bug rather than as a long form. It
+     still scrolls when it genuinely has to, which is what a short laptop and a
+     landscape phone both need. */
+  padding: clamp(22px, 3.2vw, 34px) clamp(20px, 3.4vw, 38px) clamp(20px, 2.8vw, 28px);
+  border-radius: clamp(18px, 1.8vw, 26px);
+  border: 1px solid rgba(255,255,255,.55);
+  background: linear-gradient(150deg,
+              rgba(255,255,255,.94) 0%,
+              rgba(255,255,255,.82) 46%,
+              rgba(232,236,244,.88) 100%);
+  box-shadow:
+    inset 3px 3px .5px -3px rgba(255,255,255,1),
+    inset -3px -3px .5px -3px rgba(14,19,48,.24),
+    inset 1px 1px 1px -.5px rgba(255,255,255,.9),
+    0 2px 10px rgba(14,19,48,.08),
+    0 44px 90px rgba(14,19,48,.16);
+  /* MOVEMENT ONLY. Same rule as .cal-panel: an entrance that starts at
+     opacity 0 leaves an empty lit dialog on screen whenever the animation
+     does not run, and animations fail to run in more places than people
+     expect. Worst case here is a panel that arrives already in place. */
+  animation: card-in .55s cubic-bezier(.2,.7,.2,1);
+}
+
+.enq-h {
+  margin: 0 0 6px;
+  padding-right: 46px;          /* clear of the close button */
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(21px, 2.2vw, 28px);
+  line-height: 1.12;
+  letter-spacing: -.015em;
+  color: var(--ink);
+}
+.enq-sub {
+  margin: 0 0 clamp(14px, 2.2vh, 22px);
+  font-family: var(--body);
+  font-size: clamp(13px, 1vw, 15px);
+  color: var(--slate);
+}
+
+/* ── THE FIELDS ───────────────────────────────────────────────────────────
+   No boxes. A rounded, filled, bordered input is the single most dated thing
+   a form can put on a page, and it is also the one shape this entire site
+   does not otherwise contain: everything here is hairlines, drawn strokes and
+   type on pearl. So the fields are hairlines and type on pearl too.
+
+   The whole interaction is one gesture: the label takes the accent, and the
+   grey hairline is replaced by the ribbon DRAWING left to right in the
+   reading direction. Nothing else moves. That is the same restraint the dock
+   and the offering tiles are built on.
+
+   This is the ribbon's sixth sanctioned appearance and, like every one added
+   since the glow was removed, it is a hard-edged solid stroke. It is 2px, it
+   has an edge, and it never blurs. */
+
+.enq-row {
+  position: relative;
+  margin-bottom: clamp(16px, 2.3vh, 24px);
+}
+
+.enq-label {
+  display: block;
+  margin-bottom: 7px;
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--slate);
+  transition: color .3s ease;
+}
+.enq-row:focus-within .enq-label { color: var(--violet); }
+
+.enq-input {
+  display: block;
+  width: 100%;
+  padding: 6px 0 11px;
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(16px, 1.35vw, 19px);   /* 16px floor is not taste: below it
+                                             iOS zooms the viewport on focus,
+                                             and this page is a pinned film
+                                             that does not come back. */
+  line-height: 1.35;
+  letter-spacing: -.005em;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(90,98,138,.26);
+  border-radius: 0;
+  transition: border-color .3s ease;
+}
+.enq-input:hover { border-bottom-color: rgba(90,98,138,.44); }
+.enq-input:focus {
+  outline: none;
+  /* handed over to the ribbon below, which is arriving as this leaves */
+  border-bottom-color: transparent;
+}
+
+/* And straight back again for the keyboard.
+   `.enq-input:focus` is two components of specificity against the page's
+   global one-component `:focus-visible` rule, so without this it silently
+   won a fight it was never meant to be in and left keyboard readers with no
+   focus indicator at all inside a modal that traps focus. The ribbon is a
+   state change, not an indicator: it is 2px, it is decorative at the cyan
+   end, and it is not what anyone tabbing through this form is looking for.
+   Same ring as everywhere else on the page on purpose. */
+.enq-input:focus-visible {
+  outline: 3px solid var(--violet);
+  outline-offset: 3px;
+}
+
+/* The ribbon, drawn. transform-origin is left because the field is read left
+   to right and a stroke that grows from the centre reads as a decoration
+   rather than as an answer to the caret landing. scaleX only, so this is one
+   composited property and never a layout. */
+.enq-row::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--ribbon);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform .5s cubic-bezier(.2,.7,.2,1);
+}
+.enq-row:focus-within::after { transform: scaleX(1); }
+
+/* Height is set here rather than left to the rows attribute, and that is what
+   keeps the whole card inside 86vh on a 745px-tall laptop. The optional field
+   is the one that gives up the room, and resize:vertical hands it straight
+   back to anyone who actually wants to write something long. */
+.enq-area {
+  resize: vertical;
+  height: 64px;
+  min-height: 64px;
+}
+
+/* The select keeps its native menu on purpose: a hand-rolled listbox is a
+   focus-management problem inside a dialog that already has a focus trap, and
+   the platform one is correct on every device this page will meet. Only the
+   closed state is restyled, down to a chevron drawn from two gradients so it
+   costs no markup and no request. */
+.enq-select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 28px;
+  cursor: pointer;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--slate) 50%),
+    linear-gradient(135deg, var(--slate) 50%, transparent 50%);
+  background-position: calc(100% - 11px) calc(50% - 1px), calc(100% - 6px) calc(50% - 1px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
+/* Off screen, not display:none. A bot that renders CSS skips hidden fields and
+   fills positioned ones, which is the entire trick. */
+.enq-pot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.enq-error,
+.enq-status {
+  margin: 0 0 12px;
+  font-family: var(--body);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.enq-error  { color: #B3283F; }   /* 5.6:1 on the panel. The one red on this
+                                     page, and it is a state, not an accent. */
+.enq-status { color: var(--ink-soft); }
+
+.enq-send {
+  width: 100%;
+  margin-top: clamp(6px, 1.2vh, 12px);
+  border: 0;
+  cursor: pointer;
+  font-family: var(--display);
+}
+.enq-send:disabled {
+  cursor: default;
+  filter: saturate(60%) brightness(1.05);
+}
+
+.enq-close {
+  position: absolute;
+  top: clamp(10px, 1.2vw, 14px);
+  right: clamp(10px, 1.2vw, 14px);
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid rgba(90,98,138,.20);
+  border-radius: 999px;
+  background: rgba(255,255,255,.72);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: background .25s ease, color .25s ease, border-color .25s ease;
+}
+.enq-close svg { width: 18px; height: 18px; }
+.enq-close:hover {
+  background: #fff;
+  color: var(--ink);
+  border-color: rgba(108,76,224,.38);
+}
+
+/* a modal on screen is by definition being looked at, so the hidden-tab
+   freeze must not reach it */
+body.paused .enq[open],
+body.paused .enq[open] * { animation-play-state: running !important; }
+
+/* the enquiry triggers are real mailto links until form.js says otherwise, so
+   the pointer affordance waits for the wiring exactly as the other two do */
+html.form-ready [data-form] { cursor: pointer; }
+
+@media (max-width: 600px) {
+  .enq[open] { place-items: end center; padding: 0; }
+  .enq-panel {
+    width: 100%;
+    max-height: 94vh;
+    border-radius: clamp(18px, 4vw, 24px) clamp(18px, 4vw, 24px) 0 0;
+    border-bottom: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enq-panel { animation: none; }
+}
+
+/* ════════════════════════════════════════════════════════════════════════
    11 · CUE AND LOADER
    ════════════════════════════════════════════════════════════════════════ */
 
@@ -1208,9 +1889,287 @@ html.cal-ready [data-cal] { cursor: pointer; }
 .stage.video-failed .loader { opacity: 0; pointer-events: none; }
 
 /* ════════════════════════════════════════════════════════════════════════
-   12 · ARRIVAL AND FOOTER
-   The journey settles and the room is still there.
+   12 · EVERYTHING WE RUN, HOW IT RUNS, ARRIVAL AND FOOTER
+
+   Everything in this section sits AFTER the pinned stage. Nothing here can
+   reach the spine, the bands or the video clock, and nothing here may be
+   moved above .journey: a sticky child inside an 1800vh ScrollTrigger pin
+   fights the pin.
    ════════════════════════════════════════════════════════════════════════ */
+
+.index {
+  padding: clamp(72px, 13vh, 140px) var(--gut) clamp(40px, 7vh, 80px);
+}
+
+.index-h,
+.process-h {
+  max-width: 940px;
+  margin: 0 auto clamp(30px, 5vh, 56px);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(26px, 3.4vw, 46px);
+  line-height: 1.1;
+  letter-spacing: -.022em;
+  color: var(--ink);
+}
+
+/* ── THE STACK ────────────────────────────────────────────────────────────
+   Six cards collecting into a real deck.
+
+   There is no script here and no timeline. Each card is position:sticky and
+   parks a fixed step lower than the one before it, so the scroll itself does
+   the stacking. That is the whole reason it reads as paper rather than as an
+   effect playing: nothing is being animated, the cards are just physically in
+   the way of each other.
+
+   --i is set in the markup, 0 to 5. It drives three things at once, and they
+   have to agree or the deck stops looking like a deck:
+     top    · later cards park lower, leaving a readable strip of the one below
+     scale  · earlier cards end up DEEPER, so they sit fractionally smaller
+     shadow · depth grows with the stack, which is what sells the thickness */
+.stack {
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.stack-card {
+  position: sticky;
+  top: calc(var(--navh) + clamp(10px, 2vh, 22px) + var(--i) * clamp(12px, 1.7vh, 20px));
+  margin: 0 0 clamp(26px, 5vh, 58px);
+  padding: clamp(24px, 3.2vw, 44px);
+  border: 1px solid rgba(255,255,255,.75);
+  border-radius: clamp(18px, 2vw, 28px);
+  /* OPAQUE, unlike every other surface on this page. A translucent card lets
+     the card beneath it read straight through, and two overlapping headlines
+     at once is not a deck, it is a rendering fault. Paper is opaque. */
+  background: linear-gradient(150deg, #FFFFFF 0%, #FAFBFD 48%, #EDF0F6 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.92),
+    0 1px 2px rgba(14,19,48,.05),
+    0 calc(10px + var(--i) * 4px) calc(26px + var(--i) * 9px)
+      rgba(14,19,48, calc(.07 + var(--i) * .011));
+  transform: scale(calc(1 - (5 - var(--i)) * .008));
+}
+.stack-card:last-child { margin-bottom: 0; }
+
+.stack-kicker {
+  margin: 0 0 clamp(8px, 1.2vh, 13px);
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(11px, .95vw, 13px);
+  letter-spacing: .30em;
+  text-transform: uppercase;
+  color: var(--slate);
+}
+
+.stack-line {
+  margin: 0 0 clamp(18px, 2.6vh, 26px);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(19px, 2.1vw, 28px);
+  line-height: 1.14;
+  letter-spacing: -.018em;
+  color: var(--ink);
+}
+
+.stack-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: clamp(7px, 1vh, 11px) clamp(14px, 2vw, 28px);
+  margin: 0;
+  padding-top: clamp(15px, 2.2vh, 22px);
+  border-top: 1px solid rgba(90,98,138,.16);
+  list-style: none;
+}
+.stack-list li {
+  position: relative;
+  padding-left: 18px;
+  font-family: var(--body);
+  font-weight: 400;
+  font-size: clamp(13.5px, 1.05vw, 15px);
+  color: var(--ink-soft);
+}
+.stack-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .62em;
+  width: 9px;
+  height: 1.5px;
+  border-radius: 1px;
+  background: var(--slate);
+  opacity: .5;
+}
+
+/* ── HOW IT RUNS ──────────────────────────────────────────────────────────
+   Numbered because it genuinely is a sequence and the order is information.
+   A counter, not a hand-typed 01/02/03, so inserting a step cannot desync. */
+.process {
+  padding: clamp(50px, 9vh, 100px) var(--gut) clamp(60px, 10vh, 110px);
+}
+
+.steps {
+  display: grid;
+  /* 180px, not 210: at the 940px measure with a 40px gap each column gets
+     205px, so a 210px floor silently drops the row to three and orphans Run
+     on a second line. A four-step sequence has to read as one row. */
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: clamp(22px, 3vw, 40px);
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.step {
+  counter-increment: step;
+  padding-top: clamp(16px, 2.4vh, 22px);
+  border-top: 1px solid rgba(90,98,138,.20);
+}
+
+/* ── 12b · THE FLOW LINE ──────────────────────────────────────────────────
+   Audit → Design → Build → Run is a sequence, and until now the only thing
+   saying so was the numbering. This draws it.
+
+   THE AUTHORING RULE, which is the same one the function card's artifacts are
+   built on and the reason this works with motion off: the BASE state below is
+   the RESOLVED frame. The line is fully drawn, the arrow has landed, the four
+   steps are lit. The keyframes travel AWAY from that and back to it. So a
+   browser with no scroll timelines (Safari and Firefox, today), a reader who
+   asked for reduced motion, and a tab that never ticks all land on the
+   finished picture rather than on an empty rail.
+
+   No script, no rAF, no timeline object, in the same spirit as the sticky
+   stack above: the browser already knows where the section is on screen, and
+   asking it is cheaper and more robust than telling it.
+
+   --flow is registered so it can be interpolated at all; an unregistered
+   custom property animates as a discrete swap and the line would jump rather
+   than draw. */
+
+@property --flow { syntax: '<percentage>'; inherits: true; initial-value: 100%; }
+
+.flow {
+  --flow: 100%;
+  position: relative;
+  max-width: 940px;
+  margin: 0 auto clamp(22px, 3vh, 34px);
+  height: 2px;
+  background: rgba(90,98,138,.20);   /* the unrun track */
+}
+
+/* The drawn part. clip-path rather than width, so this is composited and
+   never a layout, and so the gradient stays anchored to the FULL length: the
+   ribbon has to read as one spectrum being revealed, not as a short gradient
+   being stretched. Changing this to `width` breaks that and it is not
+   obvious from a screenshot. */
+.flow-run {
+  position: absolute;
+  inset: 0;
+  background: var(--ribbon);
+  clip-path: inset(0 calc(100% - var(--flow)) 0 0);
+}
+
+/* The arrowhead. Two borders rotated 45deg: no SVG, no request, no markup
+   beyond the span already there. It rides the SAME --flow the run is clipped
+   by, so it cannot drift out of sync with the end of the line.
+
+   It sits OUTSIDE .flow-run on purpose. Inside it, the clip that draws the
+   line would cut the arrow in half all the way along. */
+.flow::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: var(--flow);
+  width: 8px;
+  height: 8px;
+  margin: -5px 0 0 -6px;
+  border-top: 2px solid var(--magenta);
+  border-right: 2px solid var(--magenta);
+  transform: rotate(45deg);
+}
+
+@keyframes flow-draw {
+  from { --flow: 0%; }
+  to   { --flow: 100%; }
+}
+
+/* dim, and a few pixels low, so it settles as the line reaches it */
+@keyframes step-land {
+  from { opacity: .34; transform: translateY(7px); }
+  to   { opacity: 1;   transform: none; }
+}
+
+/* The line only exists where the four steps are one row. Below 860px the grid
+   has wrapped to a stack and a horizontal rail through it would be saying
+   something untrue, so it goes away and each step takes its own rule back. */
+@media (max-width: 859px) {
+  .flow { display: none; }
+}
+@media (min-width: 860px) {
+  .step { border-top: 0; }
+}
+
+/* Everything above is the resolved state. THIS is the only block that moves,
+   and it is gated twice: once on the browser having scroll timelines at all,
+   once on the reader not having asked for less. */
+@supports (animation-timeline: view()) {
+  @media (min-width: 860px) and (prefers-reduced-motion: no-preference) {
+    .flow {
+      animation: flow-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 100% cover 55%;
+    }
+
+    /* Staggered against the same timeline rather than against each other, so
+       each step lands roughly as the arrowhead reaches it. Delays would not
+       work here: a scroll-driven animation has no clock to delay against. */
+    .step {
+      animation: step-land linear both;
+      animation-timeline: view();
+    }
+    .step:nth-child(1) { animation-range: entry 100% cover 22%; }
+    .step:nth-child(2) { animation-range: cover 12%  cover 32%; }
+    .step:nth-child(3) { animation-range: cover 22%  cover 42%; }
+    .step:nth-child(4) { animation-range: cover 32%  cover 52%; }
+  }
+}
+.step::before {
+  content: counter(step, decimal-leading-zero);
+  display: block;
+  margin-bottom: clamp(10px, 1.6vh, 15px);
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(11px, .95vw, 13px);
+  letter-spacing: .22em;
+  color: var(--violet);
+}
+.step-name {
+  margin: 0 0 6px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(17px, 1.7vw, 22px);
+  letter-spacing: -.015em;
+  color: var(--ink);
+}
+.step-line {
+  margin: 0;
+  font-family: var(--body);
+  font-weight: 400;
+  font-size: clamp(13.5px, 1.05vw, 15px);
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+/* A reader who asked for less motion gets the deck laid out flat. The stack
+   is layout rather than animation, but it is still scroll-coupled movement,
+   and the content does not need it to be understood. */
+@media (prefers-reduced-motion: reduce) {
+  .stack-card { position: static; transform: none; }
+}
 
 .arrival {
   position: relative;
@@ -1241,6 +2200,21 @@ html.cal-ready [data-cal] { cursor: pointer; }
   font-size: 13px;
   letter-spacing: .04em;
   color: var(--slate);
+}
+
+/* The address again, down here. The nav copy is hidden on a narrow bar (see
+   §13) because a phone nav cannot carry a mark, an address and two actions at
+   once, and an address that only exists on a desktop is an address half the
+   readers never get. This is the one that is always reachable. */
+.foot-mail {
+  color: var(--slate);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(90,98,138,.28);
+  transition: color .3s ease, border-color .3s ease;
+}
+.foot-mail:hover {
+  color: var(--ink-soft);
+  border-bottom-color: rgba(90,98,138,.6);
 }
 
 /* ════════════════════════════════════════════════════════════════════════

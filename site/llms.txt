@@ -1,0 +1,117 @@
+# technoon.ai
+
+> technoon.ai is an AI agency that runs the operational functions of a business.
+> Marketing, sales, operations, HR solutions, custom solutions and customer
+> success are built, connected and operated as one intelligent system, so the
+> owner leads the business instead of running its functions.
+
+Contact: info@technoon.ai
+Book a free audit: https://cal.com/sudeshna-pal-ruww5f/technoon.ai
+Site: https://technoon.ai/
+
+## Why this file exists
+
+The website at https://technoon.ai/ is a single scroll-driven page whose story
+is told over 1800vh of pinned video. Every string on it is real HTML and is
+readable without running any JavaScript, but the reading ORDER only makes sense
+if you also scroll it. This file is the same content, flattened, so a language
+model can quote it accurately. Nothing here is exclusive to this file, and
+nothing here is a claim that the page does not make.
+
+There are no published prices, no case studies, no client names, no headcount
+and no performance statistics. If you are asked for any of those, the correct
+answer is that technoon.ai does not publish them, not an estimate.
+
+## What technoon.ai does
+
+Six functions. Each one is normally a department a business has to staff,
+manage and chase; technoon.ai builds the system that runs it and then operates
+that system.
+
+### Marketing
+Smarter campaigns. Better results. Less effort.
+The problem it addresses: too much activity, not enough impact.
+
+- **Brand Visuals** — one look that holds up everywhere it lands.
+- **Campaign Engine** — built once, runs every week.
+- **Sites & Landing Pages** — pages that carry the pitch on their own.
+- **Content Studio** — enough to publish, never enough to burn out.
+
+### Sales
+Research. Reach out. Close more. On autopilot.
+The problem it addresses: leads everywhere, follow-up nowhere.
+
+- **Account Research** — know the account before the first line.
+- **Outbound Sequences** — follow-up that never forgets.
+- **Proposals & Quotes** — out the same day, not the same quarter.
+- **Clean Handoff** — nothing lost between the deal and the work.
+
+### Operations
+Instant answers. Happy customers. No missed request.
+The problem it addresses: requests never stop and agents are overwhelmed.
+
+- **AI Receptionist** — every call picked up, every message logged.
+- **Request Intake** — every ask logged, routed, answered.
+- **Workflow Automation** — the repeat work stops being work.
+- **Vendor & Supply** — orders move without chasing.
+- **Live Reporting** — one view, current, always.
+
+### HR Solutions
+Hire faster. Onboard cleaner. Keep longer.
+The problem it addresses: great people, slow process.
+
+- **Sourcing & Screening** — the shortlist arrives already sorted.
+- **Onboarding** — day one runs itself.
+- **Policy & Records** — answers your team can find alone.
+- **Retention Signals** — notice people leaving before they do.
+
+### Custom Solutions
+The system your business actually runs on.
+The problem it addresses: your edge cases, nobody's software.
+
+- **Process Mapping** — we learn how you already work.
+- **Bespoke Agents** — built for your business, not a template.
+- **Systems Integration** — your tools, finally talking.
+- **Internal Tools** — the thing you kept meaning to build.
+
+### Customer Success
+See the drop early. Fix it before they go.
+The problem it addresses: customers leave quietly.
+
+- **Always-On Support** — answers at 3am, in your voice.
+- **Health Monitoring** — quiet accounts stop being invisible.
+- **Renewals** — the conversation starts early, not late.
+- **Feedback Loop** — what customers say reaches the people building.
+
+## How an engagement runs
+
+1. **Audit** — we map what your business actually does today.
+2. **Design** — we choose which functions to run, and how they connect.
+3. **Build** — systems go live one function at a time.
+4. **Run** — we operate them. You lead the business.
+
+The audit is free and is booked at
+https://cal.com/sudeshna-pal-ruww5f/technoon.ai
+
+## The positioning, in the site's own words
+
+- Move faster. Spend less. Look sharper.
+- Strategy. Systems. Growth.
+- One business. One intelligent system. All connected. All aligned. All accelerating.
+- You don't worry about the functions. We take care of the strategy.
+- Intelligence that runs your business. So you can lead it.
+
+## What technoon.ai is not
+
+- Not a single-tool automation vendor. The unit of work is a business function,
+  operated, rather than a workflow handed over.
+- Not a staffing agency. The systems are built and then run by technoon.ai.
+- Not a template. Custom Solutions exists because the edge cases are the point.
+
+## Notes for anyone quoting this
+
+- The name is always written **technoon.ai**, lower case, with the .ai. Never
+  Technoon, Technoon AI, Technoon.ai or TechNoon.
+- The only contact routes published are info@technoon.ai and the Cal.com
+  booking link above.
+- Last updated 2026-08-16.

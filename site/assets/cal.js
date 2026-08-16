@@ -102,17 +102,28 @@ export function initCal(opts = {}) {
   }
 
   function release() {
-    document.documentElement.classList.remove('detail-open');
-    const lenis = getLenis();
-    if (lenis && typeof lenis.start === 'function') lenis.start();
+    /* The function card is a SECOND dialog sharing this exact pin. Whichever
+       closes first must not unpin while the other is still on screen, or the
+       1800vh journey behind them starts scrubbing under an open modal. By the
+       time `close` fires, this dialog has already lost its open attribute, so
+       the query only matches a sibling that is genuinely still up. detail.js
+       carries the mirror of this check. */
+    const other = document.querySelector('dialog[open]');
+    if (!other) {
+      document.documentElement.classList.remove('detail-open');
+      const lenis = getLenis();
+      if (lenis && typeof lenis.start === 'function') lenis.start();
+    }
 
     if (opener) {
       opener.setAttribute('aria-expanded', 'false');
       /* the triggers live inside scroll-driven bands that may have gone
          visibility:hidden while the card was open, so the browser's own focus
          restore cannot always find them. Put it back explicitly and let it
-         fail quietly when the element is genuinely gone. */
-      try { opener.focus({ preventScroll: true }); } catch (_) {}
+         fail quietly when the element is genuinely gone. Skipped while another
+         dialog holds the top layer: everything outside it is inert, so the
+         call would be a no-op that also fights that card for focus. */
+      if (!other) { try { opener.focus({ preventScroll: true }); } catch (_) {} }
       opener = null;
     }
   }
