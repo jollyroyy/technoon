@@ -131,10 +131,21 @@ body.paused *::after { animation-play-state: paused !important; }
 }
 
 /* ════════════════════════════════════════════════════════════════════════
-   4 · NAV, LOGO PLATE, CTA
-   Logo law: the supplied JPEG ships exactly as supplied. It carries its own
-   dark navy card, so it always sits inside a --plate badge and is never drawn
-   wider than its native 190px.
+   4 · NAV, LOGO, CTA
+
+   THE PLATE IS GONE. Client instruction 2026-08-16: "remove the black colour
+   box from the logo ... it should appear seamlessly over the normal background
+   of the entire website."
+
+   That took more than deleting a background. The supplied JPEG is a near-WHITE
+   wordmark baked onto a near-black card, so keying the card out and dropping
+   the result on #F2F4F8 would have produced an invisible logo. The shipped
+   mark is assets/logo-mark.png: the same pixels at the same coverage, with the
+   card recovered as alpha and the neutral wordmark flipped to --ink. Every
+   saturated pixel — the ring, the .ai gradient — keeps its own hue exactly.
+
+   Still forbidden, unchanged: redrawing, revectorising, upscaling past its own
+   148x102 extent, or regenerating it through any AI tool.
    ════════════════════════════════════════════════════════════════════════ */
 
 .nav {
@@ -154,19 +165,18 @@ body.paused *::after { animation-play-state: paused !important; }
 
 .brand { display: inline-flex; text-decoration: none; }
 
+/* No background, no padding, no border radius, no shadow. The wrapper survives
+   only as the transform hook for the hover lift; the mark is now the whole
+   visible object. Give this a background again and the box the client asked to
+   be rid of comes straight back. */
 .brand-plate {
   display: inline-flex;
-  background: var(--plate);
-  border-radius: 10px;
-  padding: 5px 9px;
-  box-shadow: 0 6px 20px rgba(14,19,48,.18), 0 1px 0 rgba(255,255,255,.28) inset;
-  transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease;
+  transition: transform .3s cubic-bezier(.2,.7,.2,1);
 }
-.brand-plate img { width: 112px; height: auto; border-radius: 3px; }
-.brand:hover .brand-plate { transform: translateY(-1px); box-shadow: 0 10px 28px rgba(14,19,48,.24); }
+.brand-plate img { width: 100px; height: auto; }
+.brand:hover .brand-plate { transform: translateY(-1px) scale(1.015); }
 
-.brand-plate--lg { padding: 10px 16px; border-radius: 14px; }
-.brand-plate--lg img { width: 190px; }   /* native size, never larger */
+.brand-plate--lg img { width: 148px; }   /* the mark's own extent, never larger */
 
 .nav-actions {
   display: flex;
@@ -1235,25 +1245,161 @@ html.cal-ready [data-cal] { cursor: pointer; }
 }
 
 /* ════════════════════════════════════════════════════════════════════════
-   13 · THE STATIC-HERO GATE
-   These five queries are duplicated CHARACTER-FOR-CHARACTER from GATES in
-   app.js. A comma list is an OR, which is exactly MQLS.some(m => m.matches).
-   If one side drifts, the CSS un-hides a stage the JS never armed and the
-   hero goes blank on the next rotation.
+   13 · THE PHONE CUT
 
-   This is a deliberately simplified cinematic version, not a shrunken
-   desktop: the pinned scrub becomes a real vertical journey, one beat per
-   screen, each on its own pearl card over the room.
+   NOT a different site. Client instruction 2026-08-16: "the mobile is
+   completely different from what you have made ... I want to see the exact
+   scroll-driven website, the scrolling effect that we are seeing on the
+   desktop, on the mobile as well."
+
+   They were right, and the old build earned it: every phone hit the
+   static-hero gate, which disarmed the scrub, unpinned the stage, hid the
+   video and stacked the sixteen beats as pearl cards. A reader on a phone was
+   looking at a different product.
+
+   So this block reframes and never replaces. It does not touch
+   position: sticky, does not set .journey height to auto, and does not hide
+   the video. The pinned stage, the scrubbed footage, the sixteen beats and
+   the piecewise VIDEO_MAP are all exactly what the desktop runs. What changes
+   is composition, because a 375x812 slot is not a 16:9 one:
+
+     · the left and right rails give up their horizontal OFFSET but keep their
+       ALIGNMENT, which is the thing that still reads pain from resolution;
+     · the three chaos beats trade three quadrants for three distinct HEIGHTS,
+       since a narrow frame has thirds to spend vertically and none across;
+     · the type grows, because the frame shrank;
+     · the local scrim widens and deepens, because the footage now fills a
+       much tighter window behind much larger words.
+
+   The static stacked fallback still exists. It just belongs to
+   prefers-reduced-motion alone now (13b), which is the only reader who ever
+   asked not to be moved.
    ════════════════════════════════════════════════════════════════════════ */
 
-@media (max-width: 720px),
-       (orientation: portrait) and (max-width: 1024px),
-       (orientation: portrait) and (pointer: coarse),
-       (orientation: landscape) and (pointer: coarse) and (max-height: 560px),
-       (prefers-reduced-motion: reduce) {
+@media (max-width: 860px), (orientation: portrait) and (max-width: 1024px) {
+
+  /* svh, not vh. On a phone `vh` is the LARGE viewport and stays frozen there
+     while the URL bar collapses, but .stage is already sized in svh — so the
+     spine and the pinned frame would be measured against two different
+     heights and the scrub would drift against the film. */
+  .journey { height: 1800svh; }
+
+  /* The footage is a 16:9 plate seen through a tall slot, so `cover` throws
+     away most of its width. Aim the surviving column slightly above centre,
+     where the room's window wall and the conference glass actually are,
+     rather than at the floor. */
+  .poster { background-position: 50% 44%; }
+  .media video { object-position: 50% 44%; }
+
+  /* one column between the gutters */
+  .band--hero {
+    left: var(--gut); right: var(--gut);
+    top: 50%; transform: translateY(-50%);
+    max-width: none;
+    --sx: 50%; --sy: 50%;
+  }
+  .band--pain {
+    left: var(--gut); right: var(--gut);
+    top: 50%; transform: translateY(-50%);
+    max-width: none;
+    --sx: 46%; --sy: 50%;
+  }
+  .band--fix {
+    left: var(--gut); right: var(--gut);
+    top: 50%; transform: translateY(-50%);
+    max-width: none;
+    --sx: 54%; --sy: 50%;
+  }
+
+  /* Two classes each, and that is not decoration. .band--fn.pos-a out-specifies
+     any bare .band rule, so anything meant to reach these beats has to match
+     that weight or the desktop quadrant offsets survive into the phone frame
+     and shove the words off the edge. Same trap CLAUDE.md flags for the
+     reduced-motion block below; it applies here for the same reason. */
+  .band--fn.pos-a { left: var(--gut); right: var(--gut); top: 21vh; bottom: auto; --sx: 40%; --sy: 30%; --depth: 1;   }
+  .band--fn.pos-b { left: var(--gut); right: var(--gut); top: 46vh; bottom: auto; --sx: 60%; --sy: 50%; --depth: .92; }
+  .band--fn.pos-c { left: var(--gut); right: var(--gut); top: auto; bottom: 19vh; --sx: 42%; --sy: 74%; --depth: 1;   }
+
+  .band--chain,
+  .band--close {
+    left: var(--gut); right: var(--gut);
+    top: 50%; transform: translateY(-50%);
+    width: auto;
+  }
+
+  /* The wash has to work harder here: the same footage now fills a window a
+     third as wide, so a dark object under the type has nowhere to fall out of
+     frame. Wider bleed, deeper centre, still pearl and never a dark scrim. */
+  .band::before {
+    inset: -20vh -26vw;
+    background: radial-gradient(76% 62% at var(--sx, 50%) var(--sy, 50%),
+                rgba(242,244,248,.94) 0%,
+                rgba(242,244,248,.80) 46%,
+                rgba(242,244,248,0)   84%);
+  }
+
+  .lede        { font-size: clamp(32px, 9vw, 52px); }
+  .lede--close { font-size: clamp(26px, 7.2vw, 40px); }
+  .say         { font-size: clamp(26px, 7.6vw, 40px); }
+  .chain-title { font-size: clamp(22px, 6.4vw, 34px); }
+  .sub         { font-size: clamp(15px, 4.2vw, 19px); }
+  .kicker      { font-size: 11px; letter-spacing: .24em; }
+  .band--fn .fn { font-size: calc(clamp(22px, 6.6vw, 34px) * var(--depth, 1)); }
+
+  /* the halo STAYS. Unlike the reduced-motion cut below, these words really
+     are sitting on live footage. */
+
+  .chain-head { margin-bottom: clamp(16px, 3vh, 28px); }
+  .chain { gap: 7px; }
+  .chain-open { padding: 9px 12px; }
+  .chain-item span { font-size: 10px; letter-spacing: .11em; }
+
+  /* the nav has to fit a mark and two actions on a narrow bar */
+  .nav-actions { gap: 8px; }
+  .ghost { min-height: 42px; padding: 11px 14px; font-size: 12px; letter-spacing: .04em; }
+  .cta--nav { padding: 11px 16px; font-size: 12px; min-height: 42px; }
+  .brand-plate img { width: 88px; }
+  .brand-plate--lg img { width: min(148px, 52vw); }
+
+  .detail-card { width: 100%; }
+  .arrival { min-height: auto; padding-top: clamp(48px, 9vh, 90px); }
+}
+
+/* A phone on its side: the frame keeps its width and loses its height, so the
+   only thing that has to give is vertical room. The composition is the
+   desktop one again; just smaller. */
+@media (orientation: landscape) and (max-height: 560px) {
+  .lede        { font-size: clamp(24px, 4.8vw, 38px); }
+  .lede--close { font-size: clamp(20px, 3.8vw, 30px); }
+  .say         { font-size: clamp(20px, 3.9vw, 30px); }
+  .chain-title { font-size: clamp(18px, 3.4vw, 26px); }
+  .sub         { font-size: clamp(14px, 1.7vw, 16px); }
+  .band--fn.pos-a { top: 15vh; }
+  .band--fn.pos-b { top: 42vh; }
+  .band--fn.pos-c { bottom: 11vh; }
+  .cue { display: none; }
+  .chain-head { margin-bottom: 14px; }
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   13b · THE STATIC CUT — reduced motion only
+
+   This query is duplicated CHARACTER-FOR-CHARACTER from GATES in app.js, and
+   it is now the ONLY entry in that list. If the two sides drift, the CSS
+   un-hides a stage the JS never armed and the hero goes blank.
+
+   It used to carry four more queries and every phone matched one of them.
+   That is what made mobile a different site, and it was removed on 2026-08-16
+   at the client's instruction. A reader who has asked their operating system
+   for less motion is a different case entirely: for them the pinned scrub
+   becomes a real vertical journey, one beat per screen, each on its own pearl
+   card over the room.
+   ════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
 
   /* the drive loop is disarmed, but it may have left inline values behind on a
-     live rotation, so these have to win outright */
+     live preference flip, so these have to win outright */
   .band {
     --o: 1 !important;
     --k: 1 !important;
@@ -1372,20 +1518,27 @@ html.cal-ready [data-cal] { cursor: pointer; }
 
   .cta--hero { align-self: flex-start; }
   .brand-plate img { width: 96px; }
-  .brand-plate--lg img { width: min(190px, 62vw); }
+  .brand-plate--lg img { width: min(148px, 56vw); }
   .cta--nav { padding: 11px 16px; font-size: 12px; min-height: 42px; }
 
   .arrival { min-height: auto; padding-top: clamp(48px, 9vh, 90px); }
+
+  /* the narrowest cards want their inset back off the gutter */
+  @media (max-width: 400px) { .band { padding: 20px 18px; } }
 }
 
-/* The narrowest real phones: the long primary CTA would push the logo
+/* The narrowest real phones: the long primary CTA would push the mark
    off-screen, so only the quiet one survives here. The big primary is still
    one scroll away in the arrival section, and the function card carries one
-   as well. */
+   as well.
+
+   Note what is NOT here any more: `.band { padding }`. That belonged to the
+   static cut's cards and has moved inside it. In the phone cinematic cut the
+   beats are captions floating in a room with no box around them, and padding
+   here would push the type in off a gutter it is already sitting on. */
 @media (max-width: 400px) {
   .cta--nav { display: none; }
   .ghost { padding: 10px 13px; }
-  .band { padding: 20px 18px; }
   .chain-open { padding: 9px 12px; }
 }
 

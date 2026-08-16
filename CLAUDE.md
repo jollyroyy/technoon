@@ -47,7 +47,10 @@ technoon2/
 │     ├─ detail.js        ← the function card: one native <dialog>, six panels
 │     ├─ cal.js           ← the booking card: Cal.com in a second <dialog>
 │     ├─ hero-scrub.mp4   ← the 30s core, 2 chained Seedance clips, ONE encode
-│     └─ *.jpg            ← poster, ending frame, overload still, logo, favicon
+│     ├─ logo-mark.png    ← THE SHIPPED MARK. 148x102 RGBA, no plate. See Logo law.
+│     └─ *.jpg            ← poster, ending frame, overload still, logo.jpg, favicon
+│                            (logo.jpg is the untouched supplied original, kept
+│                             for reference; the page does not load it)
 └─ 10k-websites-skill/    ← build methodology. Reference only, never ships.
 ```
 
@@ -87,16 +90,53 @@ them pushed together or the deploy silently falls behind.
 
 ## The five laws (non-negotiable, from the client brief)
 
-### 1. Logo law — zero deviation
-`brief/logo-source.jpg` ships **exactly as supplied**. The client chose this
-explicitly over a cleaned-up version. Never recreate, redraw, recolour, extrude,
-vectorise, particle-ise, upscale, or regenerate it through any AI tool. Animation is
-allowed only via opacity, position, scale and parallax.
+### 1. Logo law — amended 2026-08-16, and this is the one law that moved
 
-Consequence to design around: the file is 190x112 with the dark navy card baked in.
-So it is used **small** (never wider than its native 190px) and always inside a dark
-plate (`--plate: #080918`, sampled from the file's own corners) so the baked card
-reads as an intentional badge on the pearl page rather than a stray rectangle.
+Originally: `brief/logo-source.jpg` ships **exactly as supplied**, dark navy card and
+all, inside a `--plate` badge so the baked card read as an intentional badge rather
+than a stray rectangle.
+
+The client killed the badge on 2026-08-16: *"remove the black colour box from the
+logo … it should appear seamlessly over the normal background of the entire
+website."*
+
+**That could not be done by deleting a background, and the reason matters.** The
+supplied file is a near-WHITE wordmark baked onto a near-black card. Key the card out
+and drop the result on `--pearl` and you get an invisible logo. Blend modes cannot
+save it either: `lighten`/`screen` erase the mark along with the card, `multiply`/
+`darken` keep the card. A light-on-dark mark simply has no reading on a light page
+without a colour flip. So there were exactly two options — keep a dark box the client
+rejected, or recolour — and the client picked.
+
+**What ships now: `site/assets/logo-mark.png`**, 148x102, RGBA:
+
+- the navy card is **recovered as alpha**, per pixel, from each pixel's distance from
+  the plate colour — so every glyph keeps its exact position and its exact
+  anti-aliasing. Nothing is retraced.
+- the **neutral** ink of the wordmark is flipped to `--ink` `#0E1330`.
+- every **saturated** pixel — the dot ring, the `.ai` gradient, the tagline rule —
+  keeps its own hue untouched.
+- one mild alpha gamma (0.82), because a stroke that reads as solid on near-black
+  needs more coverage to read as solid on near-white.
+
+`site/assets/logo.jpg` and `brief/logo-source.jpg` are both **kept, untouched**, as
+the supplied original. The generator is not checked in; it was a one-shot and the PNG
+is the artifact.
+
+**Still forbidden, unchanged:** redrawing, revectorising, particle-ising, upscaling
+past its own 148x102 extent, or regenerating it through any AI tool. Animation is
+still only opacity, position, scale and parallax. Displayed at 100px in the nav and
+148px (native) in the arrival section; **never wider than 148px**.
+
+`--plate` survives as a token because the skip link still uses it. `.brand-plate` also
+survives, but purely as the transform hook for the hover lift — **it must stay
+visually inert**. Give it a background, padding or a radius and the box the client
+rejected comes straight back.
+
+**Flag for the client:** this is a recolour of the supplied mark, which the original
+law banned outright. It was the only way to satisfy the instruction. If they want the
+mark untouched instead, the ask is an **officially supplied light-background version**
+of the logo — that is a client deliverable, not something to solve in code.
 
 ### 2. Text law — the complete allowlist
 The client's brief bans body copy, but carves out text "explicitly required by the
@@ -111,9 +151,17 @@ is listed below because of that, not as an exception to the law. Anything the cl
 asks for in writing is admitted the same way and gets added here at the same time.
 Nothing else is.
 
+**The same door works in reverse.** `You run the business. / We run what moves it.`
+was the hero heading until 2026-08-16, when the client supplied
+`Move faster. / Spend less. / Look sharper.` to replace it. The old pair is now OFF
+the list and off the page — including `og:description`, which carried it. If it
+appears anywhere again, that is a defect, not nostalgia. `Strategy. Systems. Growth.`
+was NOT part of that swap and still sits under the new heading.
+
 ```
-You run the business.
-We run what moves it.
+Move faster.
+Spend less.
+Look sharper.
 Strategy. Systems. Growth.
 
 MARKETING              → Too much activity. Not enough impact.
@@ -223,8 +271,10 @@ straight from the storyboard's rows 3 and 4, where it is the device that visuall
 links the functions. It carries the whole boldness budget; everything else stays
 quiet.
 
-**Where the ribbon may appear, after 2026-08-16:** the hero rule, and the left edge of
-each beat in the phone layout. That is the list. The blurred band that used to cross
+**Where the ribbon may appear, after 2026-08-16:** the hero rule, the `.ghost` dot,
+and the left edge of each card in the reduced-motion static cut (§13b — the phone
+cinematic cut has no cards to edge, so the hero rule is the only ribbon a phone
+sees). That is the list. The blurred band that used to cross
 behind the dock pills was removed the same day, because at that size and blur it
 stopped reading as a thread joining the functions and started reading as a stray
 purple shape parked in the middle of the frame. The lesson generalises, and it is the
@@ -272,7 +322,7 @@ normal scroll flicks.
 
 | Progress | Beat | Visible text |
 |---|---|---|
-| 0.000–0.058 | BUSINESS. The office. | hero heading + `Strategy. Systems. Growth.` |
+| 0.000–0.058 | BUSINESS. The office. | `Move faster. Spend less. Look sharper.` + `Strategy. Systems. Growth.` |
 | 0.058–0.120 | FRAGMENTATION | `MARKETING` + its pain line |
 | 0.120–0.185 | FRAGMENTATION | `SALES` + its pain line |
 | 0.185–0.250 | FRAGMENTATION | `OPERATIONS` + its pain line |
@@ -301,6 +351,59 @@ through the fastest stretch of the scroll. Their type size and depth are unchang
 from the storyboard: bigger was tried the same day and rejected. Note that moving a
 caption moves the footage under it, so `review/verify-contrast.sh` carries its own
 crop window per beat and those windows moved too.
+
+### The phone runs the same film — this is not a separate build
+
+Client instruction 2026-08-16: *"the mobile is completely different from what you
+have made … I want to see the exact scroll-driven website, the scrolling effect that
+we are seeing on the desktop, on the mobile as well."*
+
+They were right and the old build had earned it: every phone matched the static-hero
+gate, which disarmed the scrub, unpinned the stage, hid the video and stacked the
+sixteen beats as pearl cards. A reader on a phone was looking at a different product.
+
+**What is shared, and must stay shared:** the pinned sticky stage, the 1800vh spine,
+all sixteen band boundaries, `VIDEO_MAP`, the scrubbed 30s footage, the split-text
+entrances, the wave, the dock and both dialogs. There is **one** spine and one drive
+loop. A change to any of it changes both cuts.
+
+**What `app.css` §13 reframes for a tall narrow window, and only this:**
+
+- the left and right rails give up their horizontal OFFSET but keep their
+  ALIGNMENT — which is the thing that still reads pain from resolution;
+- the three chaos beats trade three quadrants for three distinct HEIGHTS
+  (21vh / 46vh / bottom 19vh), because a narrow frame has thirds to spend
+  vertically and none across;
+- the type grows, because the frame shrank;
+- `.band::before` widens to `-20vh -26vw` and deepens to .94/.80, because the
+  footage now fills a much tighter window behind much larger words;
+- `.journey` is re-declared in **`svh`**. On a phone `vh` is the LARGE viewport
+  and stays frozen there while the URL bar collapses, but `.stage` is already
+  `100svh` — so the spine and the pinned frame would be measured against two
+  different heights and the scrub would drift against the film.
+
+**The static stacked cut still exists** in §13b, and it now belongs to
+`prefers-reduced-motion: reduce` **alone**. That is the only reader who ever asked
+not to be moved. `GATES` in `app.js` is down to that one query to match.
+
+Three things that make the film actually paint on a phone and are easy to delete by
+accident, all in `app.js`:
+
+- **The iOS decode unlock.** iOS holds a `<video>` undecoded until it has played at
+  least once. The symptom is vicious because nothing errors: `currentTime` moves,
+  `seeked` fires, the seek gate stays healthy, and the element paints nothing —
+  a phone scrolling through an invisible film. One muted `play()`/`pause()` on the
+  first `touchstart` hands it the gesture it wants. It is wired **both ways** (the
+  listener unlocks if the video is already there, `canplay` unlocks if the reader
+  got there first) because those two can land in either order.
+- **The metered-connection bail.** `saveData` or a 2g `effectiveType` skips the
+  12MB download and lands on `failVideo()`. The journey still runs; the ROOM falls
+  back from footage to poster, which is exactly where the load watchdog already
+  lands.
+- **Lenis `syncTouch` stays OFF.** Touch scrolling is native, Lenis's
+  `onNativeScroll` re-syncs and re-emits, and `onScroll` fires either way. Turning
+  `syncTouch` on would hand iOS momentum to a JS lerp and it feels worse, not
+  smoother — the scrub already has its own lerp on `shown`.
 
 ### The scroll-to-video curve is piecewise, not linear
 `VIDEO_MAP` in `app.js` pins each band to the footage moment it belongs to. The
@@ -462,29 +565,41 @@ allowlist's reach, so it is governed by hand.
   `detail.js` stops Lenis and pins the native scroller together; releasing one
   without the other is worse than releasing neither.
 - **The poster image is declared in CSS, not assigned by JS.** `initHeroOnce()`
-  only runs inside `enableScrub()`, so every phone — where the static-hero gate
-  disarms the scrub — silently rendered the beats on blank pearl with no room
-  behind them. The room is the premise of the page; it cannot depend on the
-  scrub being armed.
+  only runs inside `enableScrub()`, so any cut that disarms the scrub — now
+  reduced motion, and before 2026-08-16 every phone — would otherwise render
+  the beats on blank pearl with no room behind them. The room is the premise of
+  the page; it cannot depend on the scrub being armed.
 - **Seed `body.paused` at boot, not only on `visibilitychange`.** That event fires
   on change only, so a page opened into a background tab (middle-click, restored
   session, prerender) never receives the class and burns every CSS animation
   while nobody is watching.
-- **Specificity trap in the mobile block, and it is easy to reintroduce.** The
-  chaos beats are addressed as `.band--fn.pos-a` to `.pos-c`, which is a
-  two-class selector and therefore OUT-SPECIFIES a bare `.band` reset. Without
-  `position: static` plus `inset: auto !important`, their desktop left/right
-  offsets survive into the phone layout and shove each card off the screen edge;
-  `text-align: right` on `.pos-b` survives the same way and has to be named
-  explicitly, and so does its underline origin. Anything one-class
-  (`.band--pain`, `.band--fix`) is fine because the mobile block simply comes
-  later in the file. If a fourth position ever returns, it joins both lists.
+- **Specificity trap, and it now bites in BOTH cuts.** The chaos beats are
+  addressed as `.band--fn.pos-a` to `.pos-c`, which is a two-class selector and
+  therefore OUT-SPECIFIES a bare `.band` reset. §13 (the phone cut) re-aims
+  them with two-class selectors of its own for exactly this reason. §13b (the
+  static cut) instead makes the offsets inert with `position: static` plus
+  `inset: auto !important`; without those, the desktop quadrant offsets survive
+  and shove each card off the screen edge. `text-align: right` on `.pos-b`
+  survives the same way and has to be named explicitly in §13b, and so does its
+  underline origin. Anything one-class (`.band--pain`, `.band--fix`) is fine
+  because both blocks simply come later in the file. **If a fourth position ever
+  returns, it joins all of those lists.**
+- **`.band { padding }` belongs to §13b only.** It is the static cut's card
+  inset. In the phone cinematic cut the beats are captions floating in a room
+  with no box around them, and a padding there pushes the type in off a gutter
+  it is already sitting on. It used to live in the bare `@media (max-width:
+  400px)` block, where it reached both.
+- **`.brand-plate` must stay visually inert**, for the same reason `.glass` must:
+  it is a transform hook, not a surface. A background on it is the dark logo box
+  the client removed, coming back.
 - **`border-image` replaces all four borders**, not just the one you declared a
   width for. The mobile ribbon edge is painted as a background layer instead, or
   every card ends up ringed in gradient.
-- **Static-hero gate: five media queries, character-for-character identical in the
-  CSS and the JS**, re-evaluated live on rotation and preference flips. A one-shot
-  check leaves a blank hero the moment a tablet rotates.
+- **Static-hero gate: the query list is character-for-character identical in the
+  CSS (§13b) and the JS (`GATES`)**, re-evaluated live on preference flips. It is
+  down to ONE query, `(prefers-reduced-motion: reduce)`, since the phone cut
+  landed. If the two sides ever drift, the CSS un-hides a stage the JS never
+  armed and the hero goes blank.
 - Splitting text: measure the string BEFORE clearing the element, or every character
   threshold collapses to the same value and the stagger silently dies.
 - WebGL: DPR capped at 2, no post-processing, no allocations inside `update()`,
@@ -520,10 +635,18 @@ bash review\verify-contrast.sh
 
 `review/verify-contrast.sh` samples the footage at each caption's own moment,
 takes the **darkest** pixel in that caption's rail, blends it under the band
-scrim the way the browser does, and reports the contrast against `--ink`. As of
-2026-08-16 the worst caption on the page is **9.84:1** against a 4.5:1 bar, so
-there is real headroom — but re-run it if the scrim alpha, a rail position, or
-the footage ever changes.
+scrim the way the browser does, and reports the contrast against `--ink`.
+
+It runs **two passes** since the phone cut landed, and the second one is not a
+formality. A 375x812 portrait slot showing a 1280x720 plate under `cover` keeps
+only 332 source pixels of width, columns 474–806 — two thirds of every frame the
+desktop pass checks is simply not on screen on a phone, and the darkest pixel in
+the part that IS on screen is a different pixel. The phone pass also audits at
+its own scrim's .80 shoulder rather than its .94 centre.
+
+As of 2026-08-16: worst desktop caption **9.84:1**, worst phone caption
+**10.78:1**, against a 4.5:1 bar. Re-run it if a scrim alpha, a rail position,
+a phone band height or the footage ever changes.
 
 `review/verify-spine.mjs` replicates `updateBands()` and `videoTimeFor()` exactly
 and sweeps p from 0 to 1. It proves four things a browser cannot show you
@@ -540,7 +663,17 @@ and 360px flick steps, reduced motion honoured in both directions, and the page 
 complete with the video removed.
 
 **Mobile responsiveness is a standing client requirement**, not a follow-up task.
-Verify at 375px before reporting anything done.
+Verify at 375px before reporting anything done — and since 2026-08-16 that means
+verifying the *film*, not a layout: the beats must advance, the footage must
+scrub, and the three chaos beats must land at three different heights.
+
+Practical note for checking the phone cut: Chrome's window often refuses to
+resize below the OS minimum. Loading `/index.html` into a **375x812 iframe**
+inside the page is a faithful substitute — media queries resolve against the
+iframe's own viewport. Drive it with a real wheel `scroll` over the iframe, not
+`scrollTo` from a tool call: the same `requestAnimationFrame` stall CLAUDE.md
+warns about for `verify-spine` applies here, and a scripted jump in an unpainted
+tab reports stale band state and invents defects that are not there.
 
 ---
 
@@ -587,6 +720,27 @@ Verify at 375px before reporting anything done.
   the section they already sat in). `#build` is still the narrative arrival
   section, it just is not a link target any more. See the Interaction section for
   the three things that changed from the original and why.
+- **2026-08-16** — **The phone now runs the same film as the desktop.** The
+  static-hero gate lost its four phone queries; `GATES` and app.css §13b are down
+  to `prefers-reduced-motion` alone. app.css §13 reframes the same spine for a
+  tall narrow window rather than replacing it. Added with it: the iOS decode
+  unlock, the `saveData` bail, `.journey` in `svh`, and a second phone pass in
+  `review/verify-contrast.sh`. See "The phone runs the same film".
+- **2026-08-16** — **The logo's dark plate was removed**, client instruction. This
+  is the only one of the five laws that has moved, and it moved because it had to:
+  a near-white mark on a near-black card has no reading on a pearl page without a
+  colour flip, so the choice was a box the client rejected or a recolour the
+  original law banned. Ships as `logo-mark.png`. The supplied original is kept
+  untouched. Flagged back to the client — the clean fix is an official
+  light-background mark. See the Logo law.
+- **2026-08-16** — **The hero heading became `Move faster. / Spend less. / Look
+  sharper.`**, client-supplied, replacing `You run the business. / We run what
+  moves it.` The old pair is off the allowlist and off the page. The accent sits
+  on the last word: three parallel lines, so the eye should run the whole promise
+  and land on the payoff rather than stop in the middle.
+- **2026-08-16** — **`review/verify-spine.mjs` had a stale `VIDEO_MAP`** — still on
+  the pre-FINANCE-removal 0.305/0.360/0.415 anchors. Harmless to its pass/fail, but
+  it made the freeze report describe a spine the site does not have. Resynced.
 - **2026-08-16** — **`Free Audit` added to the nav and to the text allowlist**,
   client-provided, under the brief's own "explicitly provided by me" clause. The
   primary CTA was reworked for depth: a diagonal grade, a lit top edge and a shaded

@@ -8,9 +8,14 @@ const html = readFileSync(new URL('../site/index.html', import.meta.url), 'utf8'
 const clamp = (v, lo, hi) => v < lo ? lo : v > hi ? hi : v;
 const smoothstep = (p, e0, e1) => { const t = clamp((p - e0) / (e1 - e0), 0, 1); return t * t * (3 - 2 * t); };
 
+/* Kept identical to VIDEO_MAP in site/assets/app.js. The three chaos anchors
+   moved to 0.323/0.397/0.470 when FINANCE was dropped and this copy was left
+   on the old 0.305/0.360/0.415 — harmless to the pass/fail (the curve stays
+   monotonic either way) but it made the freeze report describe a spine the
+   site does not have. Resynced 2026-08-16. */
 const VIDEO_MAP = [
   [0.000,0.0],[0.058,2.0],[0.120,3.6],[0.185,5.4],[0.250,7.0],
-  [0.305,8.2],[0.360,9.3],[0.415,10.3],[0.470,11.0],[0.530,11.8],
+  [0.323,8.4],[0.397,9.7],[0.470,11.0],[0.530,11.8],
   [0.575,13.0],[0.640,15.2],[0.700,18.0],[0.760,20.5],[0.820,23.0],
   [0.880,26.0],[0.945,30.0],[1.000,30.0]
 ];

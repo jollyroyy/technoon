@@ -48,13 +48,17 @@ const VIDEO_MAP = [
   [1.000, 30.0]    // held: the 3D vortex owns the last stretch
 ];
 
-/* The static-hero gate. These five strings are duplicated character-for-character
-   in app.css. If one side drifts, the CSS un-hides a stage the JS never armed. */
+/* The static-hero gate, duplicated character-for-character in app.css §13b. If
+   one side drifts, the CSS un-hides a stage this file never armed.
+
+   It used to hold five queries and four of them were phone sizes, which is
+   what made mobile a different product: every phone disarmed the scrub,
+   unpinned the stage and got a stack of cards instead of the film. Removed
+   2026-08-16 at the client's instruction — the phone runs the same journey now
+   and app.css §13 reframes it for a tall narrow window.
+
+   What is left is the one reader who actually asked to be left alone. */
 const GATES = [
-  '(max-width: 720px)',
-  '(orientation: portrait) and (max-width: 1024px)',
-  '(orientation: portrait) and (pointer: coarse)',
-  '(orientation: landscape) and (pointer: coarse) and (max-height: 560px)',
   '(prefers-reduced-motion: reduce)'
 ];
 
@@ -191,6 +195,17 @@ function initHeroOnce() {
   heroInit = true;
   posterEl.style.backgroundImage = `url('${POSTER_URL}')`;
 
+  /* Now that phones run the real journey, this file can be asked for 12MB over
+     someone's cellular plan. The journey is the point of the page and it still
+     runs; the ROOM is what falls back, from footage to the poster, which is
+     exactly where the load watchdog already lands. Nothing is lost that the
+     reader can name — the room is a still room either way for these two. */
+  const conn = navigator.connection;
+  if (conn && (conn.saveData || /(^|-)2g$/.test(conn.effectiveType || ''))) {
+    failVideo();
+    return;
+  }
+
   /* the poster wins the bandwidth race by design: only start the blob once it is in */
   let started = false;
   const start = () => { if (!started) { started = true; loadHeroBlob().catch(failVideo); } };
@@ -245,8 +260,34 @@ function attachBlob(blob) {
     videoReady = true;
     stage.classList.add('video-ready');
     requestSeek(videoTimeFor(shown));        // land on wherever the reader already is
+    if (touched) unlockVideo();
   }, { once: true });
 }
+
+/* iOS holds a <video> undecoded until it has played at least once. The symptom
+   is nasty precisely because nothing errors: currentTime moves, `seeked` fires,
+   the gate stays healthy, and the element paints nothing at all — a phone
+   scrolling through an invisible film. One muted play/pause hands it the user
+   gesture it is waiting for and it starts painting frames.
+
+   Ordered both ways because the touch and the decode can land in either order:
+   the listener unlocks if the video is already there, canplay unlocks if the
+   reader got there first. Failure is silent by design — the poster is behind it
+   and the journey does not depend on this. */
+let touched = false;
+
+function unlockVideo() {
+  try {
+    const p = video.play();
+    if (p && typeof p.then === 'function') p.then(() => video.pause(), () => {});
+    else video.pause();
+  } catch (_) {}
+}
+
+addEventListener('touchstart', () => {
+  touched = true;
+  if (videoReady) unlockVideo();
+}, { passive: true, once: true });
 
 function failVideo() {
   /* an honest end state, never a stuck ring. The stills carry the whole journey. */
