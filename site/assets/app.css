@@ -32,7 +32,9 @@
   --body:    'Hanken Grotesk', 'Segoe UI', system-ui, sans-serif;
 
   --gut:  clamp(20px, 5vw, 96px);   /* the rail inset */
-  --navh: clamp(64px, 8vh, 88px);
+  /* Floor raised 64 → 72 when the supplied stacked lockup replaced the rebuilt
+     one: the mark got taller relative to its width, and 64px left it no room. */
+  --navh: clamp(72px, 8vh, 88px);
 
   /* the light halo that keeps dark ink readable over bright moving footage */
   --halo: 0 0 14px rgba(242,244,248,.95),
@@ -172,13 +174,18 @@ body.paused *::after { animation-play-state: paused !important; }
   display: inline-flex;
   transition: transform .3s cubic-bezier(.2,.7,.2,1);
 }
-/* 100px is the widest the stacked mark goes in a 64px nav: the sphere sits
-   above the wordmark, so the lockup is 0.6 as tall as it is wide and anything
-   wider gets its sphere clipped by the nav's own height. */
-.brand-plate img { width: 100px; height: auto; }
+/* Sized by HEIGHT, not width, and this is deliberate. The supplied lockup is
+   stacked — sphere over wordmark over the AI AGENCY rule — so it is 0.74 as
+   tall as it is wide, and a fixed width lets the nav's own height clip the top
+   of the sphere the moment --navh sits at its floor. Driving off --navh means
+   the mark cannot clip at any viewport, and the width simply follows. */
+.brand-plate img {
+  height: clamp(44px, calc(var(--navh) - 20px), 60px);
+  width: auto;
+}
 .brand:hover .brand-plate { transform: translateY(-1px) scale(1.015); }
 
-.brand-plate--lg img { width: 148px; }
+.brand-plate--lg img { height: clamp(88px, 12vh, 116px); }
 
 .nav-actions {
   display: flex;
@@ -275,11 +282,35 @@ body.paused *::after { animation-play-state: paused !important; }
   84%           { box-shadow: 0 0 0 6px rgba(108,76,224,0); }
 }
 
-/* The primary. Premium here means depth, not volume: a diagonal grade across
-   the accent instead of one flat fill, a lit top edge and a shaded bottom one
-   so the pill reads as a solid object, and a single slow specular sweep on
-   hover. The sheen deliberately passes OVER the label, the way light crosses a
-   real surface, which is why it is an ::after with no z-index. */
+/* The primary. Premium here means depth, not volume, and this is the second
+   pass at it: the first had a diagonal grade, a lit top edge, a shaded bottom
+   and a specular sweep, which made it a nice flat pill. What it lacked was
+   CURVATURE — every edge was a hairline and the face between them was flat, so
+   it read as a coloured rectangle with rounded ends rather than as an object
+   with a top and a bottom.
+
+   Four things carry the weight now, and every one of them is light behaviour
+   rather than more colour, because the accent budget on this page is small:
+
+   1. A crown. The radial in the background stack is a soft light landing on
+      the upper face and falling off before the middle, which is what actually
+      makes a surface read as convex.
+   2. A foot. The inset shadow at the bottom rolls the lower edge away from the
+      viewer. A lit top edge alone is only half of a curve.
+   3. A hairline ring, inside the fill rather than as a border, so the pill has
+      a defined rim without spending a pixel of layout.
+   4. Three shadows instead of two — a tight contact shadow that sits it ON the
+      page, a mid shadow for form, and a wide violet bloom for the ambient. One
+      shadow at one radius is the thing that makes a button look printed.
+
+   The sheen deliberately passes OVER the label, the way light crosses a real
+   surface, which is why it is an ::after with no z-index. It is narrower and
+   skewed now: a wide soft band reads as the whole button flashing, a narrow
+   raked one reads as a highlight travelling across glass.
+
+   Deliberately NOT the ribbon. The ribbon's appearance list is closed and the
+   CTA is not on it; this stays in the violet family and gets its richness from
+   the depth of the grade, #8A6BF2 down to a near-indigo #4527B8. */
 .cta {
   position: relative;
   overflow: hidden;
@@ -296,38 +327,64 @@ body.paused *::after { animation-play-state: paused !important; }
   text-align: center;
   text-decoration: none;
   color: #fff;
-  background: linear-gradient(135deg, #7C5DEA 0%, var(--violet) 48%, #573AD2 100%);
+  background:
+    radial-gradient(118% 150% at 50% -32%,
+                    rgba(255,255,255,.40) 0%,
+                    rgba(255,255,255,.10) 42%,
+                    rgba(255,255,255,0)   64%),
+    linear-gradient(135deg, #8A6BF2 0%, var(--violet) 46%, #4527B8 100%);
   border-radius: 999px;
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.38),
-    inset 0 -1px 0 rgba(14,19,48,.24),
-    0 2px 6px rgba(14,19,48,.10),
-    0 8px 24px rgba(108,76,224,.28);
+    inset 0 0 0 1px rgba(255,255,255,.16),
+    inset 0 1px 0 rgba(255,255,255,.46),
+    inset 0 -1px 0 rgba(14,19,48,.30),
+    inset 0 -12px 20px -14px rgba(9,12,34,.75),
+    0 1px 2px rgba(14,19,48,.16),
+    0 8px 18px -6px rgba(69,39,184,.32),
+    0 20px 44px -14px rgba(108,76,224,.42);
   transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease, filter .3s ease;
 }
 .cta::after {
   content: '';
   position: absolute;
-  inset: 0;
+  top: -20%;
+  bottom: -20%;
+  left: 0;
+  right: 0;
   pointer-events: none;
-  background: linear-gradient(104deg,
-              rgba(255,255,255,0) 32%,
-              rgba(255,255,255,.34) 48%,
-              rgba(255,255,255,0) 64%);
-  transform: translateX(-125%);
-  transition: transform .9s cubic-bezier(.2,.7,.2,1);
+  background: linear-gradient(100deg,
+              rgba(255,255,255,0)   38%,
+              rgba(255,255,255,.10) 45%,
+              rgba(255,255,255,.44) 50%,
+              rgba(255,255,255,.10) 55%,
+              rgba(255,255,255,0)   62%);
+  transform: translateX(-118%) skewX(-14deg);
+  transition: transform 1s cubic-bezier(.24,.6,.16,1);
 }
 .cta:hover {
   transform: translateY(-2px);
-  filter: saturate(112%);
+  filter: saturate(110%) brightness(1.03);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.44),
-    inset 0 -1px 0 rgba(14,19,48,.24),
-    0 3px 8px rgba(14,19,48,.10),
-    0 14px 34px rgba(108,76,224,.36);
+    inset 0 0 0 1px rgba(255,255,255,.22),
+    inset 0 1px 0 rgba(255,255,255,.54),
+    inset 0 -1px 0 rgba(14,19,48,.30),
+    inset 0 -12px 20px -14px rgba(9,12,34,.70),
+    0 2px 4px rgba(14,19,48,.16),
+    0 12px 26px -8px rgba(69,39,184,.38),
+    0 30px 62px -16px rgba(108,76,224,.52);
 }
-.cta:hover::after { transform: translateX(125%); }
-.cta:active { transform: translateY(0); }
+.cta:hover::after { transform: translateX(118%) skewX(-14deg); }
+/* Pressed: the lift goes, the bloom collapses to a contact shadow and the foot
+   deepens, so the pill reads as pushed INTO the page rather than just moved. */
+.cta:active {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.14),
+    inset 0 2px 5px rgba(9,12,34,.42),
+    inset 0 -1px 0 rgba(255,255,255,.12),
+    0 1px 2px rgba(14,19,48,.18),
+    0 4px 10px -4px rgba(69,39,184,.28);
+}
 
 .cta--hero { margin-top: clamp(20px, 3vh, 32px); }
 .cta--arrival { min-height: 56px; font-size: clamp(15px, 1.3vw, 18px); padding: 18px 36px; }
@@ -1331,7 +1388,7 @@ main:focus { outline: none; }
    this button out of its Z-plane and animate the fall over 300ms inside a
    preserve-3d card. Both states have to restate the depth. */
 .detail-cta:hover  { transform: translateZ(46px) translateY(-2px); }
-.detail-cta:active { transform: translateZ(46px) translateY(0); }
+.detail-cta:active { transform: translateZ(46px) translateY(1px); }
 
 .detail-close {
   position: absolute;
@@ -2097,10 +2154,23 @@ html.form-ready [data-form] { cursor: pointer; }
   to   { --flow: 100%; }
 }
 
-/* dim, and a few pixels low, so it settles as the line reaches it */
+/* How lit a step is, 0 unreached and 1 passed. Registered as a <number> so it
+   interpolates; ::before reads it to take its accent, which is how the numeral
+   warms from --slate to --violet under the arrowhead without needing a second
+   animation-range list kept in sync with the one on .step. Base is 100% — the
+   resolved frame — so nothing about this depends on the animation running.
+   A <percentage> rather than a <number>, because it is fed straight to
+   color-mix as its mixing percentage and Chrome rejects a calc() there — a
+   `calc(var(--land) * 100%)` on a <number> makes the whole colour declaration
+   invalid at computed-value time, and the numeral silently inherits --ink
+   instead. It looks like nothing is wrong until you compare it to --violet. */
+@property --land { syntax: '<percentage>'; inherits: true; initial-value: 100%; }
+
+/* dim, a few pixels low, and its numeral still grey, so the step settles and
+   takes its accent exactly as the line reaches it */
 @keyframes step-land {
-  from { opacity: .34; transform: translateY(7px); }
-  to   { opacity: 1;   transform: none; }
+  from { --land: 0%;   opacity: .34; transform: translateY(7px); }
+  to   { --land: 100%; opacity: 1;   transform: none; }
 }
 
 /* The line only exists where the four steps are one row. Below 860px the grid
@@ -2118,23 +2188,42 @@ html.form-ready [data-form] { cursor: pointer; }
    once on the reader not having asked for less. */
 @supports (animation-timeline: view()) {
   @media (min-width: 860px) and (prefers-reduced-motion: no-preference) {
+    /* ONE named timeline, belonging to the line, hoisted to the section so the
+       steps can borrow it. This is the whole trick, and it replaced four
+       hand-guessed `view()` ranges that only LOOKED synced.
+       `view()` is per-element: .flow and each .step are at different heights
+       and different points down the page, so each got its own timeline and
+       "cover 22%" meant a different scroll position for every one of them. The
+       arrow and the step it was meant to light drifted apart, and by exactly
+       how much depended on the window height. Sharing one timeline makes the
+       sync arithmetic instead of eyeballing. */
+    .process { timeline-scope: --flowline; }
+    .flow    { view-timeline-name: --flowline; view-timeline-axis: block; }
+
     .flow {
       animation: flow-draw linear both;
-      animation-timeline: view();
-      animation-range: entry 100% cover 55%;
+      animation-timeline: --flowline;
+      animation-range: cover 0% cover 55%;
     }
 
-    /* Staggered against the same timeline rather than against each other, so
-       each step lands roughly as the arrowhead reaches it. Delays would not
-       work here: a scroll-driven animation has no clock to delay against. */
+    /* Now that the steps share the line's clock, each one's window is just the
+       slice of the draw during which the arrowhead is crossing its column.
+       The draw spans cover 0-55%, the arrow travels 0-100% of a 940px measure
+       and the four columns are quarters of it, so step N runs from
+       (N-1)/4 * 55% to N/4 * 55%. Quarters rather than the real column edges
+       because .steps has a fluid gap: quarters are within a couple of percent
+       at every width and cannot go stale, and the slack lands in the gutters
+       between columns where nothing is watching.
+       Delays would not work here: a scroll-driven animation has no clock to
+       delay against. */
     .step {
       animation: step-land linear both;
-      animation-timeline: view();
+      animation-timeline: --flowline;
     }
-    .step:nth-child(1) { animation-range: entry 100% cover 22%; }
-    .step:nth-child(2) { animation-range: cover 12%  cover 32%; }
-    .step:nth-child(3) { animation-range: cover 22%  cover 42%; }
-    .step:nth-child(4) { animation-range: cover 32%  cover 52%; }
+    .step:nth-child(1) { animation-range: cover 0%     cover 13.75%; }
+    .step:nth-child(2) { animation-range: cover 13.75% cover 27.5%;  }
+    .step:nth-child(3) { animation-range: cover 27.5%  cover 41.25%; }
+    .step:nth-child(4) { animation-range: cover 41.25% cover 55%;    }
   }
 }
 .step::before {
@@ -2145,7 +2234,7 @@ html.form-ready [data-form] { cursor: pointer; }
   font-weight: 500;
   font-size: clamp(11px, .95vw, 13px);
   letter-spacing: .22em;
-  color: var(--violet);
+  color: color-mix(in oklab, var(--violet) var(--land), var(--slate));
 }
 .step-name {
   margin: 0 0 6px;
@@ -2331,8 +2420,8 @@ html.form-ready [data-form] { cursor: pointer; }
   .nav-actions { gap: 8px; }
   .ghost { min-height: 42px; padding: 11px 14px; font-size: 12px; letter-spacing: .04em; }
   .cta--nav { padding: 11px 16px; font-size: 12px; min-height: 42px; }
-  .brand-plate img { width: 88px; }
-  .brand-plate--lg img { width: min(148px, 52vw); }
+  .brand-plate img { height: 44px; }
+  .brand-plate--lg img { height: min(96px, 38vw); }
 
   .detail-card { width: 100%; }
   .arrival { min-height: auto; padding-top: clamp(48px, 9vh, 90px); }
@@ -2490,8 +2579,8 @@ html.form-ready [data-form] { cursor: pointer; }
   .lede, .say, .fn, .kicker, .sub, .chain-title { text-shadow: none; }
 
   .cta--hero { align-self: flex-start; }
-  .brand-plate img { width: 96px; }
-  .brand-plate--lg img { width: min(148px, 56vw); }
+  .brand-plate img { height: 46px; }
+  .brand-plate--lg img { height: min(100px, 40vw); }
   .cta--nav { padding: 11px 16px; font-size: 12px; min-height: 42px; }
 
   .arrival { min-height: auto; padding-top: clamp(48px, 9vh, 90px); }

@@ -27,10 +27,14 @@ CONNECTED SYSTEM → ACCELERATION → technoon.ai`
 technoon2/
 ├─ vercel.json            deploy config (see Deployment)
 ├─ brief/                 storyboard.png (source of truth), storyboard-hero.png,
-│                         logo-source.jpg (supplied original), logo-4k.png (master)
+│                         logo-source-640.jpg (SUPPLIED ORIGINAL, the live one),
+│                         logo-keyed-raw.png (the key with the white type kept),
+│                         logo-source.jpg + logo-4k.png (superseded, see Logo law)
 ├─ review/                raw footage + tooling. NEVER ships.
 │                         seq1/2.mp4, room-sd-1.jpg, verify-spine.mjs,
-│                         verify-contrast.sh, gen-logo.py, Montserrat-Medium.ttf,
+│                         verify-contrast.sh, key-logo.py (the LIVE mark pipeline),
+│                         gen-logo.py + trace-ring.py (superseded, do not run),
+│                         Montserrat-Medium.ttf,
 │                         audit-2026-08-16.md (full UI/security/GEO audit)
 └─ site/                  the deployable product
    ├─ index.html         the film, then the offerings stack, then the process band,
@@ -48,7 +52,7 @@ technoon2/
       ├─ form.js          enquiry card: the third <dialog>. FORM_ENDPOINT is
       │                   unset and falls back to mailto until it is set.
       ├─ hero-scrub.mp4   the 30s core, 2 chained Seedance clips, ONE encode
-      ├─ logo-mark.png    THE SHIPPED MARK, 640x386 RGBA (see Logo law)
+      ├─ logo-mark.png    THE SHIPPED MARK, 543x400 RGBA (see Logo law)
       └─ *.jpg/png        poster, ending, overload still, favicon, logo.jpg (original)
 ```
 
@@ -95,7 +99,10 @@ are unrelated histories pointing at this project — push them together.
 
 ## The five laws
 
-### 1. Logo law — amended three times, the only law that has moved
+### 1. Logo law — amended four times, the only law that has moved
+
+**READ (d) FIRST. It supersedes (a), (b) and (c), which are kept only because
+they record what was tried and why each attempt failed.**
 
 Original: ship `brief/logo-source.jpg` exactly as supplied.
 
@@ -115,7 +122,54 @@ redesign and read as one. The supplied sphere is not concentric shells: it is a 
 with shells that spiral, dots that fatten toward the violet side, a sparse scatter halo
 and a thin seam at the top right. **A formula gets the idea and loses the mark.**
 
-**What ships: `site/assets/logo-mark.png`**, 640x386 RGBA, downscaled from a 3840px
+**2026-08-17 (d), and this SUPERSEDES (a)–(c):** the client supplied a **640x640**
+original — `brief/logo-source-640.jpg` — and said *"use this image exactly as it is,
+just remove the black boxed background colour."* That single file dissolves the
+problem the previous three amendments were all working around. 190x112 with a ~20px
+x-height was why the mark had to be rebuilt, then traced; at 640x640 the sphere, the
+wordmark and the tagline are all real pixels and nothing has to be reconstructed.
+
+**What ships now: `site/assets/logo-mark.png`, 543x400 RGBA — the supplied file with
+its card removed and nothing else redrawn.** One checked-in step,
+**`review/key-logo.py`**:
+
+- The card is a uniform `#020113`, so the key is an **uncomposite**, not a colour
+  range: `observed = art·α + card·(1-α)`, α taken from the pixel's own brightest
+  channel above the card's own brightest channel (blue, 19). Antialiased glyph edges
+  come back crisp instead of fringed. A naive "make black transparent" leaves a blue
+  haze over the whole 640x640 and the trim then finds no edges — that was the first
+  attempt and it silently produced a full-bleed 640x640 with a tinted background.
+- **The wordmark is flipped to `--ink` and only the wordmark.** Pure white on
+  `--pearl` is 1.03:1 — the reason (a) exists, unchanged by better resolution. The
+  flip is gated on **saturation < 0.22**, so it catches the neutral white type and
+  cannot touch the sphere, the `.ai`, or the two coloured rules. Every coloured pixel
+  in the shipped mark is the client's own.
+- **`AI AGENCY` is back**, because it is in the supplied file and the instruction was
+  "exactly as it is". This reverses (b)'s "remove the AI agency". At nav size it is
+  ~2px tall and reads as a texture rather than as type; that is inherent to a stacked
+  lockup in a 72px bar and is not fixable by sizing.
+- `site/assets/favicon.png` is still the sphere alone at 128x128, cut at the empty
+  row band between the sphere and the wordmark rather than at a hardcoded fraction.
+
+Re-run, and only when the client supplies a new original: `python review/key-logo.py`.
+
+**`.brand-plate img` is sized by HEIGHT now, not width, and this is load-bearing.**
+The supplied lockup is 0.74 as tall as it is wide (the rebuilt one was 0.60), so a
+fixed `width` lets `--navh` clip the top of the sphere the moment the clamp sits at
+its floor. `--navh`'s floor also moved 64px → 72px for the same reason. Nav mark:
+`height: clamp(44px, calc(var(--navh) - 20px), 60px)`. Arrival: `clamp(88px, 12vh,
+116px)`. Both phone blocks (§13, §13b) are height-based too — leave one of them on
+`width` and that breakpoint clips.
+
+**`review/trace-ring.py`, `review/gen-logo.py`, `review/preview-ring.py`,
+`brief/logo-4k.png` and `review/ring-dots.json` are SUPERSEDED and no longer feed the
+build.** They are the (b)/(c) pipeline. Do not run them; they overwrite
+`logo-mark.png` with the reconstructed mark. Kept only as the record of what a trace
+of the 190px file could and could not reach.
+
+<details><summary>Superseded: what (b) and (c) shipped</summary>
+
+**Was: `site/assets/logo-mark.png`**, 640x386 RGBA, downscaled from a 3840px
 master (`brief/logo-4k.png`). Two checked-in, reproducible steps:
 
 - **`review/trace-ring.py`** reads `brief/logo-source.jpg`, finds every dot in the
@@ -148,16 +202,19 @@ original; the page does not load them.
 
 **Forbidden:** re-colouring outside the token palette, particle-ising, or regenerating
 the mark through any AI tool. Animation is opacity, position, scale and parallax only.
-Displayed at 100px in the nav and 148px in the arrival section.
+
+</details>
 
 `--plate` survives as a token (the skip link uses it). `.brand-plate` survives purely
 as the hover-lift transform hook — **it must stay visually inert**. A background,
 padding or radius on it brings the rejected box back.
 
-**Flag for the client:** the sphere is now the supplied sphere, traced; the wordmark is
-still re-set type, faithful in typeface and geometry but not pixel-identical to the
-190px JPEG. The clean fix is an **officially supplied vector (SVG/AI/EPS) logo**. That
-is a client deliverable.
+**Flag for the client, and it is now down to one line:** the mark is theirs, pixel for
+pixel, with the card removed and the white wordmark darkened so it can be read on a
+light page. The only remaining ask is an **officially supplied vector (SVG/AI/EPS)
+logo**, which would let the wordmark render as type at any size instead of as a 543px
+raster, and would make the `AI AGENCY` rule legible in the nav. That is a client
+deliverable, not a build task.
 
 ### 2. Text law — the complete allowlist
 
@@ -606,15 +663,31 @@ four cards. Below 860px the grid has wrapped to a stack, a horizontal rail throu
 it would be saying something untrue, so it is hidden and the step rules come back.
 
 *No script, no rAF, no timeline object*, in the same spirit as the sticky stack:
-one registered `@property --flow` animated on a `view()` scroll timeline, driving
+one registered `@property --flow` animated on a scroll timeline, driving
 the run's `clip-path` and the chevron's `left` **together**, so the arrow cannot
 drift out of sync with the end of the line by construction rather than by
 measurement. `clip-path`, not `width` — the ribbon has to read as one spectrum
 being revealed, not a short gradient being stretched, and that is not visible in
-a screenshot. The four steps land on the same timeline with staggered
-`animation-range` values, because a scroll-driven animation has no clock to delay
-against. `--flow` is registered or it would swap discretely and the line would
+a screenshot. `--flow` is registered or it would swap discretely and the line would
 jump rather than draw.
+
+**The four steps ride the arrow's OWN timeline, 2026-08-17.** They used to each
+carry their own anonymous `view()` with hand-guessed ranges, and that could not be
+right: `view()` is **per element**, so `.flow` and each `.step` had four different
+timelines. "cover 22%" meant a different scroll position on each of them, and the
+gap between the arrowhead and the step it was meant to light changed with the
+window height. Now `.flow` declares `view-timeline-name: --flowline`, `.process`
+hoists it with `timeline-scope`, and all five animations name it — verifiable in
+one line: the `.flow` and `.step` animations return the *same* `ViewTimeline`
+object. With one clock the arithmetic is exact: the draw spans `cover 0%–55%`,
+the four columns are quarters of the 940px measure, so step N runs
+`(N-1)/4 · 55%` → `N/4 · 55%`. Quarters rather than the real column edges because
+`.steps` has a fluid gap; quarters are within a couple of percent at every width,
+cannot go stale, and the slack falls in the gutters. `--land` (registered, and a
+`<percentage>` **not** a `<number>` — Chrome rejects a `calc()` inside `color-mix`,
+and the numeral then silently inherits `--ink` instead of taking `--violet`)
+carries the numeral from `--slate` to `--violet` on the same window, so the step
+takes its accent as the arrow crosses it.
 
 **THE AUTHORING RULE COVERS THIS**, and it is the whole reason it is safe: the
 BASE state is the resolved frame — line fully drawn, arrow landed, steps lit — and
@@ -796,8 +869,9 @@ silent, and the video clock never runs backwards. **Prefer it over eyeballing** 
 backgrounded tab pauses rAF, so scripted scrubbing in an unfocused window reports stale
 band state and invents defects.
 
-`review/gen-logo.py` regenerates the mark, the 4K master and the favicon from geometry.
-Run it only if the mark changes.
+`review/key-logo.py` regenerates the mark and the favicon from the supplied original.
+Run it only if the client supplies a new one. (`gen-logo.py` and `trace-ring.py` are
+superseded — running them replaces the supplied mark with the reconstructed one.)
 
 **Scroll-driven animations cannot be verified under browser automation either,
 and for a different reason than the `close` event below.** The automation tab is
@@ -832,6 +906,22 @@ Drive it with a real wheel `scroll`, not `scrollTo` from a tool call.
 
 ---
 
+## Decisions log (2026-08-17)
+
+- **The client supplied a 640x640 original and the logo problem ended.** Three
+  amendments of rebuilding and tracing existed only because the previous file was
+  190x112. `review/key-logo.py` uncomposites the supplied art off its `#020113` card
+  and ships it at 543x400 with nothing redrawn. The white wordmark is still flipped to
+  `--ink` — 1.03:1 on pearl is not a resolution problem — but the flip is gated on
+  saturation, so every coloured pixel is the client's own. `AI AGENCY` is back, which
+  reverses amendment (b).
+- **The nav mark is sized by height now**, and `--navh`'s floor moved 64 → 72, because
+  the supplied lockup is 0.74 as tall as it is wide against the rebuilt one's 0.60.
+- **The four process steps were moved onto the flow line's own named timeline.** The
+  old per-element `view()` ranges could not stay in sync with the arrowhead at
+  different window heights, which is the one thing that animation is for.
+- **The primary CTA was rebuilt for curvature**, not more colour. See the design note.
+
 ## Decisions log (all 2026-08-16)
 
 - Project started fresh in `technoon2`. No code carried over.
@@ -863,6 +953,14 @@ Drive it with a real wheel `scroll`, not `scrollTo` from a tool call.
   Flagged: the clean fix is an officially supplied vector logo.
 - **Hero heading became `Move faster. / Spend less. / Look sharper.`**, client-supplied.
   Accent on the last word so the eye runs the whole promise and lands on the payoff.
+- **The primary CTA got a second premium pass, 2026-08-17.** The first was a diagonal
+  grade, a lit top edge, a shaded bottom and a specular sweep — a nice flat pill. What
+  it lacked was curvature: every edge was a hairline and the face between them was
+  flat. Now a radial crown lights the upper face, an inset foot rolls the lower edge
+  away, a hairline ring defines the rim inside the fill, and three shadows at three
+  radii replace two. Pressed collapses the bloom to a contact shadow and deepens the
+  foot, so it reads as pushed in rather than moved down. Still violet, not the ribbon —
+  the ribbon's appearance list is closed and the CTA is not on it.
 - **`verify-spine.mjs` had a stale `VIDEO_MAP`** (pre-FINANCE anchors). Resynced.
 - **`Free Audit` added** to the nav and the allowlist under the brief's "explicitly
   provided by me" clause. Primary CTA reworked for depth: diagonal grade, lit top edge,
