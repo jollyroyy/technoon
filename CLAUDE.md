@@ -921,6 +921,16 @@ Drive it with a real wheel `scroll`, not `scrollTo` from a tool call.
   old per-element `view()` ranges could not stay in sync with the arrowhead at
   different window heights, which is the one thing that animation is for.
 - **The primary CTA was rebuilt for curvature**, not more colour. See the design note.
+- **OUTSTANDING WITH THE CLIENT: a fourth chaos beat.** They asked for a catchy,
+  clickable OPERATIONS heading in the film just after `HR SOLUTIONS`. Four candidate
+  headings and the full spine cost are in `brief/operations-beat-for-approval.md`;
+  nothing is on the page, because the heading is new brand copy and the text law
+  gates it. **It cannot be squeezed into the existing 0.250–0.470 stretch** — four
+  beats there are 0.055 wide, a 41vh plateau, under the 49vh floor. The proposal
+  re-cuts pain to 0.058–0.238 and chaos to 0.238–0.500 at 0.0655 each and pays for it
+  out of the wordless BOTTLENECK. One candidate (`AI RECEPTIONIST` / `Every call
+  picked up. Every message logged.`) is entirely approved copy already and needs no
+  further sign-off. This is the only open client item.
 
 ## Decisions log (all 2026-08-16)
 
