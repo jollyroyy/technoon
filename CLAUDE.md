@@ -26,6 +26,7 @@ BUSINESS → FRAGMENTATION → CHAOS → BOTTLENECK → AI ACTIVATION
 ```
 technoon2/
 ├─ CLAUDE.md              ← this file
+├─ vercel.json            ← deploy config. See Deployment below.
 ├─ brief/
 │  ├─ storyboard.png      ← PRIMARY visual source of truth (1536x1024, five rows)
 │  ├─ storyboard-hero.png ← the top row cropped out, used as the room reference
@@ -54,6 +55,32 @@ step, no npm at runtime, no framework. Double-clicking `index.html` gives the st
 hero; the full scrub needs a local server because browsers block `fetch` on `file://`.
 
 Preview: `npx http-server "C:\Users\ASUS\Desktop\technoon2\site" -p 8080`
+
+### Deployment
+
+Vercel, from `main` on `github.com/jollyroyy/technoon`. **That repo previously held a
+completely different Next.js site**, so the Vercel project was configured for Next.js
+and kept running `next build` against a repo that has no `package.json`. `vercel.json`
+at the repo root is what corrects it, and it must stay there:
+
+```json
+{ "framework": null, "buildCommand": "", "installCommand": "", "outputDirectory": "site" }
+```
+
+`framework: null` is Vercel's "Other" preset; an empty `buildCommand` is the
+documented way to skip the build entirely and serve files as-is. `vercel.json`
+overrides the dashboard, so the stale Next.js preset there is now inert — but if
+someone ever "fixes" the dashboard instead of this file, the override is what wins.
+
+`outputDirectory: "site"` is load-bearing beyond routing: **only `site/` is served**,
+which is what keeps `review/` and `brief/` off the public internet. Do not switch this
+to Root Directory in the dashboard and do not widen it to `.` — that would publish the
+raw footage and the client brief. Verify after any deploy that `/review/room-sd-1.jpg`
+404s.
+
+The old Next.js site is preserved on the `archive/main-nextjs` branch. `main` and
+`technoon2-cinematic` are unrelated histories that both point at this project; keep
+them pushed together or the deploy silently falls behind.
 
 ---
 
