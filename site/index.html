@@ -35,11 +35,12 @@
       <img src="assets/logo.jpg" width="190" height="112" alt="technoon.ai" decoding="async">
     </span>
   </a>
-  <!-- DEPLOY STEP: point both hrefs at the real booking link or mailto address
-       once technoon.ai supplies one. -->
+  <!-- Both of these are the booking link now, per the DEPLOY STEP that used to
+       sit here. data-cal is what cal.js delegates off; the href is the working
+       fallback if it never loads. -->
   <div class="nav-actions">
-    <a class="ghost" href="#build"><span class="ghost-dot" aria-hidden="true"></span>Free Audit</a>
-    <a class="cta cta--nav" href="#build">Build Your Intelligent Business</a>
+    <a class="ghost" data-cal href="https://cal.com/sudeshna-pal-ruww5f/technoon.ai" rel="noopener"><span class="ghost-dot" aria-hidden="true"></span>Free Audit</a>
+    <a class="cta cta--nav" data-cal href="https://cal.com/sudeshna-pal-ruww5f/technoon.ai" rel="noopener">Build Your Intelligent Business</a>
   </div>
 </nav>
 
@@ -242,8 +243,7 @@
             <span class="split" data-split="word" aria-hidden="true">We take care of the <em>strategy</em>.</span>
           </h2>
           <p class="sub">Intelligence that runs your business. So you can lead it.</p>
-          <!-- DEPLOY STEP: point href at the real booking link or mailto address -->
-          <a class="cta cta--hero" href="#build">Build Your Intelligent Business</a>
+          <a class="cta cta--hero" data-cal href="https://cal.com/sudeshna-pal-ruww5f/technoon.ai" rel="noopener">Build Your Intelligent Business</a>
         </div>
 
       </div><!-- /.bands -->
@@ -267,8 +267,7 @@
           <img src="assets/logo.jpg" width="190" height="112" alt="technoon.ai" loading="lazy" decoding="async">
         </span>
       </p>
-      <!-- DEPLOY STEP: point href at the real booking link or mailto address -->
-      <a class="cta cta--arrival" href="#build">Build Your Intelligent Business</a>
+      <a class="cta cta--arrival" data-cal href="https://cal.com/sudeshna-pal-ruww5f/technoon.ai" rel="noopener">Build Your Intelligent Business</a>
     </div>
   </section>
 
@@ -343,8 +342,40 @@
       <p class="detail-line detail-line--fix">Intelligence that runs your business. So you can lead it.</p>
     </div>
 
-    <!-- DEPLOY STEP: point href at the real booking link or mailto address -->
-    <a class="cta detail-cta" href="#build">Build Your Intelligent Business</a>
+    <a class="cta detail-cta" data-cal href="https://cal.com/sudeshna-pal-ruww5f/technoon.ai" rel="noopener">Build Your Intelligent Business</a>
+  </div>
+</dialog>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     THE BOOKING CARD
+
+     Cal.com, carried in its own native <dialog> by assets/cal.js. Ported from
+     the previous technoon.ai site, which used the same account and the same
+     event.
+
+     The iframe is deliberately EMPTY here. cal.js gives it a src the first
+     time somebody opens the card, so a reader who never books never pays for
+     a third-party connection. Do not helpfully add a src back.
+
+     Every trigger on this page is a real <a> pointing at the booking page and
+     carrying data-cal. cal.js intercepts the click and opens this card
+     instead. That ordering is the fallback: if the module fails to load, or
+     the browser has no showModal, the same click still reaches the same
+     booking page the long way round. Turning these into <button>s would throw
+     that away.
+═══════════════════════════════════════════════════════════════════════════ -->
+<dialog class="cal" id="cal-book" aria-label="Free Audit">
+  <div class="cal-panel">
+    <div class="cal-skeleton" aria-hidden="true"></div>
+
+    <button class="cal-close" type="button" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <iframe class="cal-frame" title="Free Audit" loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"></iframe>
   </div>
 </dialog>
 

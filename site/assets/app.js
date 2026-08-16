@@ -517,3 +517,10 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 import('./detail.js')
   .then(m => m.initDetail({ lenis: () => lenis }))
   .catch(() => {});   // the labels simply stay unclickable
+
+/* The booking card, on the same terms and for the same reason. It is handed
+   the same Lenis getter because it has the same problem: an open modal over a
+   scroll-driven film has to stop the film. */
+import('./cal.js')
+  .then(m => m.initCal({ lenis: () => lenis }))
+  .catch(() => {});   // the CTAs stay plain links to the booking page

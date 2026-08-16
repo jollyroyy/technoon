@@ -45,6 +45,7 @@ technoon2/
 │     ├─ app.js           ← the drive loop: scrub, bands, gates, reduced motion
 │     ├─ scene.js         ← the Three.js layer. BUILT BUT CURRENTLY OFF, see below
 │     ├─ detail.js        ← the function card: one native <dialog>, six panels
+│     ├─ cal.js           ← the booking card: Cal.com in a second <dialog>
 │     ├─ hero-scrub.mp4   ← the 30s core, 2 chained Seedance clips, ONE encode
 │     └─ *.jpg            ← poster, ending frame, overload still, logo, favicon
 └─ 10k-websites-skill/    ← build methodology. Reference only, never ships.
@@ -382,6 +383,40 @@ backdrop filter or a transform and the boxes come straight back.
 the page behind it. Six panels live in `index.html` rather than in a JS object,
 specifically so the spelling and stock-word audits still see every string.
 
+**The booking card.** Every CTA on the page — `Free Audit` and all four
+`Build Your Intelligent Business` buttons — opens Cal.com in a second native
+`<dialog>`, driven by `assets/cal.js`. Ported on 2026-08-16 from the previous
+technoon.ai site, which used the same account and the same 30-minute event:
+`https://cal.com/sudeshna-pal-ruww5f/technoon.ai`.
+
+Three things about it are load-bearing and were changed from the original:
+
+- **The triggers are `<a href>` pointing at the booking page, carrying `data-cal`.**
+  `cal.js` delegates off that attribute and calls `preventDefault()`. That ordering
+  IS the fallback: if the module fails to load, or the browser has no `showModal`,
+  the same click still reaches the same booking page the long way round. Turning
+  these into `<button>`s throws that away for nothing.
+- **The iframe ships with no `src`.** `cal.js` assigns one the first time somebody
+  opens the card. The old site rendered the iframe on every page load whether or
+  not anyone ever booked, which is a third-party connection nobody asked for on a
+  page already carrying a 12MB film. Do not helpfully put a `src` back in the HTML.
+- **It stops Lenis and pins the document together**, exactly as `detail.js` does and
+  for the same reason. The original only set `body.style.overflow`, which is enough
+  on an ordinary page and not enough over an 1800vh scroll-driven film. It reuses
+  the `html.detail-open` class rather than inventing a second one, so the two cards
+  cannot fight over the pin.
+
+Deliberately NOT `preserve-3d`, unlike the function card: an iframe inside a 3D
+context renders inconsistently across browsers, and there is nothing to give depth
+to — the panel is a window onto someone else's page. Flat is also what lets this
+one own a scroller safely.
+
+**The event title lives in Cal.com, not in this repo, and it is currently spelled
+`Technoon.ai`.** That breaks the spelling law and neither the audit nor any code
+here can see it or fix it. It has to be renamed to `technoon.ai` in the Cal.com
+dashboard. Same for anything else Cal.com renders: that surface is outside the text
+allowlist's reach, so it is governed by hand.
+
 ## Engineering rules that earned their place
 
 - **Fetch the video as a streamed Blob**, not a plain `src`. Many hosts lack HTTP
@@ -546,6 +581,12 @@ Verify at 375px before reporting anything done.
   one flag away from returning.
 - **2026-08-16** — **The ribbon glow behind the dock pills was removed** for the
   same reason. The ribbon stays only where it is a crisp mark.
+- **2026-08-16** — **The Cal.com booking card was ported from the previous
+  technoon.ai site** and wired to all five CTAs, which retired the `#build` hrefs.
+  Two of those were dead self-links (the arrival and detail-card CTAs pointed at
+  the section they already sat in). `#build` is still the narrative arrival
+  section, it just is not a link target any more. See the Interaction section for
+  the three things that changed from the original and why.
 - **2026-08-16** — **`Free Audit` added to the nav and to the text allowlist**,
   client-provided, under the brief's own "explicitly provided by me" clause. The
   primary CTA was reworked for depth: a diagonal grade, a lit top edge and a shaded
