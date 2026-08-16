@@ -1,0 +1,1259 @@
+/* technoon.ai — the Pearl Floor.
+
+   ONE world, ONE camera, ONE continuous story. The page is a bright, high-key
+   room, so LEGIBILITY IS INVERTED here and that trips people up: every scrim is
+   a light pearl wash, never a dark one, and every text shadow is a light halo.
+   When auditing contrast, hunt the DARKEST pixel under the type, not the
+   lightest.
+
+   The boldness budget is spent in exactly one place: the light ribbon, cyan to
+   violet to magenta, which threads the seven business functions together. It is
+   lifted from the storyboard's own rows. Everything around it stays quiet. */
+
+/* ════════════════════════════════════════════════════════════════════════
+   1 · TOKENS
+   Every value sampled from the storyboard, none invented.
+   ════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --pearl:    #F2F4F8;   /* the page canvas. Never pure white. */
+  --pearl-2:  #E8ECF4;   /* recessed surfaces */
+  --ink:      #0E1330;   /* primary type */
+  --ink-soft: #2A3154;   /* secondary type */
+  --slate:    #5A628A;   /* tertiary, small labels */
+  --violet:   #6C4CE0;   /* primary accent — rare doses only */
+  --cyan:     #35B8F2;   /* ribbon cool end */
+  --magenta:  #C64BE8;   /* ribbon warm end */
+  --plate:    #080918;   /* the logo badge, sampled from logo-source.jpg itself */
+
+  --ribbon: linear-gradient(90deg, var(--cyan), var(--violet) 52%, var(--magenta));
+
+  --display: 'Familjen Grotesk', 'Segoe UI', system-ui, sans-serif;
+  --body:    'Hanken Grotesk', 'Segoe UI', system-ui, sans-serif;
+
+  --gut:  clamp(20px, 5vw, 96px);   /* the rail inset */
+  --navh: clamp(64px, 8vh, 88px);
+
+  /* the light halo that keeps dark ink readable over bright moving footage */
+  --halo: 0 0 14px rgba(242,244,248,.95),
+          0 0 34px rgba(242,244,248,.82),
+          0 0 72px rgba(242,244,248,.55);
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   2 · RESET AND PAGE
+   ════════════════════════════════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;   /* declared first, as the fallback */
+  overflow-x: clip;
+}
+
+html { scroll-behavior: auto; -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--pearl);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img { max-width: 100%; display: block; }
+
+/* a hidden tab must cost nothing; play-state does not inherit, so it has to
+   reach pseudo-elements explicitly */
+body.paused,
+body.paused *,
+body.paused *::before,
+body.paused *::after { animation-play-state: paused !important; }
+
+::selection { background: rgba(108,76,224,.18); color: var(--ink); }
+
+:focus-visible {
+  outline: 3px solid var(--violet);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip {
+  position: fixed;
+  top: 10px; left: 10px;
+  z-index: 999;
+  transform: translateY(-160%);
+  padding: 12px 20px;
+  background: var(--plate);
+  color: #fff;
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: .02em;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: transform .22s ease;
+}
+.skip:focus { transform: translateY(0); }
+
+/* ════════════════════════════════════════════════════════════════════════
+   3 · THE ENVIRONMENT LAYER
+   One fixed field behind everything, so scrolling moves through a place
+   rather than past a stack of sections.
+   ════════════════════════════════════════════════════════════════════════ */
+
+.env {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 85% at 50% -10%, #FFFFFF 0%, rgba(255,255,255,0) 58%),
+    radial-gradient(70% 55% at 12% 88%, rgba(53,184,242,.10) 0%, rgba(53,184,242,0) 70%),
+    radial-gradient(70% 55% at 88% 82%, rgba(198,75,232,.09) 0%, rgba(198,75,232,0) 70%),
+    var(--pearl);
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   4 · NAV, LOGO PLATE, CTA
+   Logo law: the supplied JPEG ships exactly as supplied. It carries its own
+   dark navy card, so it always sits inside a --plate badge and is never drawn
+   wider than its native 190px.
+   ════════════════════════════════════════════════════════════════════════ */
+
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 60;
+  height: var(--navh);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 clamp(14px, 3.6vw, 40px);
+  background: linear-gradient(180deg, rgba(242,244,248,.86), rgba(242,244,248,0));
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+}
+
+.brand { display: inline-flex; text-decoration: none; }
+
+.brand-plate {
+  display: inline-flex;
+  background: var(--plate);
+  border-radius: 10px;
+  padding: 5px 9px;
+  box-shadow: 0 6px 20px rgba(14,19,48,.18), 0 1px 0 rgba(255,255,255,.28) inset;
+  transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease;
+}
+.brand-plate img { width: 112px; height: auto; border-radius: 3px; }
+.brand:hover .brand-plate { transform: translateY(-1px); box-shadow: 0 10px 28px rgba(14,19,48,.24); }
+
+.brand-plate--lg { padding: 10px 16px; border-radius: 14px; }
+.brand-plate--lg img { width: 190px; }   /* native size, never larger */
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 1vw, 14px);
+}
+
+/* The quiet one. It sits beside the primary rather than competing with it: no
+   fill, no accent text, just a glass pill and one lit dot borrowed from the
+   ribbon. Subtle is the brief, so the only thing that moves is the dot. */
+.ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 46px;
+  padding: 12px clamp(14px, 1.6vw, 20px);
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(12px, .95vw, 14px);
+  letter-spacing: .05em;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--ink-soft);
+  border-radius: 999px;
+  border: 1px solid rgba(90,98,138,.20);
+  background: rgba(255,255,255,.46);
+  box-shadow:
+    inset 1px 1px 1px -.5px rgba(255,255,255,.9),
+    inset -1px -1px 1px -.5px rgba(14,19,48,.10),
+    0 2px 10px rgba(14,19,48,.05);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  transition: color .3s ease, border-color .3s ease, background .3s ease,
+              transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease;
+}
+.ghost:hover {
+  color: var(--ink);
+  border-color: rgba(108,76,224,.38);
+  background: rgba(255,255,255,.74);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 1px 1px 1px -.5px rgba(255,255,255,.95),
+    inset -1px -1px 1px -.5px rgba(14,19,48,.10),
+    0 8px 20px rgba(14,19,48,.09);
+}
+.ghost:active { transform: translateY(0); }
+
+.ghost-dot {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  border-radius: 999px;
+  background: var(--ribbon);
+  box-shadow: 0 0 0 0 rgba(108,76,224,.34);
+  animation: dot 3.4s cubic-bezier(.4,0,.2,1) infinite;
+}
+@keyframes dot {
+  0%, 68%, 100% { box-shadow: 0 0 0 0 rgba(108,76,224,.34); }
+  84%           { box-shadow: 0 0 0 6px rgba(108,76,224,0); }
+}
+
+/* The primary. Premium here means depth, not volume: a diagonal grade across
+   the accent instead of one flat fill, a lit top edge and a shaded bottom one
+   so the pill reads as a solid object, and a single slow specular sweep on
+   hover. The sheen deliberately passes OVER the label, the way light crosses a
+   real surface, which is why it is an ::after with no z-index. */
+.cta {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 13px clamp(18px, 2.4vw, 30px);
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(13px, 1.05vw, 15px);
+  letter-spacing: .015em;
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(135deg, #7C5DEA 0%, var(--violet) 48%, #573AD2 100%);
+  border-radius: 999px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.38),
+    inset 0 -1px 0 rgba(14,19,48,.24),
+    0 2px 6px rgba(14,19,48,.10),
+    0 8px 24px rgba(108,76,224,.28);
+  transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease, filter .3s ease;
+}
+.cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(104deg,
+              rgba(255,255,255,0) 32%,
+              rgba(255,255,255,.34) 48%,
+              rgba(255,255,255,0) 64%);
+  transform: translateX(-125%);
+  transition: transform .9s cubic-bezier(.2,.7,.2,1);
+}
+.cta:hover {
+  transform: translateY(-2px);
+  filter: saturate(112%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.44),
+    inset 0 -1px 0 rgba(14,19,48,.24),
+    0 3px 8px rgba(14,19,48,.10),
+    0 14px 34px rgba(108,76,224,.36);
+}
+.cta:hover::after { transform: translateX(125%); }
+.cta:active { transform: translateY(0); }
+
+.cta--hero { margin-top: clamp(20px, 3vh, 32px); }
+.cta--arrival { min-height: 56px; font-size: clamp(15px, 1.3vw, 18px); padding: 18px 36px; }
+
+/* ════════════════════════════════════════════════════════════════════════
+   5 · THE JOURNEY
+   1800vh of scroll owned by one pinned stage. Minimum band width is 0.055 of
+   progress, about 99vh, so every beat survives seven or eight normal flicks.
+   ════════════════════════════════════════════════════════════════════════ */
+
+main { display: block; }
+main:focus { outline: none; }
+
+.journey {
+  position: relative;
+  height: 1800vh;
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* ── the media stack: footage below, real-time 3D above ─────────────────── */
+
+.media { position: absolute; inset: 0; z-index: 0; }
+
+.poster,
+.media video,
+.media canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* The room is declared here, not left to JS. app.js only assigns this image
+   inside initHeroOnce(), which never runs when the static-hero gate disarms the
+   scrub — so on every phone the office silently failed to load and the beats
+   floated on blank pearl. The room is the premise of the whole page; it cannot
+   depend on the scrub being armed. (app.js still sets the same URL, harmlessly.) */
+.poster {
+  background: var(--pearl-2) url('hero-poster.jpg') center/cover no-repeat;
+  transform: scale(1.02);
+}
+
+.media video {
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity .7s ease;
+}
+.stage.video-ready video { opacity: 1; }
+
+/* if the video never arrives the poster carries the room and the 3D layer
+   carries the whole story. Nothing is broken, nothing is stuck. */
+.stage.video-failed .poster { transform: scale(1.05); }
+
+.media canvas { z-index: 2; pointer-events: none; }
+
+/* ── global wash: keeps the nav and the cue legible without dimming the room */
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(242,244,248,.72) 0%, rgba(242,244,248,0) 22%),
+    linear-gradient(0deg,   rgba(242,244,248,.58) 0%, rgba(242,244,248,0) 20%);
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  opacity: .038;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23n)'/></svg>");
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   6 · THE CAPTION BANDS
+   --o is the band's own opacity, driven by scroll. --k is its entrance ramp.
+   Both are written by app.js only when they actually change.
+   ════════════════════════════════════════════════════════════════════════ */
+
+.bands { position: absolute; inset: 0; z-index: 5; pointer-events: none; }
+
+.band {
+  position: absolute;
+  opacity: var(--o, 1);
+  pointer-events: none;
+}
+.band > * { pointer-events: auto; }
+
+/* before the drive loop arms, hide everything but the opening beat, so the
+   sixteen beats never flash stacked on top of each other */
+.js .band { --o: 0; --k: 0; visibility: hidden; }
+.js .band--hero { --o: 1; visibility: visible; }
+.no-js .band { --o: 1; --k: 1; }
+
+/* the local scrim: a light pearl wash that deepens only while its own band is
+   active, centred on that band's rail */
+.band::before {
+  content: '';
+  position: absolute;
+  inset: -14vh -12vw;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(58% 58% at var(--sx, 50%) var(--sy, 50%),
+              rgba(242,244,248,.94) 0%,
+              rgba(242,244,248,.74) 42%,
+              rgba(242,244,248,0)   76%);
+}
+
+/* ── the rails. Pain on the left, resolution on the right. The mirrored side
+   plus a calm entrance instead of an agitated one is how before-and-after is
+   expressed structurally, rather than announced in words. ────────────────── */
+
+.band--hero {
+  left: var(--gut);
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: min(56ch, 62vw);
+  --sx: 34%; --sy: 50%;
+}
+
+.band--pain {
+  left: var(--gut);
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: min(42ch, 46vw);
+  --sx: 30%; --sy: 50%;
+}
+
+.band--fix {
+  right: var(--gut);
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: min(40ch, 44vw);
+  text-align: right;
+  --sx: 70%; --sy: 50%;
+}
+
+/* The three remaining functions surface at three different points and three
+   different depths, so they read as independent systems, not a list.
+
+   Pulled in off the frame edge on 2026-08-16: at the old rail positions they
+   sat in the reader's periphery through the fastest stretch of the scroll and
+   were the easiest beats on the page to skim past. They still hold three
+   distinct quadrants, so the composition is tightened rather than changed in
+   kind. Type size and depth are the storyboard's original values; only the
+   anchors moved.
+
+   Moving a caption moves the footage underneath it, so the crop windows in
+   review/verify-contrast.sh were re-aimed to match. That file samples the
+   real frame at the real position, and leaving it pointed at the old rail
+   would audit a patch of room that no caption sits on any more. */
+.band--fn.pos-a { left:  calc(var(--gut) + 7vw);  top:    26vh; --sx: 38%; --sy: 36%; --depth: 1.00; }
+.band--fn.pos-b { right: calc(var(--gut) + 7vw);  top:    30vh; --sx: 62%; --sy: 40%; --depth: .82; text-align: right; }
+.band--fn.pos-c { left:  calc(var(--gut) + 11vw); bottom: 27vh; --sx: 44%; --sy: 68%; --depth: .90; }
+
+.band--chain {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(1180px, 90vw);
+  text-align: center;
+  --sx: 50%; --sy: 50%;
+}
+
+.band--close {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(880px, 88vw);
+  text-align: center;
+  --sx: 50%; --sy: 50%;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   7 · TYPE
+   Two faces only. The site carries a short fixed set of strings, so a third
+   face would be pure decoration.
+   ════════════════════════════════════════════════════════════════════════ */
+
+.lede {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(30px, 5.4vw, 78px);
+  line-height: 1.04;
+  letter-spacing: -.025em;
+  color: var(--ink);
+  text-shadow: var(--halo);
+}
+.lede--close { font-size: clamp(26px, 4.1vw, 58px); }
+
+.say {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(24px, 3.5vw, 50px);
+  line-height: 1.08;
+  letter-spacing: -.02em;
+  color: var(--ink);
+  text-shadow: var(--halo);
+}
+
+.fn {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: calc(clamp(19px, 2.5vw, 38px) * var(--depth, 1));
+  line-height: 1.05;
+  letter-spacing: .01em;
+  color: var(--ink-soft);
+  text-shadow: var(--halo);
+}
+
+.kicker {
+  margin: 0 0 clamp(10px, 1.4vh, 18px);
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(11px, .92vw, 14px);
+  letter-spacing: .30em;
+  text-transform: uppercase;
+  color: var(--slate);
+  text-shadow: var(--halo);
+}
+.kicker--on { color: var(--violet); }
+
+.sub {
+  margin: clamp(14px, 2vh, 22px) 0 0;
+  font-family: var(--body);
+  font-weight: 400;
+  font-size: clamp(15px, 1.35vw, 20px);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  text-shadow: var(--halo);
+}
+
+/* the hero rule draws itself in as the opening beat assembles */
+.rule {
+  display: block;
+  height: 3px;
+  width: calc(var(--k, 1) * clamp(64px, 8vw, 104px));
+  margin-top: clamp(18px, 2.4vh, 28px);
+  border-radius: 999px;
+  background: var(--ribbon);
+}
+
+/* ── split reveal ───────────────────────────────────────────────────────
+   Every token carries its own threshold --th. --rev is that token's local
+   0→1, so one scalar (--k) staggers a whole headline with no per-frame JS. */
+
+.split { display: block; }
+
+.w, .c {
+  display: inline-block;
+  --rev: clamp(0, calc((var(--k, 1) - var(--th, 0)) / .30), 1);
+  will-change: transform, opacity;
+}
+
+.w.em { color: var(--violet); }
+
+/* calm arrival: the resolution beats and the close */
+[data-enter="rise"] .w {
+  opacity: var(--rev);
+  transform: translateY(calc((1 - var(--rev)) * .8em));
+}
+
+/* agitated arrival: the type itself comes apart further as the overload builds.
+   --spread grows beat by beat, which is why MARKETING lands gently and
+   CUSTOMER SUCCESS lands scattered. */
+[data-enter="scatter"] .w { opacity: 1; transform: none; }
+[data-enter="scatter"] .c {
+  opacity: var(--rev);
+  transform:
+    translate(calc(var(--jx, 0px) * (1 - var(--rev))),
+              calc(var(--jy, 0px) * (1 - var(--rev))))
+    rotate(calc(var(--jr, 0deg) * (1 - var(--rev))));
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   8 · THE DOCK POP
+
+   The macOS task bar effect the client asked for. It lives on the pill row in
+   section 9, which is the one thing on this page that is genuinely a dock, and
+   on the function card in section 10 that opens from it.
+
+   INVERTED, like everything else here, and this is the part that catches
+   people. The reference material for a glass bezel is built for dark UI: it
+   stacks near-black insets, which on a dark surface read as a lit rim and on
+   this pearl page read as soot. The roles are swapped rather than the colours
+   dropped. WHITE carries the lit top-left edge, INK carries the shaded
+   bottom-right one, so the pill still reads as a solid piece of glass catching
+   light from above.
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* --pop and --rise are registered so they can be TRANSITIONED, and that is the
+   whole reason this is not a plain `transition: transform`.
+
+   A dock pill's transform already carries the scroll-driven --lit rise from
+   the wave. Transitioning the composed transform would put a third of a second
+   of lag between the scroll and the light, which is exactly the kind of drift
+   this page is built to avoid. Animating the two custom properties leaves the
+   --lit term instant and makes only the hover pop smooth. Browsers without
+   @property ignore these and simply snap the pop, which still reads correctly. */
+@property --pop  { syntax: '<number>'; inherits: false; initial-value: 1; }
+@property --rise { syntax: '<length>'; inherits: false; initial-value: 0px; }
+
+/* ── the plate: REMOVED FROM THE CAPTION BEATS ──────────────────────────
+   Tried and rejected 2026-08-16. A white glass plate behind each caption was
+   the literal reading of "make the function cards glassmorphic", and it was
+   wrong for this page: the beats are captions floating in a room, not cards
+   sitting on a page, and boxing them turned a cinematic frame into a component
+   gallery. Client called it exactly right — "I do not want that white
+   background, it's looking odd."
+
+   The glass material now lives only where a real macOS dock puts it: on the
+   pill row, which IS a dock, and on the function card that opens from it.
+
+   .glass survives as a pass-through wrapper so the markup keeps one hook per
+   beat. It must stay visually inert: no background, no padding, no backdrop
+   filter, no transform. Adding any of those brings the box back. */
+
+.glass {
+  display: contents;
+}
+
+/* ── the clickable function words ───────────────────────────────────────
+   .detail-ready is added by detail.js. Until it lands the labels carry no
+   affordance at all, so a failed module leaves plain text rather than words
+   that look clickable and are not. Same law as the video and the 3D layer:
+   any layer may fail alone. */
+
+.fn-open {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  text-align: inherit;
+  cursor: default;
+}
+.detail-ready .fn-open { cursor: pointer; }
+
+/* The affordance is one hairline in the label's OWN colour, drawn only on
+   approach. It started as a ribbon gradient, which parked a bar of cyan and
+   violet under every clickable heading; the client asked for the stray purple
+   shapes to go, and they were right on the palette rule too. The accent budget
+   on this page belongs to the ribbon and nothing else. */
+.fn-open::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -.16em;
+  height: 1.5px;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform .34s cubic-bezier(.2,.7,.2,1), opacity .34s ease;
+}
+.detail-ready .fn-open:hover::after,
+.detail-ready .fn-open:focus-visible::after { opacity: .5; transform: scaleX(1); }
+
+.band--fix .fn-open::after,
+.band--fn.pos-b .fn-open::after { transform-origin: right center; }
+
+/* ════════════════════════════════════════════════════════════════════════
+   9 · THE CONNECTED SYSTEM
+   All six functions, threaded by the light ribbon, lighting in sequence as
+   the wave passes. --lit is written per chip by app.js.
+   ════════════════════════════════════════════════════════════════════════ */
+
+.chain-title {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(22px, 3.2vw, 46px);
+  line-height: 1.06;
+  letter-spacing: -.02em;
+  color: var(--ink);
+  text-shadow: var(--halo);
+}
+
+.chain-head { margin-bottom: clamp(24px, 4vh, 44px); }
+
+.chain {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(8px, 1vw, 14px);
+}
+
+/* The light ribbon used to cross behind this row as a blurred band. Removed
+   2026-08-16 at the client's call: on the page it read as a stray purple shape
+   floating in the middle of the frame rather than as the thread joining the
+   functions. The ribbon motif still does its job where it is legible as a
+   deliberate mark, on the hero rule and on the left edge of each beat in the
+   phone layout. The pills carry their own connection now, through the wave
+   that lights them in sequence. */
+
+/* The dock. Padding lives on the button, not the pill, so the whole pill is
+   the hit target and the magnified pill has no dead border around it.
+
+   NOTHING driven by --lit is transitioned. The wave writes --lit every frame
+   from the scroll position, and a transition on background, border, box-shadow
+   or the composed transform would smear the light a third of a second behind
+   the scroll. Only --pop and --rise animate; see the @property note above. */
+.chain-item {
+  --lit: 0;
+  --pop: 1;
+  --rise: 0px;
+  position: relative;
+  padding: 0;
+  border-radius: 999px;
+  border: 1px solid rgba(108,76,224, calc(.10 + .46 * var(--lit)));
+  background: rgba(255,255,255, calc(.34 + .46 * var(--lit)));
+  box-shadow:
+    inset 1px 1px 1px -.5px rgba(255,255,255,.88),
+    inset -1px -1px 1px -.5px rgba(14,19,48,.14),
+    0 calc(var(--lit) * 10px) calc(var(--lit) * 26px) rgba(108,76,224, calc(var(--lit) * .20));
+  transform: translateY(calc(var(--lit) * -5px + var(--rise))) scale(var(--pop));
+  transform-origin: 50% 100%;   /* a dock icon grows up out of the bar */
+  backdrop-filter: blur(6px) saturate(140%);
+  -webkit-backdrop-filter: blur(6px) saturate(140%);
+  transition: --pop .3s cubic-bezier(.2,.7,.2,1),
+              --rise .3s cubic-bezier(.2,.7,.2,1);
+}
+
+/* the lift glow. Its own layer, so it can transition freely without touching
+   the --lit shadow it sits beside. */
+.chain-item::after {
+  content: '';
+  position: absolute;
+  inset: -7px;
+  z-index: -1;
+  border-radius: 999px;
+  pointer-events: none;
+  background: radial-gradient(60% 60% at 50% 60%, rgba(108,76,224,.30), rgba(108,76,224,0) 72%);
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+.chain-open {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 11px clamp(13px, 1.4vw, 20px);
+  border: 0;
+  border-radius: inherit;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: default;
+}
+.detail-ready .chain-open { cursor: pointer; }
+
+.chain-item span {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(10px, .88vw, 13px);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--ink-soft);
+  opacity: calc(.46 + .54 * var(--lit));
+}
+
+/* Dock magnification: the pointed-at pill takes the full pop and its
+   neighbours take a decaying share, which is what makes the row feel like one
+   elastic surface rather than six separate buttons. :has() reaches backwards
+   to the pills BEFORE the hovered one; the sibling combinator reaches
+   forwards. Each rule matches a different pill, so none of them collide. */
+@media (hover: hover) and (pointer: fine) {
+  .chain-item:hover                                  { --pop: 1.26; --rise: -10px; }
+  .chain-item:hover + .chain-item,
+  .chain-item:has(+ .chain-item:hover)               { --pop: 1.12; --rise: -5px; }
+  .chain-item:hover + .chain-item + .chain-item,
+  .chain-item:has(+ .chain-item + .chain-item:hover) { --pop: 1.05; --rise: -2px; }
+  .chain-item:hover::after { opacity: 1; }
+}
+.chain-item:focus-within { --pop: 1.26; --rise: -10px; }
+.chain-item:focus-within::after { opacity: 1; }
+.chain-item:active { --pop: 1.18; --rise: -6px; }
+
+/* ════════════════════════════════════════════════════════════════════════
+   10 · THE FUNCTION CARD
+   A native <dialog>, so the focus trap, Escape, the top layer and the
+   inertness of the page behind it all come from the platform.
+
+   THE ONE STRUCTURAL RULE HERE: .detail-card carries no backdrop-filter, no
+   filter and no opacity of its own. Every one of those is a grouping property,
+   and a grouping property forces transform-style back to flat — which would
+   silently collapse the whole card into a single plane and throw away the
+   depth that makes it immersive. The frosting lives on ::backdrop and on the
+   .detail-glow pane instead, both of which sit beside the 3D layers rather
+   than above them.
+   ════════════════════════════════════════════════════════════════════════ */
+
+.detail {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  overflow: visible;
+  background: transparent;
+  perspective: 1400px;
+}
+.detail:not([open]) { display: none; }
+/* THE SCROLLER LIVES HERE, NOT ON THE CARD, and that is not a style choice.
+   `overflow` on the card would make it a scroll container, and a scroll
+   container forces transform-style back to flat, which silently collapses the
+   card's translateZ layers and throws away the depth this whole section is
+   for. It also grew a horizontal scrollbar from the ribbon's bleed.
+   Scrolling the dialog instead leaves the card free to stay in 3D.
+
+   `safe center` so a card taller than the viewport scrolls from its top edge
+   instead of having the top half clipped, which is what plain centring does
+   inside a scroll container. Plain `center` is declared first for browsers
+   that do not know the keyword. */
+.detail[open] {
+  display: grid;
+  place-items: center;
+  place-items: safe center;
+  overflow: auto;
+  padding: clamp(16px, 4vh, 48px) clamp(16px, 5vw, 48px);
+}
+
+/* pearl, never a dark scrim: the world on this page is bright and the type is
+   dark ink, so dimming to black would invert the whole design language */
+.detail::backdrop {
+  background: rgba(242,244,248,.74);
+  backdrop-filter: blur(16px) saturate(120%);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  animation: veil .4s ease both;
+}
+@keyframes veil { from { opacity: 0; } to { opacity: 1; } }
+
+.detail-card {
+  --rx: 0deg;
+  --ry: 0deg;
+  position: relative;
+  width: min(680px, 100%);
+  padding: clamp(30px, 4.4vw, 56px);
+  border-radius: clamp(22px, 2.2vw, 32px);
+  border: 1px solid rgba(255,255,255,.55);
+  background: linear-gradient(150deg,
+              rgba(255,255,255,.86) 0%,
+              rgba(255,255,255,.66) 46%,
+              rgba(232,236,244,.72) 100%);
+  box-shadow:
+    inset 3px 3px .5px -3px rgba(255,255,255,1),
+    inset -3px -3px .5px -3px rgba(14,19,48,.24),
+    inset 1px 1px 1px -.5px rgba(255,255,255,.9),
+    0 2px 10px rgba(14,19,48,.08),
+    0 44px 90px rgba(14,19,48,.16);
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform .18s ease-out;
+  animation: card-in .55s cubic-bezier(.2,.7,.2,1);
+}
+/* MOVEMENT ONLY. This deliberately does not animate opacity, and that is the
+   load-bearing part: an animation that starts at opacity 0 makes the card
+   invisible for as long as the timeline is not advancing, and a timeline can
+   fail to advance for reasons CSS cannot see. Chrome does not run animations
+   in a tab it considers hidden, and `document.hidden` is true in more places
+   than people expect (background tabs, prerender, some embedded webviews).
+   The failure mode was an open dialog, a dimmed page and nothing on it.
+
+   Moving only means the worst case is a card sitting slightly rotated instead
+   of a card that is not there. The fade is carried by the ::backdrop veil
+   behind it, which can be missing without costing the reader anything. */
+@keyframes card-in {
+  from { transform: rotateX(13deg) translateY(30px) scale(.93); }
+  to   { transform: rotateX(0deg) translateY(0) scale(1); }
+}
+
+/* the depth stack. These are what make the card a space rather than a panel:
+   the ribbon sits behind the surface, the type floats in front of it. */
+/* Held INSIDE the card on purpose. Bleeding it past the edge pushed a
+   horizontal scrollbar onto the dialog, and a ribbon escaping its surface is
+   the exact "stray purple shape" the client asked to be rid of. Kept low
+   enough to read as light on a surface rather than as an object. */
+.detail-ribbon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 34%;
+  height: clamp(80px, 12vw, 130px);
+  border-radius: 999px;
+  background: var(--ribbon);
+  opacity: .12;
+  filter: blur(34px);
+  transform: translateZ(-40px);
+  pointer-events: none;
+}
+.detail-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(120% 80% at 20% 0%, rgba(255,255,255,.6), rgba(255,255,255,0) 60%);
+  transform: translateZ(-2px);
+}
+
+.detail-panel[hidden] { display: none; }
+
+.detail-kicker {
+  margin: 0 0 clamp(10px, 1.4vh, 16px);
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(11px, .95vw, 14px);
+  letter-spacing: .30em;
+  text-transform: uppercase;
+  color: var(--slate);
+  transform: translateZ(38px);
+}
+.detail-kicker--on { color: var(--violet); }
+.detail-panel .detail-kicker + .detail-line + .detail-kicker { margin-top: clamp(26px, 4vh, 40px); }
+
+.detail-line {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(21px, 2.6vw, 34px);
+  line-height: 1.12;
+  letter-spacing: -.02em;
+  color: var(--ink);
+  transform: translateZ(22px);
+}
+.detail-line--fix { color: var(--ink); }
+
+.detail-cta {
+  margin-top: clamp(28px, 4.4vh, 44px);
+  transform: translateZ(46px);
+}
+
+.detail-close {
+  position: absolute;
+  top: clamp(12px, 1.4vw, 18px);
+  right: clamp(12px, 1.4vw, 18px);
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid rgba(90,98,138,.20);
+  border-radius: 999px;
+  background: rgba(255,255,255,.6);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transform: translateZ(46px);
+  transition: background .25s ease, color .25s ease, border-color .25s ease;
+}
+.detail-close svg { width: 18px; height: 18px; }
+.detail-close:hover {
+  background: #fff;
+  color: var(--ink);
+  border-color: rgba(108,76,224,.38);
+}
+
+/* A modal on screen is BY DEFINITION being looked at, so the hidden-tab pause
+   in section 2 must not reach it.
+
+   This is not a nicety. `body.paused *` freezes every animation at whatever
+   frame it was on, and card-in starts at opacity 0. A card opened while that
+   class is set therefore renders as an open dialog with nothing inside it:
+   the veil dims the page, and the reader is looking at an empty screen with no
+   way to tell anything went wrong. Seen for real, because body.paused is
+   seeded at boot from document.hidden and a page can be opened into a
+   background tab.
+
+   The wider rule this is an instance of: NOTHING the reader has to see may
+   depend on an animation being allowed to run. Decoration can be paused; the
+   content underneath it cannot.
+
+   More specific than `body.paused *`, so it wins among the !important
+   declarations rather than fighting them. */
+body.paused .detail[open],
+body.paused .detail[open] * { animation-play-state: running !important; }
+
+/* showModal() blocks interaction with the page behind it but NOT scrolling,
+   and what is behind this card is an 1800vh scroll-driven journey. Without
+   this, a wheel flick over the veil scrubs the film underneath and the reader
+   is dropped somewhere they never chose when the card closes. detail.js stops
+   Lenis at the same moment; this pins the native scroller too. */
+html.detail-open,
+html.detail-open body { overflow: hidden; }
+
+/* the tilt is pointer sugar; a reader who asked for less motion gets a card
+   that simply sits still, and the entrance stops rotating too */
+@media (prefers-reduced-motion: reduce) {
+  .detail-card { transform: none !important; animation: none; }
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   11 · CUE AND LOADER
+   ════════════════════════════════════════════════════════════════════════ */
+
+.cue {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(20px, 3.4vh, 38px);
+  z-index: 8;
+  width: 22px; height: 36px;
+  margin-left: -11px;
+  border: 1.5px solid rgba(90,98,138,.42);
+  border-radius: 999px;
+  opacity: 1;
+  transition: opacity .5s ease;
+}
+.cue span {
+  position: absolute;
+  left: 50%; top: 8px;
+  width: 3px; height: 7px;
+  margin-left: -1.5px;
+  border-radius: 999px;
+  background: var(--violet);
+  animation: cue 1.9s cubic-bezier(.4,0,.2,1) infinite;
+}
+@keyframes cue {
+  0%, 12%   { transform: translateY(0);    opacity: 0; }
+  28%       { opacity: 1; }
+  72%, 100% { transform: translateY(13px); opacity: 0; }
+}
+.stage.moved .cue { opacity: 0; }
+
+.loader {
+  position: absolute;
+  left: 50%; top: 50%;
+  z-index: 9;
+  width: 44px; height: 44px;
+  margin: -22px 0 0 -22px;
+  color: var(--violet);
+  opacity: .9;
+  transform: rotate(-90deg);
+  transition: opacity .5s ease;
+}
+.loader circle { transition: stroke-dashoffset .2s linear; }
+.stage.video-ready .loader,
+.stage.video-failed .loader { opacity: 0; pointer-events: none; }
+
+/* ════════════════════════════════════════════════════════════════════════
+   12 · ARRIVAL AND FOOTER
+   The journey settles and the room is still there.
+   ════════════════════════════════════════════════════════════════════════ */
+
+.arrival {
+  position: relative;
+  min-height: 92vh;
+  display: grid;
+  place-items: center;
+  padding: clamp(64px, 12vh, 140px) var(--gut);
+  text-align: center;
+}
+
+.arrival-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(28px, 4.5vh, 48px);
+}
+
+.arrival-mark { margin: 0; }
+
+.foot {
+  padding: clamp(26px, 4vh, 44px) var(--gut) clamp(34px, 5vh, 56px);
+  text-align: center;
+  border-top: 1px solid rgba(90,98,138,.16);
+}
+.foot p {
+  margin: 0;
+  font-family: var(--body);
+  font-size: 13px;
+  letter-spacing: .04em;
+  color: var(--slate);
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   13 · THE STATIC-HERO GATE
+   These five queries are duplicated CHARACTER-FOR-CHARACTER from GATES in
+   app.js. A comma list is an OR, which is exactly MQLS.some(m => m.matches).
+   If one side drifts, the CSS un-hides a stage the JS never armed and the
+   hero goes blank on the next rotation.
+
+   This is a deliberately simplified cinematic version, not a shrunken
+   desktop: the pinned scrub becomes a real vertical journey, one beat per
+   screen, each on its own pearl card over the room.
+   ════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 720px),
+       (orientation: portrait) and (max-width: 1024px),
+       (orientation: portrait) and (pointer: coarse),
+       (orientation: landscape) and (pointer: coarse) and (max-height: 560px),
+       (prefers-reduced-motion: reduce) {
+
+  /* the drive loop is disarmed, but it may have left inline values behind on a
+     live rotation, so these have to win outright */
+  .band {
+    --o: 1 !important;
+    --k: 1 !important;
+    visibility: visible !important;
+  }
+  .chain-item { --lit: 1 !important; }
+  .w, .c { opacity: 1 !important; transform: none !important; will-change: auto; }
+
+  .journey { height: auto; }
+
+  .stage {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+
+  /* the room becomes the fixed backdrop the beats travel over */
+  .media { position: fixed; z-index: -1; }
+  .media video, .media canvas { display: none; }
+  .poster { position: fixed; transform: none; }
+
+  /* Each beat already sits on its own card, so the global wash only has to keep
+     the nav and the page edges calm. Kept light on purpose: the room is the
+     premise of the page, and a heavy scrim erases it. */
+  .scrim {
+    position: fixed;
+    z-index: -1;
+    background: linear-gradient(180deg,
+                rgba(242,244,248,.62) 0%,
+                rgba(242,244,248,.34) 40%,
+                rgba(242,244,248,.62) 100%);
+  }
+  .grain { position: fixed; z-index: -1; }
+
+  .cue, .loader { display: none; }
+
+  .bands {
+    position: relative;
+    inset: auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(18px, 4vh, 34px);
+    padding: calc(var(--navh) + 6vh) clamp(16px, 5vw, 32px) 10vh;
+  }
+
+  /* Every rail collapses to one honest column.
+
+     `position: static` and `inset: auto !important` are both load-bearing. The
+     chaos beats are addressed as .band--fn.pos-a to .pos-c, which is a
+     two-class selector and therefore OUT-SPECIFIES a bare .band reset: without
+     these, their desktop left/right offsets survive into the phone layout and
+     shove each card sideways off the screen edge. Static position makes the
+     offsets inert; the !important covers anything added later. */
+  .band {
+    position: static;
+    inset: auto !important;
+    transform: none !important;
+    width: 100%;
+    max-width: 100%;
+    text-align: left;
+    padding: clamp(22px, 4.5vw, 32px);
+    border-radius: 18px;
+    background: rgba(255,255,255,.72);
+    border: 1px solid rgba(90,98,138,.13);
+    box-shadow: 0 10px 30px rgba(14,19,48,.06);
+    backdrop-filter: blur(14px) saturate(120%);
+    -webkit-backdrop-filter: blur(14px) saturate(120%);
+  }
+  .band::before { display: none; }   /* the card is the scrim now */
+
+  .band--hero {
+    min-height: calc(58vh - var(--navh));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* The ribbon becomes the left edge of each function beat, so the device that
+     threads the six is still doing its job on a phone. Painted as a background
+     layer rather than border-image, which replaces ALL four borders and rings
+     every card in gradient. */
+  .band--pain, .band--fix, .band--fn {
+    background:
+      var(--ribbon) left center / 4px 100% no-repeat,
+      rgba(255,255,255,.72);
+  }
+  /* .pos-b still carries text-align:right at two-class specificity, so it has
+     to be named here or that beat stays right-aligned on a phone. Only three
+     chaos positions exist now; if a fourth ever returns, it belongs in this
+     list too, and so does its underline origin below. */
+  .band--fix, .band--fn,
+  .band--fn.pos-b { text-align: left; }
+  .band--fix .fn-open::after,
+  .band--fn.pos-b .fn-open::after { transform-origin: left center; }
+  .band--fn .fn { font-size: clamp(18px, 5.4vw, 26px); }
+
+  /* the nav has to fit a logo and two actions on a narrow bar */
+  .nav-actions { gap: 8px; }
+  .ghost { min-height: 42px; padding: 11px 14px; font-size: 12px; letter-spacing: .04em; }
+
+  .detail-card { width: 100%; }
+
+  .band--chain, .band--close { text-align: center; }
+  .chain { justify-content: flex-start; }
+  .chain-item span { font-size: 11px; letter-spacing: .12em; }
+
+  .lede       { font-size: clamp(28px, 8.4vw, 44px); }
+  .lede--close{ font-size: clamp(24px, 7.2vw, 38px); }
+  .say        { font-size: clamp(22px, 6.6vw, 34px); }
+  .chain-title{ font-size: clamp(21px, 6.2vw, 32px); }
+  .sub        { font-size: clamp(15px, 4.1vw, 18px); }
+  .kicker     { font-size: 11px; letter-spacing: .22em; }
+
+  /* the halo is only needed over live footage; over a card it just muddies */
+  .lede, .say, .fn, .kicker, .sub, .chain-title { text-shadow: none; }
+
+  .cta--hero { align-self: flex-start; }
+  .brand-plate img { width: 96px; }
+  .brand-plate--lg img { width: min(190px, 62vw); }
+  .cta--nav { padding: 11px 16px; font-size: 12px; min-height: 42px; }
+
+  .arrival { min-height: auto; padding-top: clamp(48px, 9vh, 90px); }
+}
+
+/* The narrowest real phones: the long primary CTA would push the logo
+   off-screen, so only the quiet one survives here. The big primary is still
+   one scroll away in the arrival section, and the function card carries one
+   as well. */
+@media (max-width: 400px) {
+  .cta--nav { display: none; }
+  .ghost { padding: 10px 13px; }
+  .band { padding: 20px 18px; }
+  .chain-open { padding: 9px 12px; }
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   14 · REDUCED MOTION
+   Honoured live and in both directions. .pinned is written by app.js when the
+   preference flips on mid-session, so the final states hold without a reload.
+   ════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .cue span { animation: none; opacity: 1; }
+}
+
+.pinned .band {
+  --o: 1 !important;
+  --k: 1 !important;
+  visibility: visible !important;
+}
+.pinned .w, .pinned .c { opacity: 1 !important; transform: none !important; }
+.pinned .chain-item { --lit: 1 !important; }

@@ -1,0 +1,14 @@
+# Raw generation footage. The verification SCRIPTS in review/ are tracked, and
+# so are the small inspection frames, because both are how the build is checked.
+# The source clips are not: they are ~66MB, nothing in the site or the audits
+# reads them, and verify-contrast.sh samples site/assets/hero-scrub.mp4, which
+# IS tracked. Keep them locally; they are the masters the 30s core was cut from.
+review/*.mp4
+
+# stray working files dropped at the project root
+/ChatGPT Image*.png
+
+# OS and editor noise
+Thumbs.db
+.DS_Store
+desktop.ini

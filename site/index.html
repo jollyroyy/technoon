@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>technoon.ai</title>
+<meta name="description" content="technoon.ai runs marketing, sales, operations, HR, custom solutions and customer success as one intelligent system.">
+<meta name="theme-color" content="#F2F4F8">
+<link rel="icon" href="assets/favicon.png" type="image/png">
+
+<!-- DEPLOY STEP: replace both absolute URLs with the live address before going online -->
+<meta property="og:title" content="technoon.ai">
+<meta property="og:description" content="You run the business. We run what moves it.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://technoon.ai/">
+<meta property="og:image" content="https://technoon.ai/assets/hero-poster.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;700&family=Hanken+Grotesk:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/app.css">
+<script>document.documentElement.classList.replace('no-js','js')</script>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to main content</a>
+
+<!-- one fixed environment layer behind everything, so scrolling moves through a place -->
+<div class="env" aria-hidden="true"></div>
+
+<nav class="nav" aria-label="Primary">
+  <a class="brand" href="#top" aria-label="technoon.ai, back to top">
+    <span class="brand-plate">
+      <!-- The official mark, shipped exactly as supplied. Never edit, regenerate or scale past its native 190px. -->
+      <img src="assets/logo.jpg" width="190" height="112" alt="technoon.ai" decoding="async">
+    </span>
+  </a>
+  <!-- DEPLOY STEP: point both hrefs at the real booking link or mailto address
+       once technoon.ai supplies one. -->
+  <div class="nav-actions">
+    <a class="ghost" href="#build"><span class="ghost-dot" aria-hidden="true"></span>Free Audit</a>
+    <a class="cta cta--nav" href="#build">Build Your Intelligent Business</a>
+  </div>
+</nav>
+
+<main id="main" tabindex="-1">
+
+  <!-- ═══ THE JOURNEY ═══════════════════════════════════════════════════
+       ONE world, ONE camera, ONE continuous story. Sixteen beats, no hard
+       section breaks:
+
+         BUSINESS → FRAGMENTATION → CHAOS → BOTTLENECK → AI ACTIVATION
+         → SPATIAL SPLASH → CONNECTED SYSTEM → ACCELERATION → technoon.ai
+
+       Scroll progress drives the 30 second cinematic core, the 3D camera and
+       every caption band together. The scroll-to-video curve is piecewise
+       (see VIDEO_MAP in app.js) so each label lands on the exact footage
+       moment it belongs to instead of drifting off it.
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="journey" id="top" aria-label="technoon.ai">
+    <div class="stage">
+
+      <div class="media" aria-hidden="true" inert>
+        <div class="poster"></div>
+        <video id="hero" preload="none" muted playsinline disablepictureinpicture tabindex="-1"></video>
+        <canvas id="gl"></canvas>
+      </div>
+
+      <div class="scrim" aria-hidden="true"></div>
+      <div class="grain" aria-hidden="true"></div>
+
+      <div class="bands">
+
+        <!-- ── 1 · BUSINESS. The office, straight in. ─────────────────── -->
+        <div class="band band--hero" data-a="0" data-b="0.058" data-enter="rise" data-ramp="0.022">
+          <h1 class="lede">
+            <span class="sr-only">You run the business. We run what moves it.</span>
+            <span class="split" data-split="word" aria-hidden="true">You run the business.</span>
+            <span class="split" data-split="word" aria-hidden="true">We run what <em>moves</em> it.</span>
+          </h1>
+          <span class="rule" aria-hidden="true"></span>
+          <p class="sub">Strategy. Systems. Growth.</p>
+        </div>
+
+        <!-- ── 2-4 · FRAGMENTATION. The pain, one vertical at a time, on the
+             left rail. Entrances get more agitated with each beat: the type
+             itself comes apart a little further as the overload builds. ── -->
+        <div class="band band--pain" data-a="0.058" data-b="0.120" data-enter="scatter" data-spread="0.20">
+          <div class="glass">
+            <p class="kicker"><button class="fn-open" type="button" data-fn="marketing" aria-haspopup="dialog">MARKETING</button></p>
+            <h2 class="say">
+              <span class="sr-only">Too much activity. Not enough impact.</span>
+              <span class="split" data-split="char" aria-hidden="true">Too much activity.</span>
+              <span class="split" data-split="char" aria-hidden="true">Not enough impact.</span>
+            </h2>
+          </div>
+        </div>
+
+        <div class="band band--pain" data-a="0.120" data-b="0.185" data-enter="scatter" data-spread="0.38">
+          <div class="glass">
+            <p class="kicker"><button class="fn-open" type="button" data-fn="sales" aria-haspopup="dialog">SALES</button></p>
+            <h2 class="say">
+              <span class="sr-only">Leads everywhere. Follow-up nowhere.</span>
+              <span class="split" data-split="char" aria-hidden="true">Leads everywhere.</span>
+              <span class="split" data-split="char" aria-hidden="true">Follow-up nowhere.</span>
+            </h2>
+          </div>
+        </div>
+
+        <div class="band band--pain" data-a="0.185" data-b="0.250" data-enter="scatter" data-spread="0.56">
+          <div class="glass">
+            <p class="kicker"><button class="fn-open" type="button" data-fn="operations" aria-haspopup="dialog">OPERATIONS</button></p>
+            <h2 class="say">
+              <span class="sr-only">Requests never stop. Agents overwhelmed.</span>
+              <span class="split" data-split="char" aria-hidden="true">Requests never stop.</span>
+              <span class="split" data-split="char" aria-hidden="true">Agents overwhelmed.</span>
+            </h2>
+          </div>
+        </div>
+
+        <!-- ── 5-7 · CHAOS. The remaining three functions surface as spatial
+             elements at three different points in the frame, each at its own
+             depth, so they read as systems running independently rather than
+             as a list. Label only, by the brief.
+
+             They sit nearer the centre than the pain rail does, and one size
+             up from it, because these are the beats a first-time reader is
+             most likely to skim past. Moving them inward moves the footage
+             underneath them too, so their crop windows in
+             review/verify-contrast.sh were re-aimed to match. ───────────── -->
+        <div class="band band--fn pos-a" data-a="0.250" data-b="0.323" data-enter="scatter" data-spread="0.62">
+          <div class="glass">
+            <h2 class="fn">
+              <button class="fn-open" type="button" data-fn="hr" aria-haspopup="dialog">
+                <span class="sr-only">HR Solutions</span>
+                <span class="split" data-split="char" aria-hidden="true">HR SOLUTIONS</span>
+              </button>
+            </h2>
+          </div>
+        </div>
+
+        <div class="band band--fn pos-b" data-a="0.323" data-b="0.397" data-enter="scatter" data-spread="0.70">
+          <div class="glass">
+            <h2 class="fn">
+              <button class="fn-open" type="button" data-fn="custom" aria-haspopup="dialog">
+                <span class="sr-only">Custom Solutions</span>
+                <span class="split" data-split="char" aria-hidden="true">CUSTOM SOLUTIONS</span>
+              </button>
+            </h2>
+          </div>
+        </div>
+
+        <div class="band band--fn pos-c" data-a="0.397" data-b="0.470" data-enter="scatter" data-spread="0.80">
+          <div class="glass">
+            <h2 class="fn">
+              <button class="fn-open" type="button" data-fn="success" aria-haspopup="dialog">
+                <span class="sr-only">Customer Success</span>
+                <span class="split" data-split="char" aria-hidden="true">CUSTOMER SUCCESS</span>
+              </button>
+            </h2>
+          </div>
+        </div>
+
+        <!-- ── 9  · 0.470-0.530 BOTTLENECK. Maximum overload. No text. ──────
+             ── 10 · 0.530-0.575 THE STOP. Everything freezes. A held vacuum.
+             ── 11 · 0.575-0.640 AI ACTIVATION. A single spatial core, built
+                     from glass, light and connected nodes. No robot, no face,
+                     no mascot. It appears once, here, and is not reused as a
+                     motif anywhere else on the site. No text.
+             ── 12 · 0.640-0.700 THE SPATIAL SPLASH. A controlled wave travels
+                     MARKETING → SALES → OPERATIONS → HR → CUSTOM SOLUTIONS →
+                     CUSTOMER SUCCESS. No text. ──────────────────────────── -->
+
+        <!-- ── 13-15 · AFTER. The same three verticals, resolved. Right rail,
+             calm entrance. The mirrored side and the settled entrance are the
+             before and after, expressed structurally instead of announced. ── -->
+        <div class="band band--fix" data-a="0.700" data-b="0.760" data-enter="rise" data-ramp="0.024">
+          <div class="glass">
+            <p class="kicker kicker--on"><button class="fn-open" type="button" data-fn="marketing" aria-haspopup="dialog">SMART MARKETING</button></p>
+            <h2 class="say">
+              <span class="sr-only">Smarter campaigns. Better results. Less effort.</span>
+              <span class="split" data-split="word" aria-hidden="true">Smarter campaigns.</span>
+              <span class="split" data-split="word" aria-hidden="true">Better results.</span>
+              <span class="split" data-split="word" aria-hidden="true">Less effort.</span>
+            </h2>
+          </div>
+        </div>
+
+        <div class="band band--fix" data-a="0.760" data-b="0.820" data-enter="rise" data-ramp="0.024">
+          <div class="glass">
+            <p class="kicker kicker--on"><button class="fn-open" type="button" data-fn="sales" aria-haspopup="dialog">AI-POWERED SALES</button></p>
+            <h2 class="say">
+              <span class="sr-only">Research. Reach out. Close more. On autopilot.</span>
+              <span class="split" data-split="word" aria-hidden="true">Research. Reach out.</span>
+              <span class="split" data-split="word" aria-hidden="true">Close more.</span>
+              <span class="split" data-split="word" aria-hidden="true">On autopilot.</span>
+            </h2>
+          </div>
+        </div>
+
+        <div class="band band--fix" data-a="0.820" data-b="0.880" data-enter="rise" data-ramp="0.024">
+          <div class="glass">
+            <p class="kicker kicker--on"><button class="fn-open" type="button" data-fn="operations" aria-haspopup="dialog">ALWAYS-ON OPERATIONS</button></p>
+            <h2 class="say">
+              <span class="sr-only">Instant answers. Happy customers. No missed request.</span>
+              <span class="split" data-split="word" aria-hidden="true">Instant answers.</span>
+              <span class="split" data-split="word" aria-hidden="true">Happy customers.</span>
+              <span class="split" data-split="word" aria-hidden="true">No missed request.</span>
+            </h2>
+          </div>
+        </div>
+
+        <!-- ── 16 · CONNECTED SYSTEM and ACCELERATION. All six, threaded by
+             the light ribbon, lighting in sequence as the wave passes. ────── -->
+        <div class="band band--chain" data-a="0.880" data-b="0.945" data-enter="rise" data-ramp="0.024">
+          <div class="chain-head">
+            <h2 class="chain-title">
+              <span class="sr-only">One business. One intelligent system.</span>
+              <span class="split" data-split="word" aria-hidden="true">ONE BUSINESS.</span>
+              <span class="split" data-split="word" aria-hidden="true">ONE INTELLIGENT SYSTEM.</span>
+            </h2>
+            <p class="sub">All connected. All aligned. All accelerating.</p>
+          </div>
+          <!-- the dock. Six pills, magnified by the pointer the way the macOS
+               task bar magnifies its icons, and each one opens its own card. -->
+          <ul class="chain" role="list">
+            <li class="chain-item" data-w="0.00"><button class="chain-open" type="button" data-fn="marketing" aria-haspopup="dialog"><span>MARKETING</span></button></li>
+            <li class="chain-item" data-w="0.15"><button class="chain-open" type="button" data-fn="sales" aria-haspopup="dialog"><span>SALES</span></button></li>
+            <li class="chain-item" data-w="0.30"><button class="chain-open" type="button" data-fn="operations" aria-haspopup="dialog"><span>OPERATIONS</span></button></li>
+            <li class="chain-item" data-w="0.45"><button class="chain-open" type="button" data-fn="hr" aria-haspopup="dialog"><span>HR SOLUTIONS</span></button></li>
+            <li class="chain-item" data-w="0.60"><button class="chain-open" type="button" data-fn="custom" aria-haspopup="dialog"><span>CUSTOM SOLUTIONS</span></button></li>
+            <li class="chain-item" data-w="0.75"><button class="chain-open" type="button" data-fn="success" aria-haspopup="dialog"><span>CUSTOMER SUCCESS</span></button></li>
+          </ul>
+        </div>
+
+        <!-- ── technoon.ai · the closing vortex. The CTA arrives inside the
+             final transformed environment, not after it. ─────────────────── -->
+        <div class="band band--close" data-a="0.945" data-b="1" data-enter="rise" data-ramp="0.026">
+          <h2 class="lede lede--close">
+            <span class="sr-only">You don&rsquo;t worry about the functions. We take care of the strategy.</span>
+            <span class="split" data-split="word" aria-hidden="true">You don&rsquo;t worry about the functions.</span>
+            <span class="split" data-split="word" aria-hidden="true">We take care of the <em>strategy</em>.</span>
+          </h2>
+          <p class="sub">Intelligence that runs your business. So you can lead it.</p>
+          <!-- DEPLOY STEP: point href at the real booking link or mailto address -->
+          <a class="cta cta--hero" href="#build">Build Your Intelligent Business</a>
+        </div>
+
+      </div><!-- /.bands -->
+
+      <div class="cue" aria-hidden="true"><span></span></div>
+
+      <svg class="loader" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+        <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-dasharray="126"
+                style="stroke-dashoffset:var(--ld,126)"/>
+      </svg>
+
+    </div><!-- /.stage -->
+  </section>
+
+  <!-- ═══ ARRIVAL ═══ the journey settles and the room is still there ═══ -->
+  <section class="arrival" id="build" aria-label="Build Your Intelligent Business">
+    <div class="arrival-inner">
+      <p class="arrival-mark">
+        <span class="brand-plate brand-plate--lg">
+          <img src="assets/logo.jpg" width="190" height="112" alt="technoon.ai" loading="lazy" decoding="async">
+        </span>
+      </p>
+      <!-- DEPLOY STEP: point href at the real booking link or mailto address -->
+      <a class="cta cta--arrival" href="#build">Build Your Intelligent Business</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <p>&copy; 2026 technoon.ai</p>
+</footer>
+
+<!-- ═══ THE FUNCTION CARD ═══════════════════════════════════════════════════
+     Opened by any function surface: the pain kickers, the chaos headings and
+     the six dock pills all carry data-fn and point here.
+
+     A native <dialog> on purpose. showModal() brings the focus trap, Escape,
+     the top layer and inertness of the page behind it in the platform, which
+     is a great deal less code than a hand-rolled overlay and a great deal
+     harder to get wrong.
+
+     The copy is markup, not a JS object, so the spelling and stock-word audits
+     in CLAUDE.md still see every string they are meant to police.
+
+     TEXT LAW: every line below is already on the allowlist. Nothing here is
+     invented. HR SOLUTIONS, CUSTOM SOLUTIONS and CUSTOMER SUCCESS are
+     label-only in the storyboard, so they carry the approved closing line
+     until technoon.ai supplies real per-function copy. That is the one thing
+     on this page waiting on the client, and it is a copy swap, not a rebuild.
+═══════════════════════════════════════════════════════════════════════════ -->
+<dialog class="detail" id="fn-detail">
+  <div class="detail-card">
+    <span class="detail-ribbon" aria-hidden="true"></span>
+    <span class="detail-glow" aria-hidden="true"></span>
+
+    <button class="detail-close" type="button" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <div class="detail-panel" data-fn="marketing" hidden>
+      <p class="detail-kicker">MARKETING</p>
+      <p class="detail-line">Too much activity. Not enough impact.</p>
+      <p class="detail-kicker detail-kicker--on">SMART MARKETING</p>
+      <p class="detail-line detail-line--fix">Smarter campaigns. Better results. Less effort.</p>
+    </div>
+
+    <div class="detail-panel" data-fn="sales" hidden>
+      <p class="detail-kicker">SALES</p>
+      <p class="detail-line">Leads everywhere. Follow-up nowhere.</p>
+      <p class="detail-kicker detail-kicker--on">AI-POWERED SALES</p>
+      <p class="detail-line detail-line--fix">Research. Reach out. Close more. On autopilot.</p>
+    </div>
+
+    <div class="detail-panel" data-fn="operations" hidden>
+      <p class="detail-kicker">OPERATIONS</p>
+      <p class="detail-line">Requests never stop. Agents overwhelmed.</p>
+      <p class="detail-kicker detail-kicker--on">ALWAYS-ON OPERATIONS</p>
+      <p class="detail-line detail-line--fix">Instant answers. Happy customers. No missed request.</p>
+    </div>
+
+    <div class="detail-panel" data-fn="hr" hidden>
+      <p class="detail-kicker detail-kicker--on">HR SOLUTIONS</p>
+      <p class="detail-line detail-line--fix">Intelligence that runs your business. So you can lead it.</p>
+    </div>
+
+    <div class="detail-panel" data-fn="custom" hidden>
+      <p class="detail-kicker detail-kicker--on">CUSTOM SOLUTIONS</p>
+      <p class="detail-line detail-line--fix">Intelligence that runs your business. So you can lead it.</p>
+    </div>
+
+    <div class="detail-panel" data-fn="success" hidden>
+      <p class="detail-kicker detail-kicker--on">CUSTOMER SUCCESS</p>
+      <p class="detail-line detail-line--fix">Intelligence that runs your business. So you can lead it.</p>
+    </div>
+
+    <!-- DEPLOY STEP: point href at the real booking link or mailto address -->
+    <a class="cta detail-cta" href="#build">Build Your Intelligent Business</a>
+  </div>
+</dialog>
+
+<script src="assets/vendor/gsap.min.js"></script>
+<script src="assets/vendor/ScrollTrigger.min.js"></script>
+<script src="assets/vendor/lenis.min.js"></script>
+<script type="module" src="assets/app.js"></script>
+</body>
+</html>
