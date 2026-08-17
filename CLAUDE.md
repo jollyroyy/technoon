@@ -27,9 +27,9 @@ CONNECTED SYSTEM → ACCELERATION → technoon.ai`
 technoon2/
 ├─ vercel.json            deploy config (see Deployment)
 ├─ brief/                 storyboard.png (source of truth), storyboard-hero.png,
-│                         logo-source-640.jpg (SUPPLIED ORIGINAL, the live one),
-│                         logo-keyed-raw.png (the key with the white type kept),
-│                         logo-source.jpg + logo-4k.png (superseded, see Logo law)
+│                         logo-source-1672.png (SUPPLIED ORIGINAL, the live one),
+│                         logo-source-640.jpg, logo-keyed-raw.png,
+│                         logo-source.jpg + logo-4k.png (all superseded, Logo law)
 ├─ review/                raw footage + tooling. NEVER ships.
 │                         seq1/2.mp4, room-sd-1.jpg, verify-spine.mjs,
 │                         verify-contrast.sh, key-logo.py (the LIVE mark pipeline),
@@ -52,7 +52,7 @@ technoon2/
       ├─ form.js          enquiry card: the third <dialog>. FORM_ENDPOINT is
       │                   unset and falls back to mailto until it is set.
       ├─ hero-scrub.mp4   the 30s core, 2 chained Seedance clips, ONE encode
-      ├─ logo-mark.png    THE SHIPPED MARK, 543x400 RGBA (see Logo law)
+      ├─ logo-mark.png    THE SHIPPED MARK, 1249x814 RGBA (see Logo law)
       └─ *.jpg/png        poster, ending, overload still, favicon, logo.jpg (original)
 ```
 
@@ -99,10 +99,67 @@ are unrelated histories pointing at this project — push them together.
 
 ## The five laws
 
-### 1. Logo law — amended four times, the only law that has moved
+### 1. Logo law — amended five times, the only law that has moved
 
-**READ (d) FIRST. It supersedes (a), (b) and (c), which are kept only because
-they record what was tried and why each attempt failed.**
+**READ (e) FIRST. It supersedes (a)–(d), which are kept only because they record
+what was tried and why each attempt failed.**
+
+**2026-08-17 (e):** the client supplied a **1672x941** file — now
+`brief/logo-source-1672.png` — and said *"replace current logos with attached
+logo exactly as it is"*, then *"don't change the logo I have given, if possible
+just increase the resolution."* This one ends the logo problem outright: nothing
+is rebuilt, traced, recoloured or re-set, because at that size the sphere and
+the wordmark are all real pixels and the wordmark is **already dark ink**, so
+even (d)'s saturation-gated white flip is gone. There is no tagline in this file.
+
+**What ships: `site/assets/logo-mark.png`, 1249x814 RGBA — the supplied art,
+trimmed, with its background keyed out and nothing else touched.** 660 KB, the
+largest non-video asset, and it is native resolution rather than a resample:
+"increase the resolution" is answered by not throwing pixels away.
+
+The one trap, and it is the whole reason `review/key-logo.py` had to be rewritten
+rather than pointed at a new file: **the supplied PNG is named "without
+background" but it has no alpha channel.** It is RGB with the transparency
+CHECKERBOARD baked in as pixels — 20px squares of `#FEFEFE` and `#F5F5F5`. So it
+still needs a key, just an inverted one:
+
+- The background is known exactly by checker parity, so it is an **uncomposite**,
+  same as (d), but the assumption flips. (d) could take α from the art's
+  brightest channel over a black card; here the card is light and the art dark,
+  and assuming the art's darkest channel is 0 is wrong — the wordmark's navy
+  bottoms out at 14, so opaque type comes back at 94% alpha and the whole mark
+  ships washed toward the page. Instead the interior is settled first (>14 off
+  the background in any channel is opaque and IS its own colour), then each
+  antialiased edge pixel takes the nearest opaque pixel's colour and solves for α
+  by projection.
+- **The solved edge band is clipped to 3px around opaque art.** The checker's own
+  square boundaries are 1–2px ramps that land inside the uncertain range and pick
+  up a few percent of alpha; without the clip the entire frame comes back faintly
+  opaque, the trim finds no edges, and the mark ships full-bleed with a ghost
+  checkerboard in it.
+- **Nothing fills holes.** The gaps between the swirl's dots and the counters of
+  the letters are real background; a hole fill turns every counter into an opaque
+  white blob.
+- **The favicon is cut RADIALLY, not by a row.** There is no horizontal line
+  separating sphere from type in this lockup — the dot of the `i` rises beside
+  the sphere's lowest dots and the ascender of the `h` climbs past the sphere's
+  bottom edge, so every row-based crop takes a slice of the wordmark with it.
+  The swirl is an annulus, so a circle centred on its own centroid at the 99th
+  percentile of ink distance (not the maximum — the `i` dot sits inside the rough
+  band at nearly twice the radius) separates them exactly.
+
+`.brand-plate img` is still sized by **height**, and that is what made this
+drop-in: the ratio moved 0.74 → **0.65** and nothing had to be re-measured. Leave
+it height-driven for the next original too.
+
+**The one remaining ask is unchanged and is a client deliverable: an officially
+supplied vector (SVG/AI/EPS).** It is a much smaller ask now — 1249px is past the
+point where anyone will see a raster edge — so this is no longer a flag on the
+build, just the thing that would make the mark future-proof.
+
+Re-run, and only when the client supplies a new original: `python review/key-logo.py`.
+
+<details><summary>Superseded: (a)–(d), and what each was working around</summary>
 
 Original: ship `brief/logo-source.jpg` exactly as supplied.
 
@@ -200,10 +257,13 @@ Re-run order, and only when the mark itself changes:
 `brief/logo-source.jpg` and `site/assets/logo.jpg` are kept untouched as the supplied
 original; the page does not load them.
 
-**Forbidden:** re-colouring outside the token palette, particle-ising, or regenerating
-the mark through any AI tool. Animation is opacity, position, scale and parallax only.
+</details>
 
 </details>
+
+**Forbidden, and this outlives every amendment:** re-colouring outside the token
+palette, particle-ising, or regenerating the mark through any AI tool. Animation is
+opacity, position, scale and parallax only.
 
 `--plate` survives as a token (the skip link uses it). `.brand-plate` survives purely
 as the hover-lift transform hook — **it must stay visually inert**. A background,
@@ -907,6 +967,14 @@ Drive it with a real wheel `scroll`, not `scrollTo` from a tool call.
 ---
 
 ## Decisions log (2026-08-17)
+
+- **The client supplied a 1672x941 original and the logo now ships untouched.**
+  *"Replace current logos with attached logo exactly as it is … don't change the
+  logo I have given, if possible just increase the resolution."* No rebuild, no
+  trace, no recolour — not even (d)'s white-wordmark flip, because this file's
+  wordmark is already dark ink. `review/key-logo.py` was rewritten around the one
+  surprise: the file is named "without background" but carries no alpha, it has
+  the transparency checkerboard baked in as pixels. Ships at native 1249x814.
 
 - **The client supplied a 640x640 original and the logo problem ended.** Three
   amendments of rebuilding and tracing existed only because the previous file was

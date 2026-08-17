@@ -1,66 +1,120 @@
-"""Key the supplied 640x640 logo off its black card.
+"""Key the shipped mark off the supplied original. Nothing is redrawn.
 
-Input : brief/logo-source-640.jpg  (the client's own file, unmodified)
-Output: site/assets/logo-mark.png  (RGBA, trimmed, wordmark flipped to --ink)
-        site/assets/favicon.png    (the sphere alone, 128x128)
-        brief/logo-keyed-raw.png   (the literal key, white wordmark kept)
+Input : brief/logo-source-1672.png  — the client's 1672x941 file, supplied
+        2026-08-17. It is named "without background" but it is an RGB file with
+        the transparency CHECKERBOARD baked in as pixels: 20px squares of
+        #FEFEFE and #F5F5F5. There is no alpha channel to keep.
+Output: site/assets/logo-mark.png   — 1249x814 RGBA, the supplied art trimmed,
+                                      with the checkerboard removed.
+        site/assets/favicon.png     — the sphere alone, 128x128.
 
-The card is a uniform near-black (#020113), so the key is an unpremultiply
-against black: alpha is the pixel's own brightness, colour is the pixel
-divided by that alpha. Antialiased glyph edges come back crisp.
+The wordmark in this original is already dark ink, so unlike the 640x640 file
+there is NO colour flip. Every pixel that ships is the client's own.
 
-The wordmark ships in --ink because pure white on --pearl is 1.03:1. Only
-NEUTRAL pixels are flipped; every coloured pixel (the sphere, the .ai, the
-two rules) keeps the hue the client supplied.
+How the key works, and why it is not a threshold:
+
+- The background is KNOWN exactly — B(x,y) = 254 or 245 by checker parity — so
+  this is an uncomposite, not a colour range: observed = art*a + B*(1-a).
+- Two unknowns (art colour and a) per pixel, so the interior is settled first:
+  a pixel more than 14 off B in any channel is fully opaque and IS its own art
+  colour. Antialiased edge pixels then take the art colour of the nearest
+  opaque pixel and solve for `a` by projecting (B - observed) onto (B - art).
+  Assuming instead that the art's darkest channel is 0 — the mirror of what the
+  640x640 key did against its black card — is wrong here: the wordmark's navy
+  bottoms out at 14, so opaque type would come back at 94% alpha and the whole
+  mark would sit washed toward the page.
+- **The edge band is clipped to 3px around opaque art.** The checker's own
+  square boundaries are 1-2px ramps between 254 and 245, which land inside the
+  uncertain range and pick up a few percent of alpha. Without the band clip the
+  entire 1672x941 frame comes back faintly opaque, the trim finds no edges, and
+  the mark ships full-bleed with a ghost checkerboard in it.
+
+Nothing fills holes. The gaps between the swirl's dots and the counters of the
+letters are real background and are reachable from the frame edge anyway; a
+hole fill would turn every letter counter into an opaque white blob.
+
+Re-run only when the client supplies a new original:  python review/key-logo.py
 """
+
 import numpy as np
 from PIL import Image
+from scipy import ndimage as ndi
 
-SRC = r"brief/logo-source-640.jpg"
-INK = np.array([0x0E, 0x13, 0x30], float)
+SRC = "brief/logo-source-1672.png"
+MARK = "site/assets/logo-mark.png"
+ICON = "site/assets/favicon.png"
 
-im = np.asarray(Image.open(SRC).convert("RGB")).astype(float)
-
-# --- key: uncomposite the art off the card ---------------------------------
-# observed = art*alpha + card*(1-alpha).  The card is #020113, so its own
-# brightest channel (blue, 19) is the floor: everything at or under it is card.
-CARD = np.array([0x02, 0x01, 0x13], float)
-FLOOR = CARD.max()
-
-alpha = np.clip((im.max(axis=2) - FLOOR) / (255 - FLOOR), 0, 1)
-safe = np.maximum(alpha, 1e-6)[..., None]
-rgb = np.clip((im - CARD * (1 - alpha[..., None])) / safe, 0, 255)
+SQUARE = 20          # checker square, px
+LIGHT, DARK = 254.0, 245.0
+OPAQUE = 14          # channel distance from B above which a pixel is art
+BAND = 3             # px of antialias solved around opaque art
 
 
-def trim(rgba, thr=8):
-    ys, xs = np.nonzero(rgba[..., 3] > thr)
-    return rgba[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+def key(src):
+    obs = np.asarray(Image.open(src).convert("RGB")).astype(np.float64)
+    h, w, _ = obs.shape
+    yy, xx = np.mgrid[0:h, 0:w]
+    parity = ((xx // SQUARE) + (yy // SQUARE)) % 2 == 0
+    bg = np.where(parity, LIGHT, DARK)[..., None] * np.ones(3)
+
+    opaque = np.abs(obs - bg).max(2) >= OPAQUE
+    disc = np.hypot(*np.mgrid[-BAND:BAND + 1, -BAND:BAND + 1]) <= BAND
+    near = ndi.binary_dilation(opaque, disc)
+
+    # nearest opaque pixel's colour, for every pixel in the band
+    _, idx = ndi.distance_transform_edt(~opaque, return_indices=True)
+    art = obs[idx[0], idx[1]]
+
+    v = bg - art
+    a = np.clip(((bg - obs) * v).sum(2) / ((v * v).sum(2) + 1e-9), 0.0, 1.0)
+    a[opaque] = 1.0
+    a[~near] = 0.0
+
+    rgb = np.where(opaque[..., None], obs, art)
+    out = Image.fromarray(np.dstack([rgb, a * 255.0]).astype(np.uint8), "RGBA")
+    return out.crop(out.getbbox())
 
 
-raw = np.dstack([rgb, alpha * 255]).astype(np.uint8)
-Image.fromarray(trim(raw), "RGBA").save("brief/logo-keyed-raw.png")
+def sphere_only(mark):
+    """Crop the swirl out of the lockup. **There is no horizontal cut line that
+    separates them** — the dot of the `i` rises beside the sphere's lowest dots,
+    and the ascender of the `h` climbs past the sphere's bottom edge — so any
+    row-based crop takes a slice of the wordmark with it. The separation is
+    RADIAL instead, which is exact because the swirl is an annulus: every one of
+    its dots is within one radius of its own centre, and the type is not.
 
-# --- flip only the neutral glyphs to ink -----------------------------------
-mx, mn = rgb.max(axis=2), rgb.min(axis=2)
-sat = np.where(mx > 0, (mx - mn) / np.maximum(mx, 1e-6), 0)
-neutral = sat < 0.22                       # white type, not the gradient
-ink = np.where(neutral[..., None], INK, rgb)
+    Two measurements, no hardcoded fractions of the canvas:
 
-mark = trim(np.dstack([ink, alpha * 255]).astype(np.uint8))
-Image.fromarray(mark, "RGBA").save("site/assets/logo-mark.png")
-print("logo-mark.png", mark.shape[1], "x", mark.shape[0])
+    1. A rough band, ending at the first row carrying ink in the left margin the
+       sphere never reaches, is enough to locate the swirl's centre.
+    2. The radius is the 99th percentile of ink distance from that centre. Not
+       the maximum: the `i` dot sits inside the band at nearly twice the radius,
+       and it is well under half a percent of the ink there.
 
-# --- favicon: the sphere alone --------------------------------------------
-# the sphere is the coloured art above the wordmark; find it by saturation
-# the sphere and the wordmark are separated by a band of empty rows; cut there
-h = mark.shape[0]
-empty = np.flatnonzero((mark[..., 3] > 8).sum(axis=1) == 0)
-split = empty[(empty > h * 0.35) & (empty < h * 0.72)]
-sph = trim(mark[: int(split[0]) if split.size else int(h * 0.58)])
-side = max(sph.shape[:2])
-pad = np.zeros((side, side, 4), np.uint8)
-oy, ox = (side - sph.shape[0]) // 2, (side - sph.shape[1]) // 2
-pad[oy:oy + sph.shape[0], ox:ox + sph.shape[1]] = sph
-Image.fromarray(pad, "RGBA").resize((128, 128), Image.LANCZOS).save(
-    "site/assets/favicon.png")
-print("favicon.png 128 x 128  (sphere", sph.shape[1], "x", sph.shape[0], ")")
+    Everything outside that circle is then cleared, so the crop cannot carry a
+    fragment of type no matter how the two overlap.
+    """
+    a = np.asarray(mark)[:, :, 3] > 8
+    left = int(mark.width * 0.15)
+    rows = np.nonzero(a[:, :left].any(1))[0]
+    band = int(rows[0]) if len(rows) else mark.height
+
+    ys, xs = np.nonzero(a[:band])
+    cx, cy = xs.mean(), ys.mean()
+    r = np.percentile(np.hypot(xs - cx, ys - cy), 99.0) * 1.02
+
+    px = np.asarray(mark).copy()
+    gy, gx = np.mgrid[0:mark.height, 0:mark.width]
+    px[:, :, 3] = np.where(np.hypot(gx - cx, gy - cy) <= r, px[:, :, 3], 0)
+
+    ring = Image.fromarray(px, "RGBA").crop(
+        (round(cx - r), round(cy - r), round(cx + r), round(cy + r)))
+    return ring.resize((128, 128), Image.LANCZOS)
+
+
+if __name__ == "__main__":
+    mark = key(SRC)
+    mark.save(MARK, optimize=True)
+    sphere_only(mark).save(ICON)
+    print(f"{MARK}  {mark.size[0]}x{mark.size[1]}")
+    print(f"{ICON}  128x128")
