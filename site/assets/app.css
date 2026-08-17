@@ -230,15 +230,41 @@ body.paused *::after { animation-play-state: paused !important; }
   .nav-mail { display: none; }
 }
 
+/* The ghost pill's qualifier gives way well before that, and for a different
+   reason: it is the only one of the four things in the bar that is optional
+   TEXT rather than a whole control. Below ~1120px `Book Free Audit for your
+   business` and `Build Your Intelligent Business` are two long labels fighting
+   over the same row, and the mark is what loses. The lead survives at every
+   width, so the instruction never does. */
+@media (max-width: 1120px) {
+  .ghost-tail { display: none; }
+}
+
 /* The quiet one. It sits beside the primary rather than competing with it: no
-   fill, no accent text, just a glass pill and one lit dot borrowed from the
-   ribbon. Subtle is the brief, so the only thing that moves is the dot. */
+   accent fill, no accent text, just a glass pill and one lit dot borrowed from
+   the ribbon.
+
+   Given a longer label on 2026-08-17 it also got the primary's CURVATURE pass,
+   in the same vocabulary and at a fraction of the volume — because premium on
+   this page is light behaviour, not more colour, and the accent budget has
+   nothing left to spend on the second button in the bar:
+
+   1. A crown. The radial lights the upper face and falls off before the middle,
+      so the pill has a top rather than being an evenly bright rectangle.
+   2. A rim INSIDE the fill. A hairline of white one pixel in from the border
+      is what glass has and what a flat pill does not.
+   3. A foot. The inset dark at the bottom rolls the lower edge away from the
+      reader instead of stopping it dead at the border.
+   4. Three shadows at three radii — contact, drop, bloom — rather than one.
+      One shadow is a sticker; three read as an object above a surface.
+
+   The dot is still the only thing that moves on its own. */
 .ghost {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
+  gap: 10px;
   min-height: 46px;
-  padding: 12px clamp(14px, 1.6vw, 20px);
+  padding: 12px clamp(15px, 1.7vw, 21px);
   font-family: var(--display);
   font-weight: 500;
   font-size: clamp(12px, .95vw, 14px);
@@ -248,28 +274,62 @@ body.paused *::after { animation-play-state: paused !important; }
   text-decoration: none;
   color: var(--ink-soft);
   border-radius: 999px;
-  border: 1px solid rgba(90,98,138,.20);
-  background: rgba(255,255,255,.46);
+  border: 1px solid rgba(90,98,138,.18);
+  background:
+    radial-gradient(128% 160% at 50% -34%,
+                    rgba(255,255,255,.96), rgba(255,255,255,0) 58%),
+    linear-gradient(180deg, rgba(255,255,255,.60), rgba(255,255,255,.32));
   box-shadow:
-    inset 1px 1px 1px -.5px rgba(255,255,255,.9),
-    inset -1px -1px 1px -.5px rgba(14,19,48,.10),
-    0 2px 10px rgba(14,19,48,.05);
-  backdrop-filter: blur(10px) saturate(140%);
-  -webkit-backdrop-filter: blur(10px) saturate(140%);
+    inset 0 1px 0 rgba(255,255,255,.96),
+    inset 0 0 0 1px rgba(255,255,255,.44),
+    inset 0 -7px 11px -9px rgba(14,19,48,.34),
+    0 1px 1px rgba(14,19,48,.04),
+    0 3px 8px -2px rgba(14,19,48,.06),
+    0 12px 24px -10px rgba(14,19,48,.12);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
   transition: color .3s ease, border-color .3s ease, background .3s ease,
               transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease;
 }
 .ghost:hover {
   color: var(--ink);
-  border-color: rgba(108,76,224,.38);
-  background: rgba(255,255,255,.74);
-  transform: translateY(-1px);
+  border-color: rgba(108,76,224,.34);
+  background:
+    radial-gradient(128% 160% at 50% -34%,
+                    rgba(255,255,255,1), rgba(255,255,255,0) 60%),
+    linear-gradient(180deg, rgba(255,255,255,.82), rgba(255,255,255,.54));
+  transform: translateY(-1.5px);
   box-shadow:
-    inset 1px 1px 1px -.5px rgba(255,255,255,.95),
-    inset -1px -1px 1px -.5px rgba(14,19,48,.10),
-    0 8px 20px rgba(14,19,48,.09);
+    inset 0 1px 0 rgba(255,255,255,1),
+    inset 0 0 0 1px rgba(255,255,255,.58),
+    inset 0 -7px 11px -9px rgba(14,19,48,.30),
+    0 1px 1px rgba(14,19,48,.05),
+    0 6px 14px -4px rgba(14,19,48,.08),
+    0 18px 34px -14px rgba(14,19,48,.16);
 }
-.ghost:active { transform: translateY(0); }
+/* Pressed IN, not moved down: the bloom collapses to a contact shadow and the
+   foot deepens, which is the same account of the press the primary gives. */
+.ghost:active {
+  transform: translateY(0);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.8),
+    inset 0 0 0 1px rgba(255,255,255,.4),
+    inset 0 -9px 13px -9px rgba(14,19,48,.44),
+    0 1px 2px rgba(14,19,48,.07);
+}
+
+/* Two parts, two weights. The verb is the thing being pressed and takes --ink;
+   the qualifier is context and takes --slate, one step back and a hair tighter.
+   That is what stops a 33-character label reading as one long grey sentence.
+   --slate on the pearl bar is 5.3:1, well over the 4.5 bar. */
+.ghost-lead { color: var(--ink); }
+.ghost-tail {
+  color: var(--slate);
+  font-weight: 400;
+  letter-spacing: .02em;
+  transition: color .3s ease;
+}
+.ghost:hover .ghost-tail { color: var(--ink-soft); }
 
 .ghost-dot {
   width: 7px;

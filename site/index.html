@@ -95,7 +95,7 @@
       ],
       "potentialAction": {
         "@type": "ReserveAction",
-        "name": "Free Audit",
+        "name": "Book Free Audit for your business",
         "target": {
           "@type": "EntryPoint",
           "urlTemplate": "https://cal.com/sudeshna-pal-ruww5f/technoon.ai",
@@ -251,18 +251,21 @@
          source order so a screen reader and a keyboard reach the plain contact
          route before the two that open modals. -->
     <a class="nav-mail" href="mailto:info@technoon.ai">info@technoon.ai</a>
-    <!-- The nav now offers two DIFFERENT things, which it did not before.
-         `Book free audit of your business` sat here from earlier on 2026-08-16
-         and was reverted the same day: it duplicated the ghost pill beside it,
-         so the bar asked twice for the same click. That duplication was a
-         standing flag in CLAUDE.md and this is what closed it.
+    <!-- The nav offers two DIFFERENT things, and each has exactly one door.
 
          Quiet pill  → the calendar (data-cal). Ready to pick a slot.
          Primary     → the enquiry form (data-form). Wants to be followed up.
 
-         Those are the only two shapes an enquiry takes, and now each has
-         exactly one door. -->
-    <a class="ghost" data-cal href="https://cal.com/sudeshna-pal-ruww5f/technoon.ai" rel="noopener"><span class="ghost-dot" aria-hidden="true"></span>Free Audit</a>
+         The label was `Free Audit` until the client asked for
+         `Book Free Audit for your business` on 2026-08-17. That is three times
+         the string in a bar that was already tight, so it is set in two parts:
+         the LEAD is the instruction and stays at every width, the TAIL is the
+         qualifier and is dropped below 1120px, where the bar can no longer
+         carry it beside the primary. The split is also what gives the pill its
+         typographic hierarchy — dark ink verb, slate qualifier — rather than
+         one long grey run. It is a substring, never a rewrite, so the text law
+         is not being opened a second time to pay for the layout. -->
+    <a class="ghost" data-cal href="https://cal.com/sudeshna-pal-ruww5f/technoon.ai" rel="noopener"><span class="ghost-dot" aria-hidden="true"></span><span class="ghost-lead">Book Free Audit</span><span class="ghost-tail"> for your business</span></a>
     <a class="cta cta--nav" data-form href="mailto:info@technoon.ai">Build Your Intelligent Business</a>
   </div>
 </nav>
@@ -916,7 +919,7 @@
      booking page the long way round. Turning these into <button>s would throw
      that away.
 ═══════════════════════════════════════════════════════════════════════════ -->
-<dialog class="cal" id="cal-book" aria-label="Free Audit">
+<dialog class="cal" id="cal-book" aria-label="Book Free Audit">
   <div class="cal-panel">
     <div class="cal-skeleton" aria-hidden="true"></div>
 
@@ -926,7 +929,7 @@
       </svg>
     </button>
 
-    <iframe class="cal-frame" title="Free Audit" loading="lazy"
+    <iframe class="cal-frame" title="Book Free Audit" loading="lazy"
             referrerpolicy="strict-origin-when-cross-origin"></iframe>
   </div>
 </dialog>

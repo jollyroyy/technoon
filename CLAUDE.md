@@ -311,17 +311,28 @@ You don't worry about the functions.
 We take care of the strategy.
 Intelligence that runs your business. So you can lead it.
 
-Free Audit / Build Your Intelligent Business / technoon.ai
+Book Free Audit for your business / Build Your Intelligent Business / technoon.ai
 info@technoon.ai
 Name / Email / Company / What do you want to run? / Anything else / Send
 ```
 
-**`Book free audit of your business` is OFF the page.** It was client-supplied
-earlier on 2026-08-16 for the nav primary slot, and reverted by the client later
-the same day. It duplicated the `Free Audit` ghost pill beside it, so the nav
-asked twice for the same click; that duplication was a standing flag here and
-the revert is what closed it. The line stays recorded as approved, but nothing
-renders it. Do not put it back without the client asking.
+**`Free Audit` became `Book Free Audit for your business` on 2026-08-17**, client
+instruction. It is the same single ghost pill in the nav, not a second CTA — the
+2026-08-16 duplication (a `Book free audit of your business` PRIMARY beside a
+`Free Audit` ghost, two doors to one calendar) is not being reintroduced, and
+`Book free audit of your business` stays off the page.
+
+The label is set in **two spans**, and that is load-bearing at this length:
+`.ghost-lead` (`Book Free Audit`) and `.ghost-tail` (` for your business`).
+**`.ghost-tail` is `display: none` below 1120px** — its own rule, next to the
+`.nav-mail` hide, not inside §13, because the bar runs out of room long before
+the phone breakpoints do. The tail is also the pill's typographic hierarchy:
+lead in `--ink`, tail in `--slate` at weight 400. Dropping a trailing substring
+is not new copy; **do not "fix" a narrow bar by shortening the lead instead**,
+that would be a rewrite and the text law gates it.
+
+The JSON-LD `ReserveAction.name` moved with it (law 6 wants the visible string
+verbatim), as did the booking dialog's `aria-label` and iframe `title`.
 
 **`info@technoon.ai` is client-supplied 2026-08-16.** It was dictated as
 "info@takenone.ai", confirmed as a dictation slip, and the spelling law applies
@@ -759,7 +770,7 @@ today and get the finished picture, as does anyone with reduced motion on.
 should open a form."* Two different readers — one ready to pick a slot, one who
 wants to describe a business first — were being sent to the same place.
 
-- **`data-cal` opens the calendar, `data-form` opens the form.** Two triggers are
+- **`data-cal` opens the calendar, `data-form` opens the form.** One trigger is
   `data-cal` (the nav ghost, and nothing else). Three are `data-form` (nav primary,
   arrival, and the one inside the function card).
 - **Triggers are `<a href="mailto:info@technoon.ai">`** intercepted by `form.js`,
@@ -784,7 +795,7 @@ wants to describe a business first — were being sent to the same place.
   a bot that renders CSS skips hidden fields and fills positioned ones. A filled
   honeypot reports **success** — a bot told it failed retries.
 
-**The booking card.** The `Free Audit` ghost pill opens Cal.com in a second
+**The booking card.** The `Book Free Audit for your business` ghost pill opens Cal.com in a second
 `<dialog>` via `cal.js`:
 `https://cal.com/sudeshna-pal-ruww5f/technoon.ai`. Three load-bearing changes from the
 original port:
@@ -967,6 +978,15 @@ Drive it with a real wheel `scroll`, not `scrollTo` from a tool call.
 ---
 
 ## Decisions log (2026-08-17)
+
+- **`Free Audit` became `Book Free Audit for your business`, and the ghost pill
+  got the primary's curvature pass.** Client instruction. The label is three
+  times the string in a bar that was already tight, so it is two spans with the
+  qualifier dropping below 1120px, which is also what gives the pill its
+  two-tone hierarchy. The premium is light behaviour, not colour — crown, rim
+  inside the fill, foot, three shadows at three radii, pressed-in active state —
+  because the accent budget is spent and the ribbon's appearance list is closed.
+  Verified at 375 / 900 / 1100 / 1568px: no overflow, mark never pushed.
 
 - **The client supplied a 1672x941 original and the logo now ships untouched.**
   *"Replace current logos with attached logo exactly as it is … don't change the
