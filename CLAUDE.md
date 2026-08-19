@@ -53,6 +53,8 @@ technoon2/
       │                   unset and falls back to mailto until it is set.
       ├─ hero-scrub.mp4   the 30s core, 2 chained Seedance clips, ONE encode
       ├─ logo-mark.png    THE SHIPPED MARK, 1249x814 RGBA (see Logo law)
+      ├─ logo-mark.webp   the SAME pixels, lossless, 36% fewer bytes. NOT a
+      │                   second mark. Served first via <picture>.
       └─ *.jpg/png        poster, ending, overload still, favicon, logo.jpg (original)
 ```
 
@@ -87,6 +89,16 @@ things about the CSP that will bite whoever edits it next:
 - **`connect-src` lists `formspree.io` and `api.web3forms.com` in advance.** When
   `FORM_ENDPOINT` is set in `form.js`, its origin must be in that list or the
   post is blocked and the form silently falls back to `mailto`.
+
+**`vercel.json` also carries the cache policy**, added 2026-08-19. `/assets/*`
+gets `max-age=86400, stale-while-revalidate=2592000`; HTML, TXT and XML get
+`max-age=0, must-revalidate`. The asset filenames are **not content-hashed**,
+which is the whole reason the asset rule is a day and not a year with
+`immutable`: a year would strand readers on an old `app.css` after a deploy.
+`stale-while-revalidate` is what buys the speed back, since a repeat visitor
+paints from cache instantly and the refresh happens behind them. **If asset
+names ever become content-hashed, and only then, raise it to
+`max-age=31536000, immutable`.**
 
 `frame-ancestors` is `'self'`, not `'none'`, on purpose: the documented mobile
 check loads the page in a 375px same-origin iframe, and `'none'` would break it
@@ -147,6 +159,22 @@ still needs a key, just an inverted one:
   The swirl is an annulus, so a circle centred on its own centroid at the 99th
   percentile of ink distance (not the maximum — the `i` dot sits inside the rough
   band at nearly twice the radius) separates them exactly.
+
+**2026-08-19, and this changes no pixel of the mark:** the PNG is 660 KB and
+sits above the fold, so it is now paired with `site/assets/logo-mark.webp` and
+served through a `<picture>` that offers the WebP first. **It is the same art
+at the same 1249x814, encoded LOSSLESS**, and that was verified rather than
+assumed: every visible pixel is bit-identical and the alpha channel matches
+exactly. The only pixels that differ are fully transparent in BOTH files, where
+RGB is unobservable. 660 KB → 422 KB, a 36% cut on the largest non-video asset,
+with the Logo law's "exactly as it is" intact.
+
+Two things guard it. `.brand-plate picture { display: contents }` takes the
+wrapper out of the layout so the `<img>` is still the direct flex child and the
+height-driven sizing below is untouched. And **the WebP is a twin, never a
+variant**: if a new original ever arrives, `key-logo.py` regenerates the PNG and
+the WebP has to be re-encoded from it in the same breath, or the site quietly
+ships the old mark to every browser and the new one to nobody.
 
 `.brand-plate img` is still sized by **height**, and that is what made this
 drop-in: the ratio moved 0.74 → **0.65** and nothing had to be re-measured. Leave
@@ -386,6 +414,26 @@ client on 2026-08-16 and leads the list. The tiles sample the ribbon across thei
 count, so a fifth tile needs `.offers--five` on the `<ul>` or the set stops reading as
 one spectrum. A sixth would need a `--six` walk.
 
+**The seven questions, approved 2026-08-19.** Drafted in
+`brief/faq-for-approval.md`, held there because visible brand copy is a client
+decision, and released by the client on 2026-08-19. Heading:
+`Questions we get asked`. The answers are long-form by the standards of this
+page, and that is the point: an answer engine quotes a Q&A pair close to
+verbatim where it summarises prose. Every answer is built only from copy
+already on this list or mechanism the page already describes. **The same
+strings appear verbatim in the `FAQPage` node in `<head>` — edit one without
+the other and the markup becomes a policy violation.** The seven are:
+
+```
+What does technoon.ai do?
+Which functions can technoon.ai run?
+Do we have to hand over every function at once?
+How does an engagement start?
+Does technoon.ai replace our team?
+Will this work with the tools we already use?
+What is an AI receptionist?
+```
+
 **Below the film, added 2026-08-16:**
 
 ```
@@ -430,15 +478,20 @@ audiences: classic search, and answer engines that quote rather than rank.
 Twitter cards with image dimensions and alt, `site/robots.txt`, `site/sitemap.xml`,
 `site/llms.txt`, and a JSON-LD `@graph` in `<head>` — `Organization` +
 `ProfessionalService`, `WebSite`, `WebPage`, an `ItemList` of the four process
-steps, and an `OfferCatalog` carrying all six functions and all 25 offerings.
+steps, an `OfferCatalog` carrying all six functions and all 25 offerings, and
+— since 2026-08-19 — a `FAQPage` of the seven approved questions.
 
 **The rules, and every one of them has teeth:**
 
 - **Every string in the graph is copied verbatim from the visible page.** That is
-  Google's stated requirement, and it is why there is no `FAQPage` node: marking
-  up answers that do not appear on the page is a policy violation. The draft FAQ
-  waits in `brief/faq-for-approval.md` until the client approves it as visible
-  copy, and then the section and the schema ship together or not at all.
+  Google's stated requirement, and it is what governed the `FAQPage` node: it
+  did not exist until 2026-08-19 because marking up answers that do not appear
+  on the page is a policy violation, not a shortcut. The client approved the
+  copy that day and **the visible section and the schema shipped in the same
+  commit**, which is the only way either may ever move. Note that Google
+  restricted the FAQ *rich result* to government and health sites, so this node
+  is not buying a SERP accordion — it is there because answer engines read it
+  and because the visible Q&A is the thing they quote.
 - **The zero-hallucination law governs the graph too.** No `aggregateRating`, no
   `review`, no `foundingDate`, no `address`, no `numberOfEmployees`, no
   `areaServed`. None of those is verified, and an empty-looking graph is not a
@@ -458,6 +511,13 @@ steps, and an `OfferCatalog` carrying all six functions and all 25 offerings.
   as a full group because a named group replaces the wildcard for that crawler.
 - **`llms.txt` states what is NOT published** (no pricing, case studies, client
   names or figures) so a model asked for them says so instead of estimating.
+  Since 2026-08-19 it also carries the seven Q&A pairs verbatim and an explicit
+  "questions technoon.ai does not answer" list, which is the same guard stated
+  positively.
+- **The graph carries no `BreadcrumbList` and will not until there is a second
+  page.** A breadcrumb trail of one item describes navigation that does not
+  exist. The 2026-08-19 SEO audit asked for one; that is the reason it is
+  absent, not an oversight.
 
 Re-run `node review/verify-spine.mjs` is unrelated to any of this; the graph is
 checked by parsing it and counting — 4 nodes, 6 catalogs, 25 offers, no dangling
@@ -765,6 +825,27 @@ BASE state is the resolved frame — line fully drawn, arrow landed, steps lit �
 the keyframes travel away from it. Safari and Firefox have no scroll timelines
 today and get the finished picture, as does anyone with reduced motion on.
 
+**The questions block.** Added 2026-08-19, between the process band and
+arrival. It is the plainest thing on the page on purpose: the site's own 940px
+measure, the same heading rule as the two sections around it, the same
+`rgba(90,98,138,.20)` hairline the process steps carry, `--ink` questions and
+`--ink-soft` answers. **No accent and no ribbon** — the ribbon's appearance
+list is closed and a Q&A block is not on it.
+
+Three refusals, and each one is the point:
+
+- **No `<details>`.** An accordion would hide six of seven answers behind a
+  click, which is exactly backwards for a block whose whole job is to be read
+  and quoted, and it would change the document height on every toggle.
+- **No script.** Same rule the sticky stack and the process band follow.
+- **No entrance animation.** Everything else below the film moves as you
+  arrive at it. This does not, because it is reference material rather than a
+  beat, and a reader scanning for one answer should not be waiting on it.
+
+Two columns above 860px, via `columns` rather than a grid so the break falls
+between items and a question can never be orphaned from its answer. One column
+below, where the measure is already narrow enough to read.
+
 **The enquiry card.** The THIRD dialog, added 2026-08-16 on client instruction:
 *"Book Free Audit should open the calendar widget, Build Your Intelligent Business
 should open a form."* Two different readers — one ready to pick a slot, one who
@@ -977,6 +1058,75 @@ Drive it with a real wheel `scroll`, not `scrollTo` from a tool call.
 
 ---
 
+## Decisions log (2026-08-19)
+
+An external SEO audit of the live site arrived and was worked through end to
+end. **Three of its six "critical" findings were factually wrong** and are
+recorded here so nobody re-fixes them: it reported no title, no meta
+description, no Open Graph tags, no alt text and no schema markup. All of those
+were shipped on 2026-08-16 and were live and verifiable at the time of the
+audit. The scraper it used stripped `<head>`. **Check the live document before
+acting on a report about it** — `curl -sS https://technoon.ai/ | head` settles
+this class of claim in one line.
+
+What was real, and what shipped:
+
+- **The FAQ went live, and the client approved the copy.** Seven questions,
+  visible, plus a matching `FAQPage` node and the same pairs in `llms.txt`.
+  This closes the largest remaining lever named in `brief/faq-for-approval.md`
+  and the last thing that file was waiting on. The visible section and the
+  schema are now permanently coupled.
+
+- **`<title>` and the meta description were rewritten around what a buyer
+  types.** They were brand-first and carried none of the vocabulary the
+  business is searched by. Now `AI Automation Agency for Marketing, Sales &
+  Ops | technoon.ai` (61 chars) and a 157-char description. Both are
+  **permitted non-brand text** under the Text law, which is why this needed no
+  approval and the hero copy above it did not move a word. `og:description`
+  and `twitter:description` stopped repeating the tagline and carry the same
+  sentence, because a share card needs something to click on.
+
+- **The logo got a lossless WebP twin**, 36% fewer bytes with every visible
+  pixel identical. See the Logo law.
+
+- **The LCP image is preloaded.** `.poster` paints `hero-poster.jpg` as a CSS
+  background, which a browser cannot discover until `app.css` has parsed and
+  the box is laid out. That is two round trips of dead time on the one image
+  the page is scored by.
+
+- **`vercel.json` grew a cache policy.** See Deployment for why the assets get
+  a day and not a year.
+
+- **A privacy policy was drafted and deliberately NOT published**, as
+  `brief/privacy-for-approval.md`. Every fact it needs — legal entity,
+  jurisdiction, retention, sub-processors — is one only the client has, and a
+  guessed privacy policy is a legal exposure rather than a missing trust
+  signal. It also lists what IS verifiable from this repo today: no cookies,
+  no analytics, no pixels, and exactly three third parties.
+
+**What the audit asked for that this repo cannot supply, and why.** All of it
+is new visible copy, which the Text law gates, and some of it the
+zero-hallucination law forbids outright. None of it is a build task:
+
+- 1,000+ word service pages, a blog, pillar articles, industry landing pages
+  and comparison pages. New copy, client sign-off, and a second page — which
+  this site does not have and which is what a `BreadcrumbList` and an internal
+  linking strategy would both need first.
+- Case studies, testimonials, `Review` and `aggregateRating` schema, and the
+  audit's own traffic and ROI projections. These are the exact category the
+  zero-hallucination law exists to stop. **Do not add a rating node to "fill
+  out" the graph.**
+- A pricing page. No pricing model is published anywhere; see the questions
+  technoon.ai cannot answer in `brief/faq-for-approval.md`.
+- Google Search Console and Analytics. Both need the client's own accounts,
+  and GA would additionally need its origin added to the CSP `connect-src` and
+  the privacy policy published first, in that order.
+
+**Recommended next, in the order that pays:** publish the privacy policy;
+answer pricing and geography, which unlock the two highest-volume questions an
+AI engine asks about an agency; then an About page, which is the strongest
+single trust signal this site could add and currently has nothing to cite.
+
 ## Decisions log (2026-08-17)
 
 - **`Free Audit` became `Book Free Audit for your business`, and the ghost pill
@@ -1018,7 +1168,8 @@ Drive it with a real wheel `scroll`, not `scrollTo` from a tool call.
   re-cuts pain to 0.058–0.238 and chaos to 0.238–0.500 at 0.0655 each and pays for it
   out of the wordless BOTTLENECK. One candidate (`AI RECEPTIONIST` / `Every call
   picked up. Every message logged.`) is entirely approved copy already and needs no
-  further sign-off. This is the only open client item.
+  further sign-off. **Still open.** It is no longer the ONLY open client item:
+  see the 2026-08-19 log, where the privacy policy joined it and the FAQ left it.
 
 ## Decisions log (all 2026-08-16)
 

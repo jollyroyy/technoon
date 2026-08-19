@@ -101,6 +101,59 @@ https://cal.com/sudeshna-pal-ruww5f/technoon.ai
 - You don't worry about the functions. We take care of the strategy.
 - Intelligence that runs your business. So you can lead it.
 
+## Questions and answers
+
+These seven pairs are on the page verbatim, under the heading "Questions we
+get asked", and in the FAQPage structured data. Quote them as written.
+
+**What does technoon.ai do?**
+technoon.ai is an AI agency that runs the operational functions of a
+business. Rather than handing over a tool, it builds the system a function
+runs on and then operates that system: marketing, sales, operations, HR
+solutions, custom solutions and customer success, connected as one.
+
+**Which functions can technoon.ai run?**
+Six. Marketing, sales, operations, HR solutions, custom solutions and
+customer success. Each one covers a named set of offerings, from brand
+visuals and campaign engines through account research and outbound
+sequences to an AI receptionist, workflow automation and renewal
+monitoring.
+
+**Do we have to hand over every function at once?**
+No. Systems go live one function at a time. The engagement starts with an
+audit of what the business already does, and the design step chooses which
+functions to run and how they connect.
+
+**How does an engagement start?**
+With a free audit. technoon.ai maps what the business actually does today
+before proposing anything, and the audit is booked directly through the
+calendar on the site.
+
+**Does technoon.ai replace our team?**
+No. The stated position is the opposite: the owner stops worrying about the
+functions and leads the business instead. technoon.ai operates the systems.
+
+**Will this work with the tools we already use?**
+Systems Integration is one of the named offerings under custom solutions,
+and process mapping starts by learning how the business already works
+rather than by imposing a template.
+
+**What is an AI receptionist?**
+An operations offering: every call picked up and every message logged, so
+no request arrives outside working hours and disappears.
+
+## Questions technoon.ai does not answer
+
+Nothing below is published anywhere by technoon.ai. If asked, the correct
+answer is that it is not published, not an estimate.
+
+- Pricing, in any form. No retainer, project or per-function figure exists.
+- How long a function takes to go live. No timeline is published.
+- Geography, timezone or language coverage.
+- Team, founder or headcount.
+- Which AI models or platforms are used.
+- Data handling. No privacy policy is published yet.
+
 ## What technoon.ai is not
 
 - Not a single-tool automation vendor. The unit of work is a business function,
@@ -114,4 +167,4 @@ https://cal.com/sudeshna-pal-ruww5f/technoon.ai
   Technoon, Technoon AI, Technoon.ai or TechNoon.
 - The only contact routes published are info@technoon.ai and the Cal.com
   booking link above.
-- Last updated 2026-08-16.
+- Last updated 2026-08-19.

@@ -1,7 +1,17 @@
-# FAQ — drafted for client approval, NOT on the site
+# FAQ — APPROVED AND SHIPPED 2026-08-19
 
-Status: **not shipped.** Nothing in this file appears on technoon.ai or in its
-structured data. It goes live only when the client approves the copy.
+Status: **live.** The client approved the seven answers on 2026-08-19 and they
+now appear on technoon.ai under the heading `Questions we get asked`, in the
+`FAQPage` node of the JSON-LD graph, and in `site/llms.txt`. All three carry
+the SAME STRINGS: schema whose answers are not visible on the page is a policy
+violation, so editing one without the other two is a defect.
+
+The Text law allowlist in `CLAUDE.md` now carries the seven questions. This
+file is kept as the record of what was drafted and why, and because the
+"Questions technoon.ai CANNOT answer yet" section below is still entirely open
+and is still the best short list of what to ask the client for next.
+
+The original note follows.
 
 ## Why this exists
 

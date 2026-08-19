@@ -182,6 +182,12 @@ body.paused *::after { animation-play-state: paused !important; }
    --navh sits at its floor. Driving off --navh means the mark cannot clip at
    any viewport, and the width simply follows. The ratio has now moved twice
    with three supplied originals; height-driven is what survives the next one. */
+/* <picture> is a source-selection wrapper, not a box. display:contents takes
+   it out of the layout entirely so the <img> stays the direct flex item of
+   .brand-plate and the height-driven sizing below is unchanged by the WebP
+   fallback being added around it. */
+.brand-plate picture { display: contents; }
+
 .brand-plate img {
   height: clamp(44px, calc(var(--navh) - 20px), 60px);
   width: auto;
@@ -2022,7 +2028,8 @@ html.form-ready [data-form] { cursor: pointer; }
 }
 
 .index-h,
-.process-h {
+.process-h,
+.faq-h {
   max-width: 940px;
   margin: 0 auto clamp(30px, 5vh, 56px);
   font-family: var(--display);
@@ -2321,6 +2328,65 @@ html.form-ready [data-form] { cursor: pointer; }
    and the content does not need it to be understood. */
 @media (prefers-reduced-motion: reduce) {
   .stack-card { position: static; transform: none; }
+}
+
+/* ── 12c · QUESTIONS ────────────────────────────────────────────
+   Seven answers, all of them visible, none of them behind a click.
+
+   Nothing new is invented here: the measure is the page's own 940px, the
+   heading is the same rule as EVERYTHING WE RUN and FROM FIRST CALL, the
+   hairline is the same rgba(90,98,138,.20) the process steps carry, and the
+   type sizes are the step name and the step line one notch up for reading
+   length. No accent, no ribbon, no card, no shadow. The ribbon's appearance
+   list is closed and a Q&A block is not on it.
+
+   Two columns above 860px because seven short answers in one column is a very
+   long thin strip on a wide screen. The wrap is by column-count rather than
+   grid, so the pairs stay together and the break falls between items. */
+.faq {
+  padding: clamp(50px, 9vh, 100px) var(--gut) clamp(20px, 3vh, 40px);
+}
+
+.faq-list {
+  max-width: 940px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  padding-top: clamp(16px, 2.4vh, 22px);
+  margin-bottom: clamp(22px, 3.4vh, 34px);
+  border-top: 1px solid rgba(90,98,138,.20);
+  /* keeps a question and its answer in the same column when the list wraps */
+  break-inside: avoid;
+}
+
+.faq-q {
+  margin: 0 0 8px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(16px, 1.5vw, 20px);
+  line-height: 1.25;
+  letter-spacing: -.015em;
+  color: var(--ink);
+}
+
+.faq-a {
+  margin: 0;
+  font-family: var(--body);
+  font-weight: 400;
+  font-size: clamp(14px, 1.1vw, 16px);
+  line-height: 1.6;
+  color: var(--ink-soft);
+  max-width: 62ch;
+}
+
+@media (min-width: 861px) {
+  .faq-list {
+    columns: 2;
+    column-gap: clamp(28px, 4vw, 56px);
+  }
+  /* the first item in a column must not lose its rule to the column break */
+  .faq-item { margin-bottom: 0; padding-bottom: clamp(22px, 3.4vh, 34px); }
 }
 
 .arrival {

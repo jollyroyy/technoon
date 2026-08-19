@@ -3,10 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>technoon.ai | The AI agency that runs your business functions</title>
-<meta name="description" content="technoon.ai runs marketing, sales, operations, HR, custom solutions and customer success as one intelligent system. Brand visuals, campaigns, and the systems behind them.">
+<title>AI Automation Agency for Marketing, Sales &amp; Ops | technoon.ai</title>
+<meta name="description" content="technoon.ai is an AI agency that runs your marketing, sales, operations, HR and customer success as one connected system. Book a free audit of your business.">
 <meta name="theme-color" content="#F2F4F8">
 <link rel="icon" href="assets/favicon.png" type="image/png">
+<!-- The LCP element. .poster paints hero-poster.jpg as a CSS background,
+     which a browser cannot discover until app.css has parsed and the box
+     is laid out. This hint fetches it in parallel with the stylesheet
+     instead of after it. The room is the premise of the page; it should
+     not be the last thing to arrive. -->
+<link rel="preload" as="image" href="assets/hero-poster.jpg" fetchpriority="high">
 
 <!-- ═══ SEARCH AND ANSWER ENGINES ═══════════════════════════════════════════
      Two audiences, one set of tags. Classic search wants a canonical, a
@@ -36,8 +42,8 @@
 
 <meta property="og:site_name" content="technoon.ai">
 <meta property="og:locale" content="en_US">
-<meta property="og:title" content="technoon.ai | The AI agency that runs your business functions">
-<meta property="og:description" content="Move faster. Spend less. Look sharper.">
+<meta property="og:title" content="AI Automation Agency for Marketing, Sales &amp; Ops | technoon.ai">
+<meta property="og:description" content="technoon.ai is an AI agency that runs your marketing, sales, operations, HR and customer success as one connected system. Book a free audit of your business.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://technoon.ai/">
 <meta property="og:image" content="https://technoon.ai/assets/hero-poster.jpg">
@@ -46,8 +52,8 @@
 <meta property="og:image:alt" content="The technoon.ai office, the room the site travels through">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="technoon.ai | The AI agency that runs your business functions">
-<meta name="twitter:description" content="Move faster. Spend less. Look sharper.">
+<meta name="twitter:title" content="AI Automation Agency for Marketing, Sales &amp; Ops | technoon.ai">
+<meta name="twitter:description" content="technoon.ai is an AI agency that runs your marketing, sales, operations, HR and customer success as one connected system. Book a free audit of your business.">
 <meta name="twitter:image" content="https://technoon.ai/assets/hero-poster.jpg">
 <meta name="twitter:image:alt" content="The technoon.ai office, the room the site travels through">
 
@@ -91,8 +97,21 @@
         "AI receptionist",
         "Human resources automation",
         "Systems integration",
-        "Customer success operations"
+        "Customer success operations",
+        "AI business automation",
+        "Business process automation",
+        "AI workflow automation",
+        "AI customer support automation",
+        "Outbound sales automation",
+        "HR onboarding automation",
+        "Internal tools development"
       ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "info@technoon.ai",
+        "availableLanguage": "en"
+      },
       "potentialAction": {
         "@type": "ReserveAction",
         "name": "Book Free Audit for your business",
@@ -191,8 +210,8 @@
       "@type": "WebPage",
       "@id": "https://technoon.ai/#webpage",
       "url": "https://technoon.ai/",
-      "name": "technoon.ai | The AI agency that runs your business functions",
-      "description": "technoon.ai runs marketing, sales, operations, HR, custom solutions and customer success as one intelligent system. Brand visuals, campaigns, and the systems behind them.",
+      "name": "AI Automation Agency for Marketing, Sales & Ops | technoon.ai",
+      "description": "technoon.ai is an AI agency that runs your marketing, sales, operations, HR and customer success as one connected system. Book a free audit of your business.",
       "inLanguage": "en",
       "isPartOf": { "@id": "https://technoon.ai/#website" },
       "about": { "@id": "https://technoon.ai/#organization" },
@@ -209,6 +228,48 @@
         { "@type": "ListItem", "position": 2, "name": "Design", "description": "We choose which functions to run, and how they connect." },
         { "@type": "ListItem", "position": 3, "name": "Build", "description": "Systems go live one function at a time." },
         { "@type": "ListItem", "position": 4, "name": "Run", "description": "We operate them. You lead the business." }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://technoon.ai/#faq",
+      "isPartOf": { "@id": "https://technoon.ai/#webpage" },
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does technoon.ai do?",
+          "acceptedAnswer": { "@type": "Answer", "text": "technoon.ai is an AI agency that runs the operational functions of a business. Rather than handing over a tool, it builds the system a function runs on and then operates that system: marketing, sales, operations, HR solutions, custom solutions and customer success, connected as one." }
+        },
+        {
+          "@type": "Question",
+          "name": "Which functions can technoon.ai run?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Six. Marketing, sales, operations, HR solutions, custom solutions and customer success. Each one covers a named set of offerings, from brand visuals and campaign engines through account research and outbound sequences to an AI receptionist, workflow automation and renewal monitoring." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do we have to hand over every function at once?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Systems go live one function at a time. The engagement starts with an audit of what the business already does, and the design step chooses which functions to run and how they connect." }
+        },
+        {
+          "@type": "Question",
+          "name": "How does an engagement start?",
+          "acceptedAnswer": { "@type": "Answer", "text": "With a free audit. technoon.ai maps what the business actually does today before proposing anything, and the audit is booked directly through the calendar on the site." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does technoon.ai replace our team?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. The stated position is the opposite: the owner stops worrying about the functions and leads the business instead. technoon.ai operates the systems." }
+        },
+        {
+          "@type": "Question",
+          "name": "Will this work with the tools we already use?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Systems Integration is one of the named offerings under custom solutions, and process mapping starts by learning how the business already works rather than by imposing a template." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is an AI receptionist?",
+          "acceptedAnswer": { "@type": "Answer", "text": "An operations offering: every call picked up and every message logged, so no request arrives outside working hours and disappears." }
+        }
       ]
     }
   ]
@@ -237,7 +298,17 @@
            increase the resolution." Nothing here is redrawn or recoloured; see
            the Logo law in CLAUDE.md. The attributes are the file's own 1249x814
            and exist to reserve the box — CSS sizes it by height. -->
-      <img src="assets/logo-mark.png" width="1249" height="814" alt="technoon.ai" decoding="async">
+      <!-- WebP first, PNG fallback. The WebP is LOSSLESS and was checked pixel
+           by pixel against the PNG: every visible pixel is identical and the
+           alpha channel is bit for bit the same, so this is the supplied art
+           at the supplied resolution, in 238KB fewer bytes. It is not a
+           second version of the mark and must never be allowed to become
+           one. Regenerate BOTH from the client original with key-logo.py. -->
+      <picture>
+        <source srcset="assets/logo-mark.webp" type="image/webp">
+        <img src="assets/logo-mark.png" width="1249" height="814"
+             alt="technoon.ai logo, AI automation agency" fetchpriority="high" decoding="async">
+      </picture>
     </span>
   </a>
   <!-- Both of these are the booking link now, per the DEPLOY STEP that used to
@@ -602,12 +673,75 @@
     </ol>
   </section>
 
+  <!-- ═══ QUESTIONS ══════════════════════════════════════════════════
+       Approved by the client 2026-08-19 and moved onto the allowlist. It was
+       drafted in brief/faq-for-approval.md and held there because visible
+       brand copy is a client decision, not a build decision.
+
+       WHY IT IS HERE AT ALL: answer engines lift question-and-answer pairs
+       close to verbatim. Prose that says the same thing gets summarised;
+       a real Q&amp;A block gets quoted. This is the single largest lever on
+       this page for being cited inside an AI answer rather than ranked
+       beneath one.
+
+       THREE THINGS ABOUT THE MARKUP, and each of them is deliberate:
+
+       · NO <details>. An accordion would hide six of the seven answers
+         behind a click, and it would change the document height on every
+         toggle. The pinned 1800vh stage is ABOVE this section so its scroll
+         range is unaffected either way, but a static block cannot even raise
+         the question. It also means every answer is visible to a crawler and
+         to a reader with no JavaScript.
+       · NO SCRIPT. Same rule the sticky stack and the process band follow.
+       · The FAQPage node in <head> repeats these strings VERBATIM. Marking
+         up answers that are not visible on the page is a policy violation,
+         which is why the schema and this section shipped together and why
+         editing one without the other is a defect.
+  ══════════════════════════════════════════════════════════════════════ -->
+  <section class="faq" aria-labelledby="faq-h">
+    <h2 class="faq-h" id="faq-h">Questions we get asked</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3 class="faq-q">What does technoon.ai do?</h3>
+        <p class="faq-a">technoon.ai is an AI agency that runs the operational functions of a business. Rather than handing over a tool, it builds the system a function runs on and then operates that system: marketing, sales, operations, HR solutions, custom solutions and customer success, connected as one.</p>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-q">Which functions can technoon.ai run?</h3>
+        <p class="faq-a">Six. Marketing, sales, operations, HR solutions, custom solutions and customer success. Each one covers a named set of offerings, from brand visuals and campaign engines through account research and outbound sequences to an AI receptionist, workflow automation and renewal monitoring.</p>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-q">Do we have to hand over every function at once?</h3>
+        <p class="faq-a">No. Systems go live one function at a time. The engagement starts with an audit of what the business already does, and the design step chooses which functions to run and how they connect.</p>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-q">How does an engagement start?</h3>
+        <p class="faq-a">With a free audit. technoon.ai maps what the business actually does today before proposing anything, and the audit is booked directly through the calendar on the site.</p>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-q">Does technoon.ai replace our team?</h3>
+        <p class="faq-a">No. The stated position is the opposite: the owner stops worrying about the functions and leads the business instead. technoon.ai operates the systems.</p>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-q">Will this work with the tools we already use?</h3>
+        <p class="faq-a">Systems Integration is one of the named offerings under custom solutions, and process mapping starts by learning how the business already works rather than by imposing a template.</p>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-q">What is an AI receptionist?</h3>
+        <p class="faq-a">An operations offering: every call picked up and every message logged, so no request arrives outside working hours and disappears.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ═══ ARRIVAL ═══ the journey settles and the room is still there ═══ -->
   <section class="arrival" id="build" aria-label="Build Your Intelligent Business">
     <div class="arrival-inner">
       <p class="arrival-mark">
         <span class="brand-plate brand-plate--lg">
-          <img src="assets/logo-mark.png" width="1249" height="814" alt="technoon.ai" loading="lazy" decoding="async">
+          <picture>
+            <source srcset="assets/logo-mark.webp" type="image/webp">
+            <img src="assets/logo-mark.png" width="1249" height="814"
+                 alt="technoon.ai logo, AI automation agency" loading="lazy" decoding="async">
+          </picture>
         </span>
       </p>
       <a class="cta cta--arrival" data-form href="mailto:info@technoon.ai">Build Your Intelligent Business</a>
